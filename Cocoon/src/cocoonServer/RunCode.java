@@ -30,8 +30,8 @@ public class RunCode {
 				String state = scanner.next();
 				System.out.println(state);
 			}
-			//p = Runtime.getRuntime().exec(clean);
-			//p.waitFor();
+			p = Runtime.getRuntime().exec(clean);
+			p.waitFor();
 			System.out.println("Done");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
