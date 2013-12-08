@@ -68,7 +68,7 @@ public class Server {
 				try {
 					jsonString = this.reader.readLine();
 					
-					if (jsonString == null) {
+					/*if (jsonString == null) {
 						try {
 							socket.close();
 							connections.remove(this);
@@ -77,7 +77,7 @@ public class Server {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
-					}
+					}*/
 					jsonReader = new JSONReader(jsonString);
 					String fileString = "code.cpp";
 					try{
@@ -96,12 +96,12 @@ public class Server {
 					
 					
 					System.out.println("Runtime Done");
-					try {
+					/*try {
 						Thread.sleep(100000);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}
+					}*/
 				} catch (IOException e) {
 					e.printStackTrace();
 				} catch (Exception e) {
