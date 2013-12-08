@@ -13,9 +13,9 @@ public class RunCode {
 	
 	public void run() {
 		String[] cmd = { "/bin/sh", "-c", "clang++ -static code.cpp -o a.out" };
-		//String[] run = { "/bin/sh", "-c", "./getOutput a.out" };
-		String[] run = { "/bin/sh", "-c", "./antiskill -i input -o output a.out"};
-		String[] check = { "/bin/sh", "-c", "./isCorrectOrNot output answer" };
+		String[] run = { "/bin/sh", "-c", "./antiskill -t 1000 -i input -o output a.out > runtime"};
+		String[] diff = { "/bin/sh", "-c", "diff output answer > tmpdiff" };
+		String[] check = { "/bin/sh", "-c", "./isCorrectOrNot tmpdiff" };
 		String[] clean = { "/bin/sh", "-c", "./clean" };
 		try {
 			Process p;
@@ -23,11 +23,23 @@ public class RunCode {
 			p.waitFor();
 			p = Runtime.getRuntime().exec(run);
 			p.waitFor();
+			p = Runtime.getRuntime().exec(diff);
+			p.waitFor();
 			p = Runtime.getRuntime().exec(check);
 			p.waitFor();
-			Scanner scanner = new Scanner(new File("result"));
-			while (scanner.hasNext()) {
-				String state = scanner.next();
+			Scanner scanner;
+			scanner = new Scanner(new File("runtime"));
+			String state = "";
+			while (scanner.hasNext())
+				state += scanner.next();
+			System.out.println(state);
+			if (state.equals("TimeLimitExceeded"))
+				System.out.println("Time Limit Exceeded");
+			else {
+				scanner = new Scanner(new File("result"));
+				state = "";
+				while (scanner.hasNext()) 
+					state += scanner.next();
 				System.out.println(state);
 			}
 			p = Runtime.getRuntime().exec(clean);
