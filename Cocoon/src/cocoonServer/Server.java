@@ -96,12 +96,12 @@ public class Server {
 					
 					
 					System.out.println("Runtime Done");
-					try {
+					/*try {
 						Thread.sleep(100000);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}
+					}*/
 				} catch (IOException e) {
 					e.printStackTrace();
 				} catch (Exception e) {
