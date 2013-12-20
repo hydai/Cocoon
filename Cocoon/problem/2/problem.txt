@@ -1,0 +1,12 @@
+A + B
+:
+	There are many test cases.
+	Give two integers A, B. Please print A+B.
+Input:
+
+1 2
+
+Output:
+
+3
+

@@ -1,0 +1,14 @@
+Hello, world! Hello, yourname!
+
+:
+	Welcome! Your first task is that show the welcome message to friends.
+	Input has only one line with a name (less than 20 chars) and your
+	task is print a line with "Hello, world! Hello, name!".
+Input:
+
+Jack
+
+Output:
+
+Hello, world! Hello, Jack!
+
