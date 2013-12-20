@@ -220,14 +220,12 @@ public class ReadFileTest extends JFrame{
         	e.printStackTrace();
         }
 		
-		new ReadFileTest();
-		
-		
+		new ReadFileTest();		
 		
 	}
 	void choose(){
 		String fileName = null;
-		try { //����ɮ׶}�l
+		try { 
 			JFileChooser chooser = new JFileChooser();
 			int ret=chooser.showOpenDialog(null);
 			if(ret==JFileChooser.APPROVE_OPTION){
