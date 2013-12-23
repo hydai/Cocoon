@@ -4,8 +4,10 @@ import javax.swing.*;
 import org.json.JSONObject;
 
 
+
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,11 +24,12 @@ public class SubmitPanel extends JPanel{
 	JSONObject json;
 	JTextArea t;
 	JScrollPane scroll;
+	String selectPath = null;
 	SubmitPanel(){
 		super();
 		c = new ChatClient("140.114.200.158", 8000);
 		c.connect();
-		setSize(400, 400);
+		setSize(500, 500);
 		setLayout(new FlowLayout());
 		setTextArea();
 	    setBtn();
@@ -35,10 +38,12 @@ public class SubmitPanel extends JPanel{
 	}
 	private void setTextArea(){
 		t = new JTextArea();
-		t.setPreferredSize(new Dimension(450, 400));
+		t.setText("");
+		t.setPreferredSize(new Dimension(500, 500));
 		t.setSize(t.getPreferredSize());
-		t = new JTextArea (20, 40);
-	    t.setEditable (false); // set textArea non-editable
+		t = new JTextArea (20,35);
+		t.setFont(new Font("微軟正黑體", Font.BOLD, 12));
+	    t.setEditable (true); // set textArea non-editable
 	    scroll = new JScrollPane (t);
 	    scroll.setVerticalScrollBarPolicy (ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS );
 	    //Add Textarea in to middle panel
@@ -48,7 +53,6 @@ public class SubmitPanel extends JPanel{
 		JButton btn = new JButton("Choose");
 		add(btn);
 		btn.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				choose();
@@ -58,11 +62,10 @@ public class SubmitPanel extends JPanel{
 		JButton btn2 = new JButton("Submit");
 		add(btn2);
 		btn2.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(c.isConnected()){
-					if(json == null){
+					if(t.getText() == ""){
 						JOptionPane.showMessageDialog(null, "Please Select a File To Submit!!"); 
 					}		
 					else{
@@ -80,13 +83,17 @@ public class SubmitPanel extends JPanel{
 	void choose(){
 		String fileName = null;
 		try { 
-			JFileChooser chooser = new JFileChooser();
+			JFileChooser chooser;
+			if(selectPath == null)
+				chooser = new JFileChooser();
+			else
+				chooser = new JFileChooser(selectPath);
 			int ret=chooser.showOpenDialog(null);
 			if(ret==JFileChooser.APPROVE_OPTION){
 				fileName = chooser.getSelectedFile().getPath();
 				System.out.println("�z��ܶ}�Ҧ���: "+ fileName);
 			}
-		
+			selectPath = fileName;
 			String code = "", line;
 			FileInputStream fis = new FileInputStream(fileName); 
 			InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
@@ -94,16 +101,15 @@ public class SubmitPanel extends JPanel{
 			while ((line = br.readLine()) != null)
 				code += line + "\n";
 			System.out.println("code:\n" + code);
-			json = new JSONCreater("submission", "C++", code).getJSONObject();
-			System.out.println(json.toString());
-			code = (String) ((JSONObject)json.get("submission")).get("code");
 			t.setText(code);
 		}catch(Exception e){
 			System.out.println(e.toString());
 		}
 	}
 	void submit(){
-		if(json != null){
+		if(t.getText() != ""){
+			json = new JSONCreater("submission", "C++", t.getText()).getJSONObject();
+			System.out.println(json.toString());
 			c.sendMessage(json.toString());
 			t.setText("");
 			json = null;

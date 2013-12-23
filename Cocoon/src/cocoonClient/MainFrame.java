@@ -37,7 +37,7 @@ public class MainFrame extends JFrame {
 		this.sp = new SubmitPanel();
 		this.c = sp.c;
 		this.add(sp);
-		this.sp.setLocation(50, 50);
+		this.sp.setLocation(0, 0);
 		this.sp.setVisible(true);
 	}
 	private void setMenu(){
@@ -127,7 +127,7 @@ public class MainFrame extends JFrame {
 			
 			
 			
-			JMenuItem connect = new JMenuItem("Reconnect(C)", KeyEvent.VK_C);
+			JMenuItem connect = new JMenuItem("Reconnect(R)", KeyEvent.VK_R);
 			connect.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
