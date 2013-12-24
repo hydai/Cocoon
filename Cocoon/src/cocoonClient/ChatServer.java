@@ -76,22 +76,21 @@ public class ChatServer {
 				try {
 					String line;
 					line = this.reader.readLine();
+					if(line == null)
+						break;
 					System.out.println(line);
 				} catch (IOException e) {
-					System.out.println("Disconnected");
 					break;
 				}
-				
 			}
+			System.out.println("Disconnected");
 		}
 	}
 
 	
 	public static void main(String[] args) {
-		
 		ChatServer server = new ChatServer(8000);
 		server.runForever();
-
 	}
 	
 }
