@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 
 
+
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -25,6 +26,8 @@ public class SubmitPanel extends JPanel{
 	JTextArea t;
 	JScrollPane scroll;
 	String selectPath = null;
+	JButton btn, btn2;
+	boolean isSubmittable;
 	SubmitPanel(){
 		super();
 		c = new ChatClient("140.114.200.158", 8000);
@@ -37,6 +40,7 @@ public class SubmitPanel extends JPanel{
 		
 	}
 	private void setTextArea(){
+		isSubmittable = false;
 		t = new JTextArea();
 		t.setText("");
 		t.setPreferredSize(new Dimension(500, 500));
@@ -50,7 +54,7 @@ public class SubmitPanel extends JPanel{
 	    add(scroll);
 	}
 	private void setBtn(){
-		JButton btn = new JButton("Choose");
+		btn = new JButton("Choose");
 		add(btn);
 		btn.addActionListener(new ActionListener() {
 			@Override
@@ -59,18 +63,36 @@ public class SubmitPanel extends JPanel{
 				
 			}
 		});
-		JButton btn2 = new JButton("Submit");
+		btn2 = new JButton("Submit");
 		add(btn2);
 		btn2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(c.isConnected()){
-					if(t.getText() == ""){
+					if(!isSubmittable){
 						JOptionPane.showMessageDialog(null, "Please Select a File To Submit!!"); 
 					}		
 					else{
 						submit();
 						JOptionPane.showMessageDialog(null, "Submitted Successfully!!"); 
+						new Thread(new Runnable(){
+							@Override
+							public void run() {
+								btn2.setEnabled(false);
+								for(int i = 3; i > 0; i--){
+									btn2.setText("Submit (" + i + ")");
+									try {
+										Thread.sleep(1000);
+									} catch (InterruptedException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}	
+								}
+								btn2.setText("Submit");
+								btn2.setEnabled(true);
+							}
+							
+						}).start();;
 					}
 					
 				}
@@ -91,7 +113,7 @@ public class SubmitPanel extends JPanel{
 			int ret=chooser.showOpenDialog(null);
 			if(ret==JFileChooser.APPROVE_OPTION){
 				fileName = chooser.getSelectedFile().getPath();
-				System.out.println("�z��ܶ}�Ҧ���: "+ fileName);
+				System.out.println("Choose: "+ fileName);
 			}
 			selectPath = fileName;
 			String code = "", line;
@@ -102,17 +124,19 @@ public class SubmitPanel extends JPanel{
 				code += line + "\n";
 			System.out.println("code:\n" + code);
 			t.setText(code);
+			isSubmittable = true;
 		}catch(Exception e){
 			System.out.println(e.toString());
 		}
 	}
 	void submit(){
-		if(t.getText() != ""){
+		if(isSubmittable){
 			json = new JSONCreater("submission", "C++", t.getText()).getJSONObject();
 			System.out.println(json.toString());
 			c.sendMessage(json.toString());
 			t.setText("");
 			json = null;
+			isSubmittable = false;
 		}
 	}
 }	
