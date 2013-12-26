@@ -24,7 +24,7 @@ echo "Creat "$RESULT_TXT
 touch $RESULT_TXT
 
 echo "Compile "$COMPILE_SOURCE
-clang -static $COMPILE_SOURCE -o $RUNTIME_FILE > $COMPILE_TXT
+clang -static $COMPILE_SOURCE -o $RUNTIME_FILE >& $COMPILE_TXT
 
 echo "Check "$RUNTIME_FILE
 if [ ! -f ./$RUNTIME_FILE ]

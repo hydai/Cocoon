@@ -11,25 +11,27 @@ RUNTIME_RESULT=state.txt
 INPUT=input.txt
 OUTPUT=output.txt
 ANSWER=answer.txt
-RUNTIME_ERROR=re
-TIME_LIMIT_EXCEED=tle
-MEMORY_LINIT_EXCEED=mle
+RUNTIME_ERROR=Program\ Killed
+TIME_LIMIT_EXCEED=Time\ Limit\ Exceeded
+MEMORY_LINIT_EXCEED=Memory\ Limit\ Exceeded
 CHECK_ANSWER_EXEC=check
 CHECK_ANSWER_FILE=final.txt
-ACCEPT=ac
-WRONG_ANSWER=wa
+ACCEPT=Accept
+WRONG_ANSWER=Wrong\ Answer
+TEMP_FILE=tmp.txt
 
 echo "Creat "$RESULT_TXT
 touch $RESULT_TXT
 
 echo "Compile "$COMPILE_SOURCE
-clang -static $COMPILE_SOURCE -o $RUNTIME_FILE > $COMPILE_TXT
+clang -static $COMPILE_SOURCE -o $RUNTIME_FILE >& $COMPILE_TXT
 
 echo "Check "$RUNTIME_FILE
 if [ ! -f ./$RUNTIME_FILE ]
 then
     echo "Compile Error"
-    cat "Compile Error\n" $COMPILE_TXT > $RESULT_TXT
+    echo "Compile Error\n" > $TEMP_FILE
+    cat $TEMP_FILE $COMPILE_TXT > $RESULT_TXT
     exit 1
 fi
 
@@ -38,17 +40,17 @@ echo "Run "$RUNTIME_FILE" with antiskill"
 if [ ( sed -n 1p $RUNTIME_RESULT ) = $RUNTIME_ERROR ]
 then
     echo "Runtime Error"
-    cat $RUNTIME_ERROR "\nCheck your pointer or array\n" > $RESULT_TXT
+    echo "Runtime Error\nCheck your pointer or array\n" > $RESULT_TXT
     exit 1
 elif [ ( sed -n 1p $RUNTIME_RESULT ) = $TIME_LIMIT_EXCEED ]
 then
-    echo "Time Limit Exceed"
-    cat $TIME_LIMIT_EXCEED "\nCheck your loop or algorithm\n" > $RESULT_TXT
+    echo "Time Limit Exceeded"
+    echo "Time Limit Exceeded\nCheck your loop or algorithm\n" > $RESULT_TXT
     exit 1
 elif [ ( sed -n 1p $RUNTIME_RESULT ) = $MEMORY_LINIT_EXCEED ]
 then
-    echo "Memory Limit Exceed"
-    cat $MEMORY_LINIT_EXCEED "\nCheck your memory usage\n" > $RESULT_TXT
+    echo "Memory Limit Exceeded"
+    echo "Memory Limit Exceeded\nCheck your memory usage\n" > $RESULT_TXT
     exit 1
 fi
 
