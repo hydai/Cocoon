@@ -3,28 +3,30 @@
 # Author: hydai
 # Time: 2013/12/26
 
+PROBLEM_PATH=../../problem/1/
+ANTISKILL_EXEC=../../antiskill
 RESULT_TXT=result.txt
 COMPILE_TXT=compile_message.txt
 COMPILE_SOURCE=code.c
 RUNTIME_FILE=code
 RUNTIME_RESULT=state.txt
-INPUT=input.txt
+INPUT="$PROBLEM_PATH"input.txt
 OUTPUT=output.txt
-ANSWER=answer.txt
-RUNTIME_ERROR=ProgramKilled
-TIME_LIMIT_EXCEED=TimeLimitExceeded
-MEMORY_LINIT_EXCEED=MemoryLimitExceeded
-CHECK_ANSWER_EXEC=check
+ANSWER="$PROBLEM_PATH"answer.txt
+RUNTIME_ERROR="ProgramKilled"
+TIME_LIMIT_EXCEED="TimeLimitExceeded"
+MEMORY_LINIT_EXCEED="MemoryLimitExceeded"
+CHECK_ANSWER_EXEC=../answerJudge
 CHECK_ANSWER_FILE=final.txt
-ACCEPT=Accept
-WRONG_ANSWER=WrongAnswer
+ACCEPT="Accept"
+WRONG_ANSWER="WrongAnswer"
 TEMP_FILE=tmp.txt
 
 echo "Creat "$RESULT_TXT
 touch $RESULT_TXT
 
-echo "Compile "$COMPILE_SOURCE
-clang -static $COMPILE_SOURCE -o $RUNTIME_FILE >& $COMPILE_TXT
+echo "Compile ""$COMPILE_SOURCE"
+clang -static "$COMPILE_SOURCE" -o "$RUNTIME_FILE" > "$COMPILE_TXT" 2>&1
 
 echo "Check "$RUNTIME_FILE
 if [ ! -f ./$RUNTIME_FILE ]
@@ -36,18 +38,19 @@ then
 fi
 
 echo "Run "$RUNTIME_FILE" with antiskill"
-./antiskill -i $INPUT -o $OUTPUT > $RUNTIME_RESULT
-if [ ( sed -n 1p $RUNTIME_RESULT ) = $RUNTIME_ERROR ]
+"$ANTISKILL_EXEC" $RUNTIME_FILE -i $INPUT -o $OUTPUT > $RUNTIME_RESULT
+STATE=$(sed -n 1p $RUNTIME_RESULT)
+if [ "$STATE" = "$RUNTIME_ERROR" ]
 then
     echo "Runtime Error"
     echo "Runtime Error\nCheck your pointer or array\n" > $RESULT_TXT
     exit 1
-elif [ ( sed -n 1p $RUNTIME_RESULT ) = $TIME_LIMIT_EXCEED ]
+elif [ $STATE = "$TIME_LIMIT_EXCEED" ]
 then
     echo "Time Limit Exceeded"
     echo "Time Limit Exceeded\nCheck your loop or algorithm\n" > $RESULT_TXT
     exit 1
-elif [ ( sed -n 1p $RUNTIME_RESULT ) = $MEMORY_LINIT_EXCEED ]
+elif [ $STATE = "$MEMORY_LINIT_EXCEED" ]
 then
     echo "Memory Limit Exceeded"
     echo "Memory Limit Exceeded\nCheck your memory usage\n" > $RESULT_TXT
@@ -56,13 +59,14 @@ fi
 
 echo "Check if your answer is correct or not"
 ./$CHECK_ANSWER_EXEC -s $ANSWER $OUTPUT > $CHECK_ANSWER_FILE
-if [ ( sed -n 1p $CHECK_ANSWER_FILE ) = $WRONG_ANSWER ]
+STATE=$(sed -n 1p $CHECK_ANSWER_FILE)
+if [ $STATE = "$WRONG_ANSWER" ]
 then
-    $CHECK_ANSWER_FILE > $RESULT_TXT
+    cat $CHECK_ANSWER_FILE > $RESULT_TXT
     exit 0
-elif [ (sed -n 1p $CHECK_ANSWER_FILE ) = $ACCEPT ]
+elif [ $TEMP = "$ACCEPT" ]
 then
-    $CHECK_ANSWER_FILE > $RESULT_TXT
+    cat $CHECK_ANSWER_FILE > $RESULT_TXT
     exit 0
 fi
 
