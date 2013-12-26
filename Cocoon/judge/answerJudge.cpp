@@ -52,7 +52,7 @@ void judge(FILE *ans, FILE *output, bool is_strict){
 	while((f1 = fgets(ans_str, MAX_LEN, ans)) > 0 && (f2 = fgets(output_str, MAX_LEN, output)) > 0){
 		++line;
 		if(!compare_line(ans_str, output_str, is_strict)){
-			puts("Wrong Answer");
+			puts("WrongAnswer");
 			printf("Line %d:\n", line);
 			print_diff(ans_str, output_str, is_strict);
 			return;
@@ -60,7 +60,7 @@ void judge(FILE *ans, FILE *output, bool is_strict){
 	}
 	f2 = fgets(output_str, MAX_LEN, output);
 	if((f1 == 0) ^ (f2 == 0)){
-		puts("Wrong Answer");
+		puts("WrongAnswer");
 		printf("Incompatible lines");
 		if(f1 == 0)
 			puts(" (output more lines than answer)");
