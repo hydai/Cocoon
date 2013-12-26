@@ -2,6 +2,7 @@
 #include <string>
 #include <cstring>
 #include <cctype>
+#include <algorithm>
 #define MAX_LEN 100000
 using namespace std;
 
@@ -11,11 +12,16 @@ void print_diff(char ans_str[], char output_str[], bool is_strict){
 	int ans_len = strlen(ans_str), output_len = strlen(output_str);
 	int min_len = (ans_len < output_len ? ans_len : output_len);
 	int max_len = (ans_len > output_len ? ans_len : output_len);
-	if(is_strict){
-		ans_str[ans_len-1] = output_str[output_len-1] = 0;
-		min_len--;
-		max_len--;
-	}
+	/*if(is_strict){
+		if(ans_str[ans_len-1] == '\n')
+			ans_str[ans_len-1] = 0;
+		if(output_str[output_len-1] == '\n')
+			output_str[output_len-1] = 0;
+		ans_len = strlen(ans_str);
+		output_len = strlen(output_str);
+		min_len = min(ans_len, output_len);
+		max_len = max(ans_len, output_len);
+	}*/
 	puts("Answer:");
 	puts(ans_str);
 	puts("Your output:");
@@ -31,11 +37,11 @@ void print_diff(char ans_str[], char output_str[], bool is_strict){
 }
 
 bool compare_line(char ans_str[], char output_str[], bool is_strict){
+	int ans_len = strlen(ans_str), output_len = strlen(output_str);
 	if(is_strict){
 		return !strcmp(ans_str, output_str);
 	}
 	else{
-		int ans_len = strlen(ans_str), output_len = strlen(output_str);
 		while(ans_len >= 0 && !isgraph(ans_str[ans_len]))
 			ans_len--;
 		while(output_len >= 0 && !isgraph(output_str[output_len]))

@@ -62,7 +62,7 @@ then
 fi
 
 echo "Check if your answer is correct or not"
-./$CHECK_ANSWER_EXEC -s $ANSWER $OUTPUT > $CHECK_ANSWER_FILE
+$CHECK_ANSWER_EXEC -s $ANSWER $OUTPUT > $CHECK_ANSWER_FILE
 TEMP=$(sed -n 1p $CHECK_ANSWER_FILE)
 #if [ "( sed -n 1p $CHECK_ANSWER_FILE )" = $WRONG_ANSWER ]
 if [ $TEMP = "$WRONG_ANSWER" ]
