@@ -11,13 +11,13 @@ RUNTIME_RESULT=state.txt
 INPUT=input.txt
 OUTPUT=output.txt
 ANSWER=answer.txt
-RUNTIME_ERROR=Program\ Killed
-TIME_LIMIT_EXCEED=Time\ Limit\ Exceeded
-MEMORY_LINIT_EXCEED=Memory\ Limit\ Exceeded
+RUNTIME_ERROR=ProgramKilled
+TIME_LIMIT_EXCEED=TimeLimitExceeded
+MEMORY_LINIT_EXCEED=MemoryLimitExceeded
 CHECK_ANSWER_EXEC=check
 CHECK_ANSWER_FILE=final.txt
 ACCEPT=Accept
-WRONG_ANSWER=Wrong\ Answer
+WRONG_ANSWER=WrongAnswer
 TEMP_FILE=tmp.txt
 
 echo "Creat "$RESULT_TXT
