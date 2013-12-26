@@ -3,18 +3,20 @@
 # Author: hydai
 # Time: 2013/12/26
 
+PROBLEM_PATH=../../problem/1/
+ANTISKILL_EXEC=../../antiskill
 RESULT_TXT=result.txt
 COMPILE_TXT=compile_message.txt
 COMPILE_SOURCE=code.c
 RUNTIME_FILE=code
 RUNTIME_RESULT=state.txt
-INPUT=input.txt
+INPUT="$PROBLEM_PATH"input.txt
 OUTPUT=output.txt
-ANSWER=answer.txt
+ANSWER="$PROBLEM_PATH"answer.txt
 RUNTIME_ERROR=Program\ Killed
 TIME_LIMIT_EXCEED=Time\ Limit\ Exceeded
 MEMORY_LINIT_EXCEED=Memory\ Limit\ Exceeded
-CHECK_ANSWER_EXEC=check
+CHECK_ANSWER_EXEC=answerJudge
 CHECK_ANSWER_FILE=final.txt
 ACCEPT=Accept
 WRONG_ANSWER=Wrong\ Answer
@@ -36,7 +38,7 @@ then
 fi
 
 echo "Run "$RUNTIME_FILE" with antiskill"
-./antiskill -i $INPUT -o $OUTPUT > $RUNTIME_RESULT
+"$ANTISKILL_EXEC" -i $INPUT -o $OUTPUT > $RUNTIME_RESULT
 if [ ( sed -n 1p $RUNTIME_RESULT ) = $RUNTIME_ERROR ]
 then
     echo "Runtime Error"
