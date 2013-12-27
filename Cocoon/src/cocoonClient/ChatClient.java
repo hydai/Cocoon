@@ -33,40 +33,6 @@ public class ChatClient extends JFrame {
 	
 	public ChatClient() {
 		
-		/*this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.PAGE_AXIS));
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		// Initialize textArea
-		this.textArea = new JTextArea();
-		this.textArea.setEditable(false);
-		this.textArea.setPreferredSize(new Dimension(500,550));
-		JScrollPane scrollPane = new JScrollPane(this.textArea);
-	    this.add(scrollPane);
-	    
-	    // Initialize textField
-	    this.textField = new JTextField();
-	    this.textField.setPreferredSize(new Dimension(500,40));
-	    this.textField.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ChatClient.this.sendMessage(ChatClient.this.textField.getText());
-			}
-	    	
-	    });
-	    this.add(this.textField);
-	    
-	    this.pack();
-	    
-	    // Ask for nickname before showing client window
-	    this.nickname = JOptionPane.showInputDialog("Nickname", "Unknown");
-		this.welcome(this.nickname);
-		
-		this.setVisible(true);
-		
-//		System.out.println(SwingUtilities.isEventDispatchThread());
- 
- */
 	}
 	
 	public ChatClient(String IPAddress, int portNum) {
@@ -75,27 +41,9 @@ public class ChatClient extends JFrame {
 		this.destinationPortNum = portNum;
 	}
 	
-	/*private void welcome(final String nickname) {
-
-		SwingUtilities.invokeLater(new Runnable(){
-
-			@Override
-			public void run() {
-//				System.out.println(SwingUtilities.isEventDispatchThread());
-				StringBuilder sBuilder = new StringBuilder("**[ Welcome ");
-				sBuilder.append(nickname).append("! ]\n");
-				ChatClient.this.textArea.append(sBuilder.toString());
-			}
-			
-		});
-	}*/
-	
 	public void sendMessage(String message) {
-//		System.out.println(SwingUtilities.isEventDispatchThread());
-	
 		this.writer.println(message);
 		this.writer.flush();
-		//this.textField.setText("");
 	}
 	public String getIPAddress(){
 		return this.destinationIPAddr;
@@ -132,25 +80,11 @@ public class ChatClient extends JFrame {
 			thread.join(500);
 			thread.stop();
 			System.out.println(socket);
-			new ClientThread(socket);
+			new ClientThread(socket).start();
 		} catch (Exception e) {
-			
 			e.printStackTrace();
 		}
 	}
-	
-	/*private void addLine(final String message) {
-		
-		SwingUtilities.invokeLater(new Runnable(){
-
-			@Override
-			public void run() {
-				ChatClient.this.textArea.append(message+"\n"); 
-			}
-			
-		});
-	}*/
-	
 	// Define an inner class for handling message reading
 	public class ClientThread extends Thread{
 		//private Socket socket;
@@ -167,22 +101,22 @@ public class ChatClient extends JFrame {
 			ChatClient.this.writer.println(msg);
 			ChatClient.this.writer.flush();
 		}
-		/*@Override
+		@Override
 		public void run(){
-			while(true){	
-				try {
-					String line = reader.readLine();
-					System.out.println(line);
-					ChatClient.this.addLine(line);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+			while(true){
+				String response = "";
+				try{
+					response = reader.readLine();
+					if(response == null)
+						break;
+					System.out.println("Resopnse:" + response);
+					JOptionPane.showMessageDialog(null, "response: "+response); 
 				}
-				
+				catch(Exception e){
+					break;
+				}
+				System.out.println("Disconnect");
 			}
-		}*/
-		
+		}
 	}
-	
-
 }

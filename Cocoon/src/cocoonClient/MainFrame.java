@@ -8,6 +8,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 
 public class MainFrame extends JFrame {
@@ -16,10 +17,12 @@ public class MainFrame extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+	private final String ips[] = {"127.0.0.1", "140.114.200.157", "140.114.200.158", "140.114.200.159"};
 	private InfoPanel infoPanel;
-	private ChatClient c;
+	private AbstractDisplayPanel displayPanel;
+	private ChatClient client;
 	private SubmitPanel sp;
+	
 	public MainFrame() {
 		this.setTitle("Cocoon");
 		this.setSize(800, 600);
@@ -28,18 +31,29 @@ public class MainFrame extends JFrame {
 		this.setLocation(80,60);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setMenu();
-		infoPanel = new InfoPanel();
+		infoPanel = new InfoPanel(this);
 		this.add(infoPanel);
-		infoPanel.setLocation(0, 500);initSP();
+		infoPanel.setLocation(0, 500);
+		initSP();
+		setPanel(new TestPanel(this, "GG"));
 		this.setVisible(true);
 	}
+	
+	public void setPanel(AbstractDisplayPanel panel){
+		if(displayPanel != null)
+			displayPanel.setVisible(false);
+		this.displayPanel = panel;
+		panel.setVisible(true);
+		this.add(displayPanel);
+	}
+	
 	private void initSP(){
-		this.sp = new SubmitPanel();
-		this.c = sp.c;
-		this.add(sp);
+		this.sp = new SubmitPanel(this);
+		this.client = sp.getConnection();
 		this.sp.setLocation(0, 0);
 		this.sp.setVisible(true);
 	}
+	
 	private void setMenu(){
 		 JMenuBar jmb = new JMenuBar();
 			setJMenuBar(jmb);
@@ -47,92 +61,33 @@ public class MainFrame extends JFrame {
 			JMenu jms = new JMenu("Set(S)");
 			jms.setMnemonic('S');
 			JMenu jmc = new JMenu("Connect(C)");
+			JMenu change = new JMenu("Change IP(C)");
+			change.setMnemonic('C');
 			
-			JMenu change = new JMenu("Change IP");
-			
-			JMenuItem ip0 = new JMenuItem("127.0.0.1:8000");
-			ip0.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					c.setIPAddress("127.0.0.1");
-					c.setPort(8000);
-					c.connect();
-					if(c.isConnected())
-						JOptionPane.showMessageDialog(null ,"Connectted Successfully!!"); 
-					else
-						JOptionPane.showMessageDialog(null, "Not Connected!!"); 
-				}
-			});
-			change.add(ip0);
-			
-			JMenuItem ip1 = new JMenuItem("140.114.200.157:8000");
-			ip1.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					c.setIPAddress("140.114.200.157");
-					c.setPort(8000);
-					c.connect();
-					if(c.isConnected())
-						JOptionPane.showMessageDialog(null ,"Connectted Successfully!!"); 
-					else
-						JOptionPane.showMessageDialog(null, "Not Connected!!"); 
-				}
-			});
-			change.add(ip1);
-			
-			JMenuItem ip2 = new JMenuItem("140.114.200.158:8000");
-			ip2.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					c.setIPAddress("140.114.200.158");
-					c.setPort(8000);
-					c.connect();
-					if(c.isConnected())
-						JOptionPane.showMessageDialog(null ,"Connectted Successfully!!"); 
-					else
-						JOptionPane.showMessageDialog(null, "Not Connected!!"); 
-				}
-			});
-			change.add(ip2);
-			
-			JMenuItem ip3 = new JMenuItem("140.114.200.159:8000");
-			ip3.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					c.setIPAddress("140.114.200.159");
-					c.setPort(8000);
-					c.connect();
-					if(c.isConnected())
-						JOptionPane.showMessageDialog(null ,"Connectted Successfully!!"); 
-					else
-						JOptionPane.showMessageDialog(null, "Not Connected!!"); 
-				}
-			});
-			change.add(ip3);
-			
-			JMenuItem ip4 = new JMenuItem("140.114.200.160:8000");
-			ip4.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					c.setIPAddress("140.114.200.160");
-					c.setPort(8000);
-					c.connect();
-					if(c.isConnected())
-						JOptionPane.showMessageDialog(null ,"Connectted Successfully!!"); 
-					else
-						JOptionPane.showMessageDialog(null, "Not Connected!!"); 
-				}
-			});
-			change.add(ip4);
-			
-			
+			for(int i = 0; i < ips.length; i++){
+				JMenuItem menuIp = new JMenuItem(ips[i]);
+				final int index = i;
+				menuIp.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						client.setIPAddress(ips[index]);
+						client.setPort(8000);
+						client.connect();
+						if(client.isConnected())
+							JOptionPane.showMessageDialog(null ,"Connectted Successfully!!"); 
+						else
+							JOptionPane.showMessageDialog(null, "Not Connected!!"); 
+					}
+				});
+				change.add(menuIp);
+			}
 			
 			JMenuItem connect = new JMenuItem("Reconnect(R)", KeyEvent.VK_R);
 			connect.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					c.connect();
-					if(c.isConnected())
+					client.connect();
+					if(client.isConnected())
 						JOptionPane.showMessageDialog(null ,"Connectted Successfully!!"); 
 					else
 						JOptionPane.showMessageDialog(null, "Not Connected!!"); 
