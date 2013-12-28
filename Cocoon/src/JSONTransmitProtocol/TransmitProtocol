@@ -1,9 +1,10 @@
 {
-	"type":<String> [submission | login | info | query | broadcast]
+	"type":<String> [submission | login | query | broadcast]
 	
 	"broadcast":
 	{
 		"type":<string> [status | system]
+		"UID":<long> [ 0(all people) | other number ]
 		"status":
 		{
 			"UID":<long>
@@ -22,15 +23,14 @@
 		"type":<string> [friendList | userStatus]
 	}
 	
-	"info":
-	{
-		"UID":<long>
-		"IP":<String>
-		"time":<string>
-	}
-	
 	"submission":
 	{
+		"info":
+		{
+			"UID":<long>
+			"IP":<String>
+			"time":<string>
+		}
 		"code":<String>
 		"language":<String> [ C | CPP ]
 	}
