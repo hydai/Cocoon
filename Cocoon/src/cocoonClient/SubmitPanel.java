@@ -74,7 +74,7 @@ public class SubmitPanel extends AbstractDisplayPanel{
 		t.setText("");
 		t.setPreferredSize(new Dimension(500, 500));
 		t.setSize(t.getPreferredSize());
-		t = new JTextArea (20,40);
+		t = new JTextArea (20,35);
 		t.setFont(new Font("微軟正黑體", Font.BOLD, 14));
 	    t.setEditable (true); // set textArea non-editable
 	    t.setTabSize(2);

@@ -112,7 +112,8 @@ public class ChatClient{
 					line = reader.readLine();
 					if(line == null)
 						break;
-					if(new JSONReader(line).getType() == "broadcast"){
+					System.out.println(new JSONReader(line).getType());
+					if(new JSONReader(line).getType().equals("broadcast")){
 						response = new JSONReader(line).getBroadcast().getStatus().getResult();
 						System.out.println("Resopnse:" + response);
 						JOptionPane.showMessageDialog(parent, "response: "+ response);
