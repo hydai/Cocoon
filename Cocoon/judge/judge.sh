@@ -3,9 +3,15 @@
 # Author: hydai
 # Time: 2013/12/26
 
-PROBLEM_PATH=../../problem/1/
+STRICT=
+TIME_LIMIT=1000
+MEMORY_LIMIT=131072
+CC=clang
+PROBLEM_ID=1
+RUNTIME_ID=1
+PROBLEM_PATH=../../problem/${PROBLEM_ID}/
 ANTISKILL_EXEC=../../antiskill
-RESULT_TXT=result.txt
+RESULT_TXT=${RUNTIME_ID}.txt
 COMPILE_TXT=compile_message.txt
 COMPILE_SOURCE=code.c
 RUNTIME_FILE=code
@@ -22,11 +28,56 @@ ACCEPT="Accept"
 WRONG_ANSWER="WrongAnswer"
 TEMP_FILE=tmp.txt
 
+
+# get input arguments
+while getopts "hst:m:c:p:r:" ARGS; do
+    case "${ARGS}" in
+        s)
+			STRICT="-s"
+            ;;
+		t)
+			TIME_LIMIT=${OPTARG}
+			;;
+		m)
+			MEMORY_LIMIT=${OPTARG}
+			;;
+		c)
+			if [ ${OPTARG} = CPP ]
+			then
+				CC="clang++"
+			else
+				CC="clang"
+			fi
+			;;
+		p)
+			PROBLEM_ID=${OPTARG}
+			;;
+		r)
+			RUNTIME_ID=${OPTARG}
+			;;
+    esac
+done
+shift $((OPTIND-1))
+
+PROBLEM_PATH=../../problem/${PROBLEM_ID}/
+INPUT="$PROBLEM_PATH"input.txt
+ANSWER="$PROBLEM_PATH"answer.txt
+RESULT_TXT=${RUNTIME_ID}.txt
+COMPILE_SOURCE=${RUNTIME_ID}
+RUNTIME_FILE=${RUNTIME_ID}
+if [ ${CC} = "clang++" ]
+then
+	COMPILE_SOURCE=${COMPILE_SOURCE}.cpp
+else
+	COMPILE_SOURCE=${COMPILE_SOURCE}.c
+fi
+
+
 echo "Creat "$RESULT_TXT
 touch $RESULT_TXT
 
 echo "Compile ""$COMPILE_SOURCE"
-clang -static "$COMPILE_SOURCE" -o "$RUNTIME_FILE" > "$COMPILE_TXT" 2>&1
+${CC} -static "$COMPILE_SOURCE" -o "$RUNTIME_FILE" > "$COMPILE_TXT" 2>&1
 
 echo "Check "$RUNTIME_FILE
 if [ ! -f ./$RUNTIME_FILE ]
@@ -58,7 +109,7 @@ then
 fi
 
 echo "Check if your answer is correct or not"
-$CHECK_ANSWER_EXEC -s $ANSWER $OUTPUT > $CHECK_ANSWER_FILE
+$CHECK_ANSWER_EXEC ${STRICT} $ANSWER $OUTPUT > $CHECK_ANSWER_FILE
 STATE=$(sed -n 1p $CHECK_ANSWER_FILE)
 if [ $STATE = "$WRONG_ANSWER" ]
 then
