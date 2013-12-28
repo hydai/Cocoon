@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -12,7 +13,6 @@ import javax.swing.JPanel;
 
 
 public class MainFrame extends JFrame {
-	
 	/**
 	 * 
 	 */
@@ -31,20 +31,39 @@ public class MainFrame extends JFrame {
 		this.setLocation(80,60);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setMenu();
-		infoPanel = new InfoPanel(this);
+		/*infoPanel = new InfoPanel(this);
 		this.add(infoPanel);
-		infoPanel.setLocation(0, 500);
-		initSP();
-		setPanel(new TestPanel(this, "GG"));
+		infoPanel.setLocation(0, 500);*/
+		this.initSP();
+		setPanel(sp);
+		initBtn();
 		this.setVisible(true);
 	}
 	
 	public void setPanel(AbstractDisplayPanel panel){
-		if(displayPanel != null)
+		if(displayPanel != null){
 			displayPanel.setVisible(false);
+			this.remove(displayPanel);
+		}
 		this.displayPanel = panel;
 		panel.setVisible(true);
 		this.add(displayPanel);
+		this.repaint();
+	}
+	
+	private void initBtn(){
+		JButton[] buttons = new JButton[5];
+		final String[] buttonTitle = new String[]{"Play", "Status", "Submit", "Info", "Set"};
+		for (int i = 0; i < buttons.length; i++) {
+			if(i != 2)
+				buttons[i] = new SwitchButton(this, new TestPanel(this, buttonTitle[i]), buttonTitle[i]);
+			else
+				buttons[i] = new SwitchButton(this, sp, buttonTitle[i]);
+			this.add(buttons[i]);
+			buttons[i].setBounds(i * 160 + 6, 500, 140, 50);
+			buttons[i].setVisible(true);
+			this.add(buttons[i]);
+		}
 	}
 	
 	private void initSP(){

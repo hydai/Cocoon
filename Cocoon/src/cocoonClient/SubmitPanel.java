@@ -29,7 +29,7 @@ public class SubmitPanel extends AbstractDisplayPanel{
 	SubmitPanel(MainFrame parent){
 		super(parent);
 		//By default, connect to localhost.
-		client = new ChatClient("127.0.0.1", 8000);
+		client = new ChatClient(parent, "127.0.0.1", 8000);
 		client.connect();
 		setLayout(new FlowLayout());
 		setRadioButton();
@@ -109,34 +109,39 @@ public class SubmitPanel extends AbstractDisplayPanel{
 				System.out.println(isSubmittable);
 				if(client.isConnected()){
 					if(!isSubmittable){
-						JOptionPane.showMessageDialog(null, "Please Select a File To Submit!!"); 
+						JOptionPane.showMessageDialog(parent, "Please Select a File To Submit!!"); 
 					}		
 					else{
-						submit();
-						JOptionPane.showMessageDialog(null, "Submitted Successfully!!"); 
-						new Thread(new Runnable(){
-							@Override
-							public void run() {
-								btn2.setEnabled(false);
-								for(int i = 3; i > 0; i--){
-									btn2.setText("Submit (" + i + ")");
-									try {
-										Thread.sleep(1000);
-									} catch (InterruptedException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									}	
+						if(t.getText().length() > 10240){
+							JOptionPane.showMessageDialog(parent, "Please submit file which is less than 10 KB");
+						}
+						else{
+							submit();
+							JOptionPane.showMessageDialog(parent, "Submitted Successfully!!"); 
+							new Thread(new Runnable(){
+								@Override
+								public void run() {
+									btn2.setEnabled(false);
+									for(int i = 3; i > 0; i--){
+										btn2.setText("Submit (" + i + ")");
+										try {
+											Thread.sleep(1000);
+										} catch (InterruptedException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}	
+									}
+									btn2.setText("Submit");
+									btn2.setEnabled(true);
 								}
-								btn2.setText("Submit");
-								btn2.setEnabled(true);
-							}
-							
-						}).start();;
+								
+							}).start();;
+						}
 					}
 					
 				}
 				else
-					JOptionPane.showMessageDialog(null, "Not Connected!!"); 
+					JOptionPane.showMessageDialog(parent, "Not Connected!!"); 
 			}
 		});
 		
@@ -149,20 +154,30 @@ public class SubmitPanel extends AbstractDisplayPanel{
 				chooser = new JFileChooser();
 			else
 				chooser = new JFileChooser(selectPath);
-			int ret=chooser.showOpenDialog(null);
+			int ret=chooser.showOpenDialog(parent);
 			if(ret==JFileChooser.APPROVE_OPTION){
 				fileName = chooser.getSelectedFile().getPath();
 				System.out.println("Choose: "+ fileName);
 			}
 			selectPath = fileName;
-			String code = "", line;
+			StringBuffer code = new StringBuffer("");
+			String line;
+			
+			//Prevent user from submitting large file.
+			File file = new File(fileName);
+			System.out.println(file.length());
+			if(file.length() > 10240L){
+				JOptionPane.showMessageDialog(parent, "Please submit file which is less than 10 KB");
+				return;
+			}
+			
 			FileInputStream fis = new FileInputStream(fileName); 
 			InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
 			BufferedReader br = new BufferedReader(isr); 
 			while ((line = br.readLine()) != null)
-				code += line + "\n";
+				code.append(line + "\n");
 			System.out.println("code:\n" + code);
-			t.setText(code);
+			t.setText(code.toString());
 			isSubmittable = true;
 		}catch(Exception e){
 			System.out.println(e.toString());

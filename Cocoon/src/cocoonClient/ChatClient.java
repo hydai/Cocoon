@@ -20,7 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 
-public class ChatClient extends JFrame {
+public class ChatClient{
 
 	private String destinationIPAddr;
 	private int destinationPortNum;
@@ -30,13 +30,14 @@ public class ChatClient extends JFrame {
 	private String nickname;
 	private JTextArea textArea;
 	private JTextField textField;
-	
+	private MainFrame parent;
 	public ChatClient() {
 		
 	}
 	
-	public ChatClient(String IPAddress, int portNum) {
+	public ChatClient(MainFrame parent, String IPAddress, int portNum) {
 		this();
+		this.parent = parent;
 		this.destinationIPAddr = IPAddress;
 		this.destinationPortNum = portNum;
 	}
@@ -110,13 +111,13 @@ public class ChatClient extends JFrame {
 					if(response == null)
 						break;
 					System.out.println("Resopnse:" + response);
-					JOptionPane.showMessageDialog(null, "response: "+response); 
+					JOptionPane.showMessageDialog(parent, "response: "+response); 
 				}
 				catch(Exception e){
 					break;
 				}
-				System.out.println("Disconnect");
 			}
+			System.out.println("Disconnect");
 		}
 	}
 }

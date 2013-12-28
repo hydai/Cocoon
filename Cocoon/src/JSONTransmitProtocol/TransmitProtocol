@@ -1,1 +1,34 @@
-To be added.
+{
+	"type":[String]
+	
+	"query":
+	{
+			
+	}
+	
+	"info":
+	{
+		"UID":[long],
+		"IP":[String]
+	}
+	
+	"submission":
+	{
+		"code":[String],
+		"language":[String],
+	}
+	
+	"login":
+	{
+		"UID":[String]
+	}
+	
+	"response":
+	{
+		"UID":[String],
+		"submissionID":[long],
+		"status":[String]
+	}
+}
+
+//To be discussed
