@@ -14,7 +14,12 @@ public class Submission {
 	}
 	
 	public Submission(String languageString, String codeString, Info info) {
-		language = languageString;
+		if (languageString.equals("C")) {
+			language = "C";
+		}
+		else {
+			language = "CPP";
+		}
 		code = codeString;
 		this.info = info;
 	}

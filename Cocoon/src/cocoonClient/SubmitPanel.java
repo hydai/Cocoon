@@ -22,8 +22,8 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.logging.Level;
+import JSONTransmitProtocol.creater.*;
 
-import JSONTransmitProtocol.creater.*;;
 
 public class SubmitPanel extends AbstractDisplayPanel{
 	private ChatClient client;

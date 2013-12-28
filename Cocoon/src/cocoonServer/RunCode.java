@@ -37,15 +37,19 @@ public class RunCode {
 		if (isStrictJudge) {
 			judgeFlag = "-s";
 		}
-		String[] cmd = { "/bin/sh", "-c", "sh /runtime/runJudge.sh " + judgeFlag + " -t "+timeLimit + " -m " + memoryLimit + " -c " + language + " -p " + problemID +" -r " + runtimeID};
+		String shString = "cd runtime ; sh runJudge.sh " + judgeFlag + " -t "+timeLimit + " -m " + memoryLimit + " -c " + language + " -p " + problemID +" -r " + runtimeID;
+		System.out.println(shString);
+		String[] cmd = { "/bin/bash", "-c", shString};
 		try {
 			Process p;
 			p = Runtime.getRuntime().exec(cmd);
 			p.waitFor();
-			Scanner scanner = new Scanner(new File("/runtime/"+runtimeID+".txt"));
+			String outputFilePathString = "/home/cocoon/git/Cocoon/Cocoon/runtime/"+runtimeID+".txt";
+			Scanner scanner = new Scanner(new File(outputFilePathString));
+			System.out.println(outputFilePathString);
 			result = "";
 			while (scanner.hasNext()) {
-				result += (scanner.next() + "\n");
+				result += (scanner.nextLine() + "\n");
 			}
 			scanner.close();
 			System.out.println(result);

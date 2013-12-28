@@ -1,9 +1,6 @@
 package cocoonServer;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -11,22 +8,17 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
-import java.util.Scanner;
 
 import org.json.JSONObject;
 
-import cocoonClient.ChatServer.ConnectionThread;
-import JSONTransmitProtocol.JSONCreater;
+import JSONTransmitProtocol.creater.JSONCreater;
 import JSONTransmitProtocol.reader.JSONReader;
 
 public class Server {
 	private RuntimeID runtimeID;
 	private ServerSocket serverSocket;
 	private List<ConnectionThread> connections = new ArrayList<ConnectionThread>();
-	private Queue<Submission> submissionQueue = new LinkedList<Submission>();
 	public Server(int portNum) {
 		try {
 			this.serverSocket = new ServerSocket(portNum);
@@ -41,6 +33,7 @@ public class Server {
 		System.out.println("Server starts waiting for client.");
 		// Create a loop to make server wait for client forever (unless you stop it)
 		// Make sure you do create a connectionThread and add it into 'connections'
+
 		while (true) {
 			try {
 				Socket connectionToClient = this.serverSocket.accept();
@@ -55,20 +48,6 @@ public class Server {
 		}
 	}
 	
-	public class JudgeQueueThread extends Thread{
-		public JudgeQueueThread() {
-		}
-		@Override
-		public void run() {
-			while (true) {
-				while (!submissionQueue.isEmpty()) {
-					Submission submission = submissionQueue.poll();
-					submission.run();
-					broadcast(submission.getResult());
-				}
-			}
-		}
-	}
 	public class ConnectionThread extends Thread{
 		private Socket socket;
 		private BufferedReader reader;
@@ -98,11 +77,17 @@ public class Server {
 						break;
 					Long runtimeIDLong = runtimeID.getRuntimeID();
 					jsonReader = new JSONReader(jsonString);
-					
 					if (jsonReader.getType().equals("submission")) {
 						jsonReader.getSubmission().setSubmissionID(runtimeIDLong);
 						Submission submission = new Submission(jsonReader);
-						submissionQueue.offer(submission);
+						submission.run();
+						JSONObject json = new JSONCreater().setType("broadcast")
+								.setBroadcast("status", submission.getUserID())
+								.setBroadcastStatus(submission.getUserID(), 
+										submission.getSubmissionID(), 
+										submission.getResult(), 
+										submission.getTime());
+						broadcast(json.toString());
 					}
 					
 				} catch (IOException e) {
