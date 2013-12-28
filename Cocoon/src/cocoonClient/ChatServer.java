@@ -79,7 +79,7 @@ public class ChatServer {
 					if(line == null)
 						break;
 					System.out.println(line);
-					broadcast("Get:"+line);
+					broadcast(line);
 				} catch (IOException e) {
 					break;
 				}
