@@ -29,7 +29,7 @@ public class SubmitPanel extends AbstractDisplayPanel{
 	SubmitPanel(MainFrame parent){
 		super(parent);
 		//By default, connect to localhost.
-		client = new ChatClient(parent, "127.0.0.1", 8000);
+		client = UserInfo.getClient();
 		client.connect();
 		setLayout(new FlowLayout());
 		setRadioButton();

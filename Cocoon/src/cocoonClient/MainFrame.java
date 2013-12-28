@@ -24,6 +24,7 @@ public class MainFrame extends JFrame {
 	private SubmitPanel sp;
 	
 	public MainFrame() {
+		UserInfo.initUserInfo(this, (long)(Math.random()*10000000L));
 		this.setTitle("Cocoon");
 		this.setSize(800, 600);
 		this.setLayout(null);
