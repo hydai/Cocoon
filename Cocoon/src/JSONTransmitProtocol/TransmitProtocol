@@ -1,33 +1,43 @@
 {
-	"type":[String]
+	"type":<String> [submission | login | info | query | broadcast]
+	
+	"broadcast":
+	{
+		"type":<string> [status | system]
+		"status":
+		{
+			"UID":<long>
+			"submissionID":<long>
+			"result":<string>
+			"time":<string>
+		}
+		"system":
+		{
+			"message":<string>
+		}
+	}
 	
 	"query":
 	{
-			
+		"type":<string> [friendList | userStatus]
 	}
 	
 	"info":
 	{
-		"UID":[long],
-		"IP":[String]
+		"UID":<long>
+		"IP":<String>
+		"time":<string>
 	}
 	
 	"submission":
 	{
-		"code":[String],
-		"language":[String],
+		"code":<String>
+		"language":<String> [ C | CPP ]
 	}
 	
 	"login":
 	{
-		"UID":[String]
-	}
-	
-	"response":
-	{
-		"UID":[String],
-		"submissionID":[long],
-		"status":[String]
+		"UID":<String>
 	}
 }
 
