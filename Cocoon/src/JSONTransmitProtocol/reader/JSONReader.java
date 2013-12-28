@@ -5,6 +5,7 @@ import org.json.JSONObject;
 public class JSONReader{
 	/** transform json file to String */
 	private String jsonString;
+	private String type;
 	private Submission submission;
 	private Query query;
 	private Broadcast broadcast;
@@ -21,7 +22,7 @@ public class JSONReader{
 	private void init() {
 		try {
 			JSONObject jsonObject = new JSONObject(jsonString);
-			String type = jsonObject.getString("type");
+			type = jsonObject.getString("type");
 			if (type.equals("submission")) {
 				JSONObject JSONsubmission = jsonObject.getJSONObject("submission");
 				JSONObject JSONinfo = JSONsubmission.getJSONObject("info");
@@ -49,7 +50,9 @@ public class JSONReader{
 			e.printStackTrace();
 		}
 	}
-	
+	public String getType() {
+		return type;
+	}
 	public Submission getSubmission() {
 		return submission;
 	}
