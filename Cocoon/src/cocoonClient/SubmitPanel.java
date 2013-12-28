@@ -2,7 +2,9 @@ package cocoonClient;
 import javax.swing.*;	
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
 import org.json.JSONObject;
+
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -14,9 +16,14 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.*;	 //���Ѩt�ο�J�M��X�q�L�ƾڬy�A�ǦC�ƩM���t��
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.logging.Level;
-import JSONTransmitProtocol.*;
+
+import JSONTransmitProtocol.creater.*;;
 
 public class SubmitPanel extends AbstractDisplayPanel{
 	private ChatClient client;
@@ -98,7 +105,6 @@ public class SubmitPanel extends AbstractDisplayPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				choose();
-				
 			}
 		});
 		btn2 = new JButton("Submit");
@@ -185,7 +191,10 @@ public class SubmitPanel extends AbstractDisplayPanel{
 	}
 	private void submit(){
 		if(isSubmittable){
-			json = new JSONCreater("submission", language, t.getText()).getJSONObject();
+			String time = new SimpleDateFormat("yyyy/MM/dd_HH:mm:ss").format(Calendar.getInstance().getTime());
+			json = new JSONCreater().setType("submission")
+			.setSubmission(t.getText(), language)
+			.setSubmissionInfo(UserInfo.getUID(), UserInfo.getIP(), time);
 			System.out.println(json.toString());
 			client.sendMessage(json.toString());
 			t.setText("");
