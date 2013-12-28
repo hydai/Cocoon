@@ -79,7 +79,7 @@ public class ChatServer {
 					if(line == null)
 						break;
 					System.out.println(line);
-					broadcast(line);
+					//broadcast("{\"query\":{},\"broadcast\":{\"system\":{},\"status\":{\"submissionID\":4,\"result\":\"Accept\n\",\"time\":\"2013/12/28_23:58:54\",\"UID\":6787860},\"UID\":6787860,\"type\":\"status\"},\"login\":{},\"submission\":{\"info\":{}},\"type\":\"broadcast\"}");
 				} catch (IOException e) {
 					break;
 				}
