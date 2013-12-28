@@ -19,6 +19,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+import JSONTransmitProtocol.reader.JSONReader;
+
 
 public class ChatClient{
 
@@ -105,13 +107,16 @@ public class ChatClient{
 		@Override
 		public void run(){
 			while(true){
-				String response = "";
+				String line = "", response = "";
 				try{
-					response = reader.readLine();
-					if(response == null)
+					line = reader.readLine();
+					if(line == null)
 						break;
-					System.out.println("Resopnse:" + response);
-					JOptionPane.showMessageDialog(parent, "response: "+response); 
+					if(new JSONReader(line).getType() == "status"){
+						response = new JSONReader(line).getStatus().getResult();
+						System.out.println("Resopnse:" + response);
+						JOptionPane.showMessageDialog(parent, "response: "+ response);
+					}
 				}
 				catch(Exception e){
 					break;
