@@ -1,9 +1,6 @@
 package cocoonServer;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -12,17 +9,21 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+
+import org.json.JSONObject;
+
+import JSONTransmitProtocol.creater.JSONCreater;
+import JSONTransmitProtocol.reader.JSONReader;
 
 public class Server {
-
+	private RuntimeID runtimeID;
 	private ServerSocket serverSocket;
 	private List<ConnectionThread> connections = new ArrayList<ConnectionThread>();
-	
 	public Server(int portNum) {
 		try {
 			this.serverSocket = new ServerSocket(portNum);
 			System.out.printf("Server starts listening on port %d.\n", portNum);
+			runtimeID = RuntimeID.getInstance();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -32,6 +33,7 @@ public class Server {
 		System.out.println("Server starts waiting for client.");
 		// Create a loop to make server wait for client forever (unless you stop it)
 		// Make sure you do create a connectionThread and add it into 'connections'
+
 		while (true) {
 			try {
 				Socket connectionToClient = this.serverSocket.accept();
@@ -62,55 +64,45 @@ public class Server {
 				e.printStackTrace();
 			}
 		}
+		public void sendMessage(String message) {
+			this.writer.println(message);
+			this.writer.flush();
+		}
 		public void run() {
-			while (true) {
-				String jsonString = "";
+			while (reader != null) {
 				try {
+					String jsonString = "";
 					jsonString = this.reader.readLine();
-					
-					/*if (jsonString == null) {
-						try {
-							socket.close();
-							connections.remove(this);
-							break;
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-					}*/
+					if (jsonString == null)
+						break;
+					Long runtimeIDLong = runtimeID.getRuntimeID();
 					jsonReader = new JSONReader(jsonString);
-					String fileString = "code.cpp";
-					try{
-						// Create file 
-						FileWriter fstream = new FileWriter("code.cpp");
-						BufferedWriter out = new BufferedWriter(fstream);
-						out.write(jsonReader.getCode());
-						//Close the output stream
-						out.close();
-					}catch (Exception e){//Catch exception if any
-						System.err.println("Error: " + e.getMessage());
+					if (jsonReader.getType().equals("submission")) {
+						jsonReader.getSubmission().setSubmissionID(runtimeIDLong);
+						Submission submission = new Submission(jsonReader);
+						submission.run();
+						JSONObject json = new JSONCreater().setType("broadcast")
+								.setBroadcast("status", submission.getUserID())
+								.setBroadcastStatus(submission.getUserID(), 
+										submission.getSubmissionID(), 
+										submission.getResult(), 
+										submission.getTime());
+						broadcast(json.toString());
 					}
 					
-					RunCode runCode = new RunCode(fileString, jsonReader.getLanguage());
-					runCode.run();
-					
-					
-					System.out.println("Runtime Done");
-					/*try {
-						Thread.sleep(100000);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}*/
 				} catch (IOException e) {
 					e.printStackTrace();
-				} catch (Exception e) {
-					e.printStackTrace();
+					break;
 				}
 			}
+			System.out.println("Disconnected");
 		}
 	}
-	
+	private void broadcast(String message) {
+		for (ConnectionThread connection: connections) {
+			connection.sendMessage(message);
+		}
+	}
 	public static void main(String[] args) {
 		Server server = new Server(8000);
 		server.runForever();
