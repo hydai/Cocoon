@@ -1,4 +1,4 @@
-package cocoonClient;
+package cocoonClient.Panels;
 
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -11,6 +11,9 @@ import javafx.scene.web.WebEvent;
 import javafx.scene.web.WebView;
 
 import javax.swing.*;
+
+import cocoonClient.Data.UserInfo;
+
 import java.awt.*;
 import java.net.MalformedURLException;
 import java.net.URL;

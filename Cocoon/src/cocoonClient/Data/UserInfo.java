@@ -1,7 +1,10 @@
-package cocoonClient;
+package cocoonClient.Data;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+
+import cocoonClient.Connector.ChatClient;
+import cocoonClient.Frame.MainFrame;
 
 public class UserInfo {
 	private static ChatClient client;

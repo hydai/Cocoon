@@ -1,4 +1,4 @@
-package cocoonClient;
+package cocoonClient.Frame;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -13,6 +13,15 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import cocoonClient.Component.SwitchButton;
+import cocoonClient.Connector.ChatClient;
+import cocoonClient.Data.UserInfo;
+import cocoonClient.Panels.AbstractDisplayPanel;
+import cocoonClient.Panels.AbstractRightPanel;
+import cocoonClient.Panels.InfoPanel;
+import cocoonClient.Panels.ProblemsPanel;
+import cocoonClient.Panels.TestPanel;
 
 
 public class MainFrame extends JFrame {

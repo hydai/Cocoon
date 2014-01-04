@@ -1,9 +1,12 @@
-package cocoonClient;
+package cocoonClient.Panels;
 import javax.swing.*;	
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import org.json.JSONObject;
+
+import cocoonClient.Connector.ChatClient;
+import cocoonClient.Data.UserInfo;
 
 import com.restfb.types.User;
 
@@ -38,7 +41,7 @@ public class SubmitPanel extends JPanel{
 	private JButton btn, btn2;
 	private boolean isSubmittable;
 	private JFrame parent;
-	SubmitPanel(JFrame parent){
+	public SubmitPanel(JFrame parent){
 		this.parent = parent;
 		//By default, connect to localhost.
 		client = UserInfo.getClient();

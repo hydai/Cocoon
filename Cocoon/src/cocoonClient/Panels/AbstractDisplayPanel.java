@@ -1,8 +1,10 @@
-package cocoonClient;
+package cocoonClient.Panels;
 
 import java.awt.Color;
 
 import javax.swing.*;
+
+import cocoonClient.Frame.MainFrame;
 
 public class AbstractDisplayPanel extends JPanel{
 	protected MainFrame parent;

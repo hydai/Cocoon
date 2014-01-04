@@ -1,4 +1,4 @@
-package cocoonClient;
+package cocoonClient.Data;
 
 import java.io.File;
 import java.util.HashMap;

@@ -1,9 +1,11 @@
-package cocoonClient;
+package cocoonClient.Frame;
 
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
+
+import cocoonClient.Panels.SubmitPanel;
 
 public class SubmitFrame extends JFrame{
 	public SubmitFrame() {

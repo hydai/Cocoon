@@ -1,13 +1,16 @@
-package cocoonClient;
+package cocoonClient.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+
+import cocoonClient.Frame.MainFrame;
+import cocoonClient.Panels.AbstractDisplayPanel;
 public class SwitchButton extends CocoonButton{
 	private MainFrame parent;
 	private AbstractDisplayPanel panel;
 	//When clicked, mainframe will switch to the panel it stands for.
-	SwitchButton(MainFrame parent, final AbstractDisplayPanel panel, String title){
+	public SwitchButton(MainFrame parent, final AbstractDisplayPanel panel, String title){
 		super(title);
 		this.parent = parent;
 		this.panel = panel;

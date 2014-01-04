@@ -1,5 +1,8 @@
-package cocoonClient;
+package cocoonClient.Panels;
 import javax.swing.*;
+
+import cocoonClient.Component.SwitchButton;
+import cocoonClient.Frame.MainFrame;
 
 
 
