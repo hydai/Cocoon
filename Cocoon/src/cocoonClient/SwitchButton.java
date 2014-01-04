@@ -3,7 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
-public class SwitchButton extends JButton{
+public class SwitchButton extends CocoonButton{
 	private MainFrame parent;
 	private AbstractDisplayPanel panel;
 	//When clicked, mainframe will switch to the panel it stands for.

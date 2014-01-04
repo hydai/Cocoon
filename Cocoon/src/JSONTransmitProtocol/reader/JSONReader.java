@@ -26,7 +26,7 @@ public class JSONReader{
 			if (type.equals("submission")) {
 				JSONObject JSONsubmission = jsonObject.getJSONObject("submission");
 				JSONObject JSONinfo = JSONsubmission.getJSONObject("info");
-				Info info = new Info(JSONinfo.getLong("UID"), JSONinfo.getString("IP"), JSONinfo.getString("time"));
+				Info info = new Info(JSONinfo.getInt("PID"), JSONinfo.getLong("UID"), JSONinfo.getString("IP"), JSONinfo.getString("time"));
 				submission = new Submission(JSONsubmission.getString("language"), JSONsubmission.getString("code"), info);
 			}
 			else if (type.equals("login")) {

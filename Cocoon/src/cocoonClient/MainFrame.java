@@ -1,4 +1,7 @@
 package cocoonClient;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -13,65 +16,66 @@ import javax.swing.JPanel;
 
 
 public class MainFrame extends JFrame {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private final String ips[] = {"127.0.0.1", "140.114.200.157", "140.114.200.158", "140.114.200.159"};
 	private InfoPanel infoPanel;
 	private AbstractDisplayPanel displayPanel;
+	private AbstractRightPanel rightPanel;
 	private ChatClient client;
-	private SubmitPanel sp;
 	
 	public MainFrame() {
 		UserInfo.initUserInfo(this, (long)(Math.random()*10000000L));
+		this.client = UserInfo.getClient();
 		this.setTitle("Cocoon");
 		this.setSize(800, 600);
-		this.setLayout(null);
+		this.setLayout(new BorderLayout());
 		this.setResizable(false);
 		this.setLocation(80,60);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setMenu();
-		/*infoPanel = new InfoPanel(this);
-		this.add(infoPanel);
-		infoPanel.setLocation(0, 500);*/
-		this.initSP();
-		setPanel(sp);
 		initBtn();
 		this.setVisible(true);
 	}
-	
+	public void setRightPanel(AbstractRightPanel panel){
+		if(rightPanel != null){
+			rightPanel.setVisible(false);
+		}
+		this.rightPanel = panel;
+		rightPanel.setVisible(true);
+		this.add(rightPanel, BorderLayout.EAST);
+		this.repaint();
+	}
 	public void setPanel(AbstractDisplayPanel panel){
 		if(displayPanel != null){
 			displayPanel.setVisible(false);
-			this.remove(displayPanel);
 		}
 		this.displayPanel = panel;
-		panel.setVisible(true);
-		this.add(displayPanel);
+		displayPanel.setVisible(true);
+		this.add(displayPanel, BorderLayout.WEST);
+		displayPanel.getRightPanel().switchToThisPanel();
 		this.repaint();
 	}
 	
 	private void initBtn(){
-		JButton[] buttons = new JButton[5];
-		final String[] buttonTitle = new String[]{"Play", "Status", "Submit", "Info", "Set"};
+		JPanel panel = new JPanel();
+		panel.setLayout(new FlowLayout());
+		JButton[] buttons = new JButton[4];
+		final String[] buttonTitle = new String[]{"Problem", "Status", "Info", "Set"};
+		
 		for (int i = 0; i < buttons.length; i++) {
-			if(i != 2)
-				buttons[i] = new SwitchButton(this, new TestPanel(this, buttonTitle[i]), buttonTitle[i]);
-			else
-				buttons[i] = new SwitchButton(this, sp, buttonTitle[i]);
+			if(i > 0)
+				buttons[i] = new SwitchButton(this, new TestPanel(buttonTitle[i]), buttonTitle[i]);
+			else if(i == 0){
+				ProblemsPanel problemsPanel = new ProblemsPanel();
+				buttons[0] = new SwitchButton(this, problemsPanel, buttonTitle[0]);
+				problemsPanel.switchToThisPanel();
+			}
 			this.add(buttons[i]);
-			buttons[i].setBounds(i * 160 + 6, 500, 140, 50);
 			buttons[i].setVisible(true);
-			this.add(buttons[i]);
+			panel.add(buttons[i]);
 		}
-	}
-	
-	private void initSP(){
-		this.sp = new SubmitPanel(this);
-		this.client = sp.getConnection();
-		this.sp.setLocation(0, 0);
-		this.sp.setVisible(true);
+		this.add(panel, BorderLayout.SOUTH);
 	}
 	
 	private void setMenu(){

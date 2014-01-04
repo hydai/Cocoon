@@ -20,9 +20,8 @@ public class InfoPanel extends JPanel {
 		this.setVisible(true);
 		for (int i = 0; i < buttons.length; i++) {
 			if(i != 2)
-				buttons[i] = new SwitchButton(parent, new TestPanel(parent, buttonTitle[i]), buttonTitle[i]);
-			else
-				buttons[i] = new SwitchButton(parent, new SubmitPanel(parent), buttonTitle[i]);
+				buttons[i] = new SwitchButton(parent, new TestPanel(buttonTitle[i]), buttonTitle[i]);
+			
 			this.add(buttons[i]);
 			buttons[i].setBounds(i * 160 + 6, 0, 140, 50);
 			buttons[i].setVisible(true);

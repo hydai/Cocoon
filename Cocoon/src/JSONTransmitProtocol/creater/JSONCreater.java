@@ -99,9 +99,10 @@ public class JSONCreater extends JSONObject{
 		}
 		return this;
 	}
-	public JSONCreater setSubmissionInfo(long uid, String ip, String time){
+	public JSONCreater setSubmissionInfo(int pid, long uid, String ip, String time){
 		try {
 			JSONObject info = submission.getJSONObject("info");
+			info.put("PID", pid);
 			info.put("UID", uid);
 			info.put("IP", ip);
 			info.put("time", time);

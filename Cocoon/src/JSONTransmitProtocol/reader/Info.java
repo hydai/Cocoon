@@ -4,7 +4,7 @@ public class Info {
 	private long UID;
 	private String IP;
 	private String time;
-	
+	private int PID;
 	@SuppressWarnings("unused")
 	private Info() {
 		UID = 0;
@@ -12,7 +12,8 @@ public class Info {
 		time = "";
 	}
 	
-	public Info(long UID, String IP, String timeString) {
+	public Info(int PID, long UID, String IP, String timeString) {
+		this.PID = PID;
 		this.UID = UID;
 		this.IP = IP;
 		this.time = timeString;
@@ -25,6 +26,12 @@ public class Info {
 	}
 	public void setUID(long uID) {
 		UID = uID;
+	}
+	public void setPID(int pID) {
+		PID = pID;
+	}
+	public int getPID(){
+		return PID;
 	}
 	public String getIP() {
 		return IP;

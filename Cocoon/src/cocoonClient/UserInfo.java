@@ -7,8 +7,9 @@ public class UserInfo {
 	private static ChatClient client;
 	private static UserInfo userinfo;
 	private static long uid;
+	private static int pid;
 	private static MainFrame parent;
-	private static String ip;
+	private static String ip, problemName;
 	private UserInfo(MainFrame parent, long uid){
 		UserInfo.parent = parent;
 		UserInfo.uid = uid;
@@ -27,7 +28,12 @@ public class UserInfo {
 	public static ChatClient getClient(){
 		return client;
 	}
-	
+	public static void setProblemName(String name){
+		UserInfo.problemName = name;
+	}
+	public static String getProblemName(){
+		return UserInfo.problemName;
+	}
 	public static UserInfo getInstance(){
 		return userinfo;
 	}
@@ -38,6 +44,14 @@ public class UserInfo {
 	
 	public static long getUID(){
 		return uid;
+	}
+	
+	public static void setPID(int pid){
+		UserInfo.pid = pid;
+	}
+	
+	public static int getPID(){
+		return pid;
 	}
 	
 	public static String getIP(){

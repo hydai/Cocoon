@@ -5,6 +5,9 @@ import javax.swing.event.ChangeListener;
 
 import org.json.JSONObject;
 
+import com.restfb.types.User;
+
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -22,10 +25,11 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.logging.Level;
+
 import JSONTransmitProtocol.creater.*;
 
 
-public class SubmitPanel extends AbstractDisplayPanel{
+public class SubmitPanel extends JPanel{
 	private ChatClient client;
 	private JSONObject json;
 	private JTextArea t;
@@ -33,19 +37,22 @@ public class SubmitPanel extends AbstractDisplayPanel{
 	private String selectPath = null, language = "C++";
 	private JButton btn, btn2;
 	private boolean isSubmittable;
-	SubmitPanel(MainFrame parent){
-		super(parent);
+	private JFrame parent;
+	SubmitPanel(JFrame parent){
+		this.parent = parent;
 		//By default, connect to localhost.
 		client = UserInfo.getClient();
 		client.connect();
-		setLayout(new FlowLayout());
+		setLayout(new BorderLayout());
 		setRadioButton();
 		setTextArea();
 	    setBtn();
 		setVisible(true);
 	}
 	private void setRadioButton(){
-		add(new JLabel("Language: "));
+		JPanel panel = new JPanel();
+		panel.setLayout(new FlowLayout());
+		panel.add(new JLabel("Language: "));
 		ButtonGroup bg = new ButtonGroup();
 		JRadioButton radioButtonC = new JRadioButton("C");
 		bg.add(radioButtonC);
@@ -65,8 +72,9 @@ public class SubmitPanel extends AbstractDisplayPanel{
 				language = "C++";
 			}
 		});
-		add(radioButtonC);
-		add(radioButtonCPlusPlus);
+		panel.add(radioButtonC);
+		panel.add(radioButtonCPlusPlus);
+		this.add(panel, BorderLayout.NORTH);
 	}
 	private void setTextArea(){
 		isSubmittable = false;
@@ -74,7 +82,7 @@ public class SubmitPanel extends AbstractDisplayPanel{
 		t.setText("");
 		t.setPreferredSize(new Dimension(500, 500));
 		t.setSize(t.getPreferredSize());
-		t = new JTextArea (20,35);
+		t = new JTextArea (20,40);
 		t.setFont(new Font("微軟正黑體", Font.BOLD, 14));
 	    t.setEditable (true); // set textArea non-editable
 	    t.setTabSize(2);
@@ -96,11 +104,13 @@ public class SubmitPanel extends AbstractDisplayPanel{
 	    scroll = new JScrollPane (t);
 	    scroll.setVerticalScrollBarPolicy (ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS );
 	    //Add Textarea in to middle panel
-	    add(scroll);
+	    this.add(scroll, BorderLayout.CENTER);
 	}
 	private void setBtn(){
+		JPanel panel = new JPanel();
+		panel.setLayout(new FlowLayout());
 		btn = new JButton("Choose");
-		add(btn);
+		panel.add(btn);
 		btn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -108,7 +118,7 @@ public class SubmitPanel extends AbstractDisplayPanel{
 			}
 		});
 		btn2 = new JButton("Submit");
-		add(btn2);
+		panel.add(btn2);
 		btn2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -150,7 +160,7 @@ public class SubmitPanel extends AbstractDisplayPanel{
 					JOptionPane.showMessageDialog(parent, "Not Connected!!"); 
 			}
 		});
-		
+		this.add(panel, BorderLayout.SOUTH);
 	}
 	private void choose(){
 		String fileName = null;
@@ -194,7 +204,7 @@ public class SubmitPanel extends AbstractDisplayPanel{
 			String time = new SimpleDateFormat("yyyy/MM/dd_HH:mm:ss").format(Calendar.getInstance().getTime());
 			json = new JSONCreater().setType("submission")
 			.setSubmission(t.getText(), language)
-			.setSubmissionInfo(UserInfo.getUID(), UserInfo.getIP(), time);
+			.setSubmissionInfo(UserInfo.getPID(), UserInfo.getUID(), UserInfo.getIP(), time);
 			System.out.println(json.toString());
 			client.sendMessage(json.toString());
 			t.setText("");
