@@ -1,5 +1,4 @@
-package cocoonClient;
-
+package cocoonClient.Panels;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -14,12 +13,17 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import cocoonClient.Component.*;
+import cocoonClient.Data.GetProblemSet;
+import cocoonClient.Data.UserInfo;
+import cocoonClient.Frame.SubmitFrame;
+
 public class ProblemsPanel extends AbstractDisplayPanel{
 	private JTree tree;
 	private Browser browser;
 	private HashMap<String, Integer> problemSet;
 	private SubmitFrame submitFrame;
-	ProblemsPanel(){
+	public ProblemsPanel(){
 		super(UserInfo.getMainFrame());
 		problemSet = new GetProblemSet().getProblemSet();
 		this.setLayout(new BorderLayout());

@@ -1,4 +1,4 @@
-package cocoonClient;
+package cocoonClient.Component;
 
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.*;
 
 public class CocoonButton extends JButton{
-	CocoonButton(){
+	public CocoonButton(){
 		super();
 		ImageIcon initialIcon = new ImageIcon("res/Button.png");
 		ImageIcon pressedIcon = new ImageIcon("res/ButtonDown.png");
@@ -23,7 +23,7 @@ public class CocoonButton extends JButton{
 		this.setBorderPainted(false);
 		this.setHorizontalTextPosition(JButton.CENTER);
 	}
-	CocoonButton(String title){
+	public CocoonButton(String title){
 		this();
 		this.setText(title);
 		

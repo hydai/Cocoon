@@ -1,8 +1,10 @@
-package cocoonClient;
+package cocoonClient.Panels;
 
 import java.awt.FlowLayout;
 
 import javax.swing.JLabel;
+
+import cocoonClient.Data.UserInfo;
 
 public class TestPanel extends AbstractDisplayPanel{
 	public TestPanel(String title) {
