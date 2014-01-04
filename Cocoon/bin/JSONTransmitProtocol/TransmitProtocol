@@ -1,0 +1,44 @@
+{
+	"type":<String> [submission | login | query | broadcast]
+	
+	"broadcast":
+	{
+		"type":<string> [status | system]
+		"UID":<long> [ 0(all people) | other number ]
+		"status":
+		{
+			"UID":<long>
+			"submissionID":<long>
+			"result":<string>
+			"time":<string>
+		}
+		"system":
+		{
+			"message":<string>
+		}
+	}
+	
+	"query":
+	{
+		"type":<string> [friendList | userStatus]
+	}
+	
+	"submission":
+	{
+		"info":
+		{
+			"UID":<long>
+			"IP":<String>
+			"time":<string>
+		}
+		"code":<String>
+		"language":<String> [ C | CPP ]
+	}
+	
+	"login":
+	{
+		"UID":<String>
+	}
+}
+
+//To be discussed
