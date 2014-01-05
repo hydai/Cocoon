@@ -19,6 +19,9 @@ public class JSONCreater extends JSONObject{
 			this.put("query", query);
 			
 			this.put("login", login);
+			login.put("register", new JSONObject());
+			login.put("login", new JSONObject());
+			login.put("check", new JSONObject());
 			
 			this.put("broadcast", broadcast);
 			broadcast.put("status", new JSONObject());
@@ -115,5 +118,24 @@ public class JSONCreater extends JSONObject{
 	/*
 	 * Login
 	 */
-	//To be added
+	public JSONCreater setLogin(String type, String username, String password){
+		try {
+			login.put("type", type);
+			login.put("username", username);
+			login.put("password", password);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return this;
+	}
+	public JSONCreater setLoginCheck(Long UID, String statement){
+		try {
+			JSONObject check = login.getJSONObject("check");
+			check.put("UID", UID);
+			check.put("statement", statement);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return this;
+	}
 }
