@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.*;
 
@@ -30,7 +32,7 @@ public class LoginDialogue extends JDialog {
 						public void run() {
 							try {
 								for(int i = 0; i < 2; i++){
-									msg.setText("Wrong");
+									msg.setText("Incorrect User Name or Password");
 									Thread.sleep(250);
 									msg.setText("");
 									Thread.sleep(250);
@@ -79,7 +81,49 @@ public class LoginDialogue extends JDialog {
 		msg.setBounds(0, 110, 300, 20);
 		panel.add(msg);
 		
-		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		this.addWindowListener(new WindowListener() {
+			
+			@Override
+			public void windowOpened(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowIconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowClosing(WindowEvent e) {
+				System.exit(0);
+				
+			}
+			
+			@Override
+			public void windowClosed(WindowEvent e) {
+				
+			}
+			
+			@Override
+			public void windowActivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		this.setSize(300, 160);
 		this.add(panel);
 		setLocation(parent.getX()+parent.getWidth()/2, parent.getY()+parent.getHeight()/2);
