@@ -2,7 +2,9 @@ package cocoonClient.Data;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.HashMap;
 
+import cocoonClient.Connector.AbstractConnector;
 import cocoonClient.Connector.ChatClient;
 import cocoonClient.Frame.MainFrame;
 
@@ -13,6 +15,7 @@ public class UserInfo {
 	private static int pid;
 	private static MainFrame parent;
 	private static String ip, problemName;
+	private static HashMap<String, AbstractConnector> panels = new HashMap<String, AbstractConnector>();
 	private UserInfo(MainFrame parent, long uid){
 		UserInfo.parent = parent;
 		UserInfo.uid = uid;
@@ -59,5 +62,9 @@ public class UserInfo {
 	
 	public static String getIP(){
 		return ip;
+	}
+	
+	public static HashMap<String, AbstractConnector> getPanels(){
+		return UserInfo.panels;
 	}
 }

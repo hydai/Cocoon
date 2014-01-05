@@ -11,6 +11,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.net.ConnectException;
 
+import javax.sound.midi.MidiDevice.Info;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -19,6 +20,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+import cocoonClient.Data.UserInfo;
 import cocoonClient.Frame.MainFrame;
 import JSONTransmitProtocol.reader.JSONReader;
 
@@ -115,7 +117,7 @@ public class ChatClient{
 			ChatClient.this.writer.flush();
 		}
 		
-		/*@Override
+		@Override
 		public void run(){
 			while(true){
 				String line = "";
@@ -124,18 +126,18 @@ public class ChatClient{
 					if(line == null)
 						break;
 					System.out.println(line);
-					if(new JSONReader(line).getType().equals("broadcast")){
-						response = new JSONReader(line).getBroadcast().getStatus().getResult();
-						System.out.println("Resopnse:" + response);
-						JOptionPane.showMessageDialog(parent, "response: "+ response);
-					}
+					String type = new JSONReader(line).getType();
+					UserInfo.getPanels().get(type).recieveResponse(line);
 				}
 				catch(IOException e){
 					break;
 				}
+				catch(Exception e){
+					System.out.println("Wrong JSON format");
+				}
 			}
 			
 			System.out.println("Disconnect");
-		}*/
+		}
 	}
 }

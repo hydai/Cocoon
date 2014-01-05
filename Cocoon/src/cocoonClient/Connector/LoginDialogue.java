@@ -10,7 +10,10 @@ import java.awt.event.WindowListener;
 import javax.swing.*;
 import javax.xml.stream.events.StartDocument;
 
-public class LoginDialogue extends JDialog {
+import cocoonClient.Data.UserInfo;
+import JSONTransmitProtocol.reader.JSONReader;
+
+public class LoginDialogue extends JDialog implements AbstractConnector{
 	private JLabel userLabel, passwordLabel, msg;
 	private JPasswordField passwordText;
 	private JButton loginButton, registerButton;
@@ -19,6 +22,7 @@ public class LoginDialogue extends JDialog {
 	public LoginDialogue(JFrame parent){
 		super(parent, "Login");
 		this.parent = parent;
+		UserInfo.getPanels().put("login", this);
 		init();
 		this.addWindowListener(new WindowListener() {
 			
@@ -78,31 +82,7 @@ public class LoginDialogue extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				new Thread(new Runnable() {
 					public void run() {
-						if(Authentication.authenticate(userText.getText(), passwordText.getText())){
-                            parent.setVisible(true);
-                            dispose();
-                    }
-                    else{
-                            new Thread(new Runnable() {
-                                    
-                                    @Override
-                                    public void run() {
-                                            try {
-                                                    for(int i = 0; i < 2; i++){
-                                                            msg.setText("Incorrect User Name or Password");
-                                                            Thread.sleep(250);
-                                                            msg.setText("");
-                                                            Thread.sleep(250);
-                                                    }
-                                                    
-                                            } catch (InterruptedException e) {
-                                                    
-                                            }
-                                            
-                                    }
-                            }).start();
-                            
-                    }
+						Authentication.authenticate(userText.getText(), passwordText.getText());	
 					}
 				}).start();
 			}
@@ -140,5 +120,35 @@ public class LoginDialogue extends JDialog {
 		msg.setBounds(0, 110, 300, 20);
 		panel.add(msg);
 		this.add(panel);
+	}
+	@Override
+	public void recieveResponse(String response) {
+		System.out.println("login:\n" + response);
+		JSONReader reader = new JSONReader(response);
+		if(reader.getType().equals("login")){
+			System.out.println(reader.getLogin().getUid());
+			if(reader.getLogin().getUid() > 0L){
+				parent.setVisible(true);
+                dispose();
+				return;
+			}
+		}
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				try{
+					for(int i = 0; i < 2; i++){
+	                    msg.setText("Incorrect User Name or Password");
+	                    Thread.sleep(250);
+	                    msg.setText("");
+	                    Thread.sleep(250);
+					}
+				}
+				catch(Exception e){}
+				
+			}
+		}).start();
+		
 	}
 }

@@ -5,6 +5,7 @@ import javax.swing.event.ChangeListener;
 
 import org.json.JSONObject;
 
+import cocoonClient.Connector.AbstractConnector;
 import cocoonClient.Connector.ChatClient;
 import cocoonClient.Data.UserInfo;
 
@@ -30,9 +31,10 @@ import java.util.Calendar;
 import java.util.logging.Level;
 
 import JSONTransmitProtocol.creater.*;
+import JSONTransmitProtocol.reader.JSONReader;
 
 
-public class SubmitPanel extends JPanel{
+public class SubmitPanel extends JPanel implements AbstractConnector{
 	private ChatClient client;
 	private JSONObject json;
 	private JTextArea t;
@@ -46,6 +48,7 @@ public class SubmitPanel extends JPanel{
 		//By default, connect to localhost.
 		client = UserInfo.getClient();
 		client.connect();
+		UserInfo.getPanels().put("broadcast", this);
 		setLayout(new BorderLayout());
 		setRadioButton();
 		setTextArea();
@@ -216,6 +219,15 @@ public class SubmitPanel extends JPanel{
 	}
 	public ChatClient getConnection(){
 		return client;
+	}
+	
+	@Override
+	public void recieveResponse(String response){
+		System.out.println("submission:\n" + response);
+		JSONReader reader = new JSONReader(response);
+		if(reader.getBroadcast().getStatus().getUID() == UserInfo.getUID()){
+			JOptionPane.showMessageDialog(parent, "Response: " + reader.getBroadcast().getStatus().getResult());
+		}
 	}
 }	
 
