@@ -30,17 +30,12 @@ public class ChatClient{
 	private Socket socket;
 	private PrintWriter writer;
 	private BufferedReader reader;
-	private String nickname;
-	private JTextArea textArea;
-	private JTextField textField;
-	private MainFrame parent;
 	public ChatClient() {
 		
 	}
 	
 	public ChatClient(MainFrame parent, String IPAddress, int portNum) {
 		this();
-		this.parent = parent;
 		this.destinationIPAddr = IPAddress;
 		this.destinationPortNum = portNum;
 	}
@@ -64,7 +59,21 @@ public class ChatClient{
 	public void setPort(int portNum) {
 		this.destinationPortNum = portNum;
 	}
-	
+	public String getResponse(){
+		String response = null;
+		if(reader != null){
+			
+			try {
+				response = reader.readLine();
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		if(response != null)
+			return response;
+		return "";
+	}
 	public void connect() {
 		// Create socket & thread, remember to start your thread
 		try {
@@ -105,26 +114,28 @@ public class ChatClient{
 			ChatClient.this.writer.println(msg);
 			ChatClient.this.writer.flush();
 		}
-		@Override
+		
+		/*@Override
 		public void run(){
 			while(true){
-				String line = "", response = "";
+				String line = "";
 				try{
 					line = reader.readLine();
 					if(line == null)
 						break;
-					System.out.println(new JSONReader(line).getType());
+					System.out.println(line);
 					if(new JSONReader(line).getType().equals("broadcast")){
 						response = new JSONReader(line).getBroadcast().getStatus().getResult();
 						System.out.println("Resopnse:" + response);
 						JOptionPane.showMessageDialog(parent, "response: "+ response);
 					}
 				}
-				catch(Exception e){
+				catch(IOException e){
 					break;
 				}
 			}
+			
 			System.out.println("Disconnect");
-		}
+		}*/
 	}
 }

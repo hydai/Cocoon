@@ -19,8 +19,6 @@ public class JSONCreater extends JSONObject{
 			this.put("query", query);
 			
 			this.put("login", login);
-			login.put("register", new JSONObject());
-			login.put("login", new JSONObject());
 			login.put("check", new JSONObject());
 			
 			this.put("broadcast", broadcast);

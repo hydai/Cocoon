@@ -8,6 +8,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 
 
@@ -29,18 +30,23 @@ public class ChatServer {
 		System.out.println("Server starts waiting for client.");
 		// Create a loop to make server wait for client forever (unless you stop it)
 		// Make sure you do create a connectionThread and add it into 'connections'
-		while(true){
-			try {
-				Socket socket = this.serverSocket.accept();
-				ConnectionThread ct = new ConnectionThread(socket);
-				System.out.println(socket);
-				ct.start();
-				connections.add(ct);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				while(true){
+					try {
+						Socket socket = serverSocket.accept();
+						ConnectionThread ct = new ConnectionThread(socket);
+						System.out.println(socket);
+						ct.start();
+						connections.add(ct);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 			}
-		}
+		}).start();
 	}
 	
 	private void broadcast(String message) {
@@ -92,6 +98,10 @@ public class ChatServer {
 	public static void main(String[] args) {
 		ChatServer server = new ChatServer(8000);
 		server.runForever();
+		Scanner in = new Scanner(System.in);
+		while(in.hasNextLine()){
+			server.broadcast(in.nextLine());
+		}
 	}
 	
 }

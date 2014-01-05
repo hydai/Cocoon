@@ -208,7 +208,6 @@ public class SubmitPanel extends JPanel{
 			json = new JSONCreater().setType("submission")
 			.setSubmission(t.getText(), language)
 			.setSubmissionInfo(UserInfo.getPID(), UserInfo.getUID(), UserInfo.getIP(), time);
-			System.out.println(json.toString());
 			client.sendMessage(json.toString());
 			t.setText("");
 			json = null;

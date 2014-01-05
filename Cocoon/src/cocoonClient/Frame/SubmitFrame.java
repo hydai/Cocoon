@@ -5,13 +5,18 @@ import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 
+import com.restfb.types.User;
+
+import cocoonClient.Data.UserInfo;
 import cocoonClient.Panels.SubmitPanel;
 
 public class SubmitFrame extends JFrame{
 	public SubmitFrame() {
 		this.setTitle("Submit Your Code Here");
 		this.setResizable(false);
-		this.setBounds(450, 250, 600, 500);
+		this.setBounds(UserInfo.getMainFrame().getX()+UserInfo.getMainFrame().getWidth()/2,
+				UserInfo.getMainFrame().getY()+UserInfo.getMainFrame().getHeight()/2,
+				600, 500);
 		this.setAlwaysOnTop(true);
 		this.add(new SubmitPanel(this));
 		this.addWindowListener(new WindowListener() {
@@ -62,6 +67,9 @@ public class SubmitFrame extends JFrame{
 		this.setTitle("Submit Your Code Here (" + name + ")");
 	}
 	public void open(){
+		this.setBounds(UserInfo.getMainFrame().getX()+UserInfo.getMainFrame().getWidth()/2,
+				UserInfo.getMainFrame().getY()+UserInfo.getMainFrame().getHeight()/2,
+				600, 500);
 		this.setVisible(true);
 	}
 	public void close(){
