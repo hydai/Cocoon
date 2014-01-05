@@ -128,6 +128,7 @@ public class LoginDialogue extends JDialog implements AbstractConnector{
 		if(reader.getType().equals("login")){
 			System.out.println(reader.getLogin().getUid());
 			if(reader.getLogin().getUid() > 0L){
+				UserInfo.setUID(reader.getLogin().getUid());
 				parent.setVisible(true);
                 dispose();
 				return;

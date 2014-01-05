@@ -225,6 +225,7 @@ public class SubmitPanel extends JPanel implements AbstractConnector{
 	public void recieveResponse(String response){
 		System.out.println("submission:\n" + response);
 		JSONReader reader = new JSONReader(response);
+		System.out.println("User UID:" + UserInfo.getUID());
 		if(reader.getBroadcast().getStatus().getUID() == UserInfo.getUID()){
 			JOptionPane.showMessageDialog(parent, "Response: " + reader.getBroadcast().getStatus().getResult());
 		}

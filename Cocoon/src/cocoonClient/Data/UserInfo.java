@@ -51,7 +51,9 @@ public class UserInfo {
 	public static long getUID(){
 		return uid;
 	}
-	
+	public static void setUID(long uid){
+		UserInfo.uid = uid;
+	}
 	public static void setPID(int pid){
 		UserInfo.pid = pid;
 	}
