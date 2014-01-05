@@ -17,7 +17,7 @@ public class LinkToMySQL {
 		}
 		scanner.close();
 		userData.selectTable();
-		
+		/*
 		SQLProblemData problemData = new SQLProblemData();
 		problemData.dropTable();
 		problemData.createTable();
@@ -33,5 +33,6 @@ public class LinkToMySQL {
 		}
 		scanner.close();
 		problemData.selectTable();
+		*/
 	}
 }

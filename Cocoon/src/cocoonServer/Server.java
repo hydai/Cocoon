@@ -92,6 +92,10 @@ public class Server {
 					else if (jsonReader.getType().equals("login")) {
 						Login login = new Login(jsonReader);
 						login.run();
+						JSONCreater json = new JSONCreater().setType("login").
+								setLogin("check", login.getUsername(), login.getPassword()).
+								setLoginCheck(login.getUid(), login.getStatement());
+						sendMessage(json.toString());
 					}
 				} catch (IOException e) {
 					e.printStackTrace();

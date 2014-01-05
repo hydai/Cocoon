@@ -15,8 +15,11 @@ public class Authentication {
 		System.out.println(response);
 		JSONReader reader = new JSONReader(response);
 		if(reader.getType().equals("login")){
-			if(reader.getLogin().getUid() > 0L)
+			System.out.println(reader.getLogin().getUid());
+			if(reader.getLogin().getUid() > 0L){
+				
 				return true;
+			}
 		}
 		return false;
     }
