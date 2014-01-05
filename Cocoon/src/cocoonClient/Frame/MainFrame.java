@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 
 import cocoonClient.Component.SwitchButton;
 import cocoonClient.Connector.ChatClient;
+import cocoonClient.Connector.LoginDialogue;
 import cocoonClient.Data.UserInfo;
 import cocoonClient.Panels.AbstractDisplayPanel;
 import cocoonClient.Panels.AbstractRightPanel;
@@ -34,7 +35,7 @@ public class MainFrame extends JFrame {
 	private ChatClient client;
 	
 	public MainFrame() {
-		UserInfo.initUserInfo(this, (long)(Math.random()*10000000L));
+		UserInfo.initUserInfo(this, -1L);
 		this.client = UserInfo.getClient();
 		this.setTitle("Cocoon");
 		this.setSize(800, 600);
@@ -44,7 +45,8 @@ public class MainFrame extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setMenu();
 		initBtn();
-		this.setVisible(true);
+		LoginDialogue loginDialogue = new LoginDialogue(this);
+		//this.setVisible(true);
 	}
 	public void setRightPanel(AbstractRightPanel panel){
 		if(rightPanel != null){

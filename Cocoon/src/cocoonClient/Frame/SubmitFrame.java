@@ -15,7 +15,6 @@ public class SubmitFrame extends JFrame{
 		this.setAlwaysOnTop(true);
 		this.add(new SubmitPanel(this));
 		this.addWindowListener(new WindowListener() {
-			
 			@Override
 			public void windowOpened(WindowEvent e) {
 				// TODO Auto-generated method stub
