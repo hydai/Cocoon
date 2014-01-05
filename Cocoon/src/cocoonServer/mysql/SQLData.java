@@ -1,4 +1,4 @@
-package cocoonServer.initializeServer;
+package cocoonServer.mysql;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class CreateData {
+public class SQLData {
 	protected Connection connection = null;
 	protected Statement statement = null;
 	protected ResultSet resultSet = null;
@@ -16,7 +16,7 @@ public class CreateData {
 	protected String createdbSQL = "";
 	protected String insertdbSQL = "";
 	protected String selectSQL = "";
-	public CreateData() {
+	public SQLData() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			connection = DriverManager.getConnection("jdbc:mysql://localhost/cocoon?useUnicode=true&characterEncoding=UTF-8", "cocoonServer", "cocoon");

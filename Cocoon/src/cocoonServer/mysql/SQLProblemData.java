@@ -1,22 +1,23 @@
-package cocoonServer.initializeServer;
+package cocoonServer.mysql;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class CreateUserData extends CreateData{
-	public CreateUserData() {
+public class SQLProblemData extends SQLData{
+	public SQLProblemData() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			connection = DriverManager.getConnection("jdbc:mysql://localhost/cocoon?useUnicode=true&characterEncoding=UTF-8", "cocoonServer", "cocoon");
 
-			dropdbSQL = "DROP TABLE User";
-			createdbSQL = "CREATE TABLE User (" +
-			"	id	INTEGER " + 
-			",	name	VARCHAR(128) " +
-			",	passwd VARCHAR(50))";
-			insertdbSQL = "insert into User(id,name,passwd) " +
-			"select ifNULL(max(id),0)+1, ?, ? FROM User";
-			selectSQL = "select * from User ";
+			dropdbSQL = "DROP TABLE Problem";
+			createdbSQL = "CREATE TABLE Problem (" +
+			"	pid	INTEGER " + 
+			",	title	VARCHAR(256) " +
+			",	timeLimit	INTEGER " +
+			",	memoryLimit INTEGER)";
+			insertdbSQL = "insert into Problem(pid,title,timeLimit,memoryLimit) " +
+			"select ifNULL(max(pid),1)+1, ?, ? FROM Problem";
+			selectSQL = "select * from Problem ";
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -26,11 +27,13 @@ public class CreateUserData extends CreateData{
 			close();
 		}
 	}
-	public void insertTable(String name, String passwd) {
+	public void insertTable(int pid, String title, int timeLimit, int memoryLimit) {
 		try {
 			preparedStatement = connection.prepareStatement(insertdbSQL);
-			preparedStatement.setString(1, name);
-			preparedStatement.setString(2, passwd);
+			preparedStatement.setInt(0, pid);
+			preparedStatement.setString(1, title);
+			preparedStatement.setInt(2, timeLimit);
+			preparedStatement.setInt(3, memoryLimit);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -46,11 +49,12 @@ public class CreateUserData extends CreateData{
 		try {
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery(selectSQL);
-			System.out.print("ID\t\tName\t\t\t\tPASSWORD\n");
+			System.out.print("PID\t\tTitle\t\tTL\t\tML\n");
 			while (resultSet.next()) {
-				System.out.println(resultSet.getInt("id") + "\t\t" +
-						resultSet.getString("name") + "\t\t\t\t" +
-						resultSet.getString("passwd"));
+				System.out.println(resultSet.getInt("pid") + "\t\t" +
+						resultSet.getString("title") + "\t\t" +
+						resultSet.getInt("timeLimit") + "\t\t" +
+						resultSet.getInt("memoryLimit"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

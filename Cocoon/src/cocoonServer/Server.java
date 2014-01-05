@@ -89,7 +89,10 @@ public class Server {
 										submission.getTime());
 						broadcast(json.toString());
 					}
-					
+					else if (jsonReader.getType().equals("login")) {
+						Login login = new Login(jsonReader);
+						login.run();
+					}
 				} catch (IOException e) {
 					e.printStackTrace();
 					break;

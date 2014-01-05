@@ -2,6 +2,7 @@ package JSONTransmitProtocol.reader;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
 public class JSONReader{
 	/** transform json file to String */
 	private String jsonString;
@@ -10,6 +11,7 @@ public class JSONReader{
 	private Query query;
 	private Broadcast broadcast;
 	private Status status;
+	private Login login;
 	public JSONReader(String jsonString) {
 		this.jsonString = jsonString;
 		System.out.println(this.jsonString);
@@ -30,7 +32,13 @@ public class JSONReader{
 				submission = new Submission(JSONsubmission.getString("language"), JSONsubmission.getString("code"), info);
 			}
 			else if (type.equals("login")) {
-				//TODO: login protocol has not defined
+				JSONObject JSONlogin = jsonObject.getJSONObject("login");
+				String type = JSONlogin.getString("type");
+				login = new Login(type, JSONlogin.getString("username"), JSONlogin.getString("password"));
+				if (type.equals("check")) {
+					login.setUid(-1);
+					login.setStatement(JSONlogin.getJSONObject("check").getString("statement"));
+				}
 			}
 			else if (type.equals("query")) {
 				JSONObject JSONquery = jsonObject.getJSONObject("query");
@@ -64,5 +72,8 @@ public class JSONReader{
 	}
 	public Status getStatus() {
 		return status;
+	}
+	public Login getLogin() {
+		return login;
 	}
 }

@@ -39,17 +39,8 @@
 	"login":
 	{
 		"type":<String>[register | login | check]
-		
-		"register":
-		{
-			"username":<String>,
-			"password":<String>
-		}
-		"login":
-		{
-			"username":<String>,
-			"password":<String>
-		}
+		"username":<String>,
+		"password":<String>,
 		"check":
 		{
 			"UID":<long>,
