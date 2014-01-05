@@ -7,6 +7,8 @@ import cocoonClient.Data.UserInfo;
 public class Authentication {
 	public static boolean authenticate(String username, String password) {
         // hardcoded username and password
+		if(username.equals("cocoon") && password.equals("admin"))
+			return true;
 		JSONCreater json = new JSONCreater().setType("login").setLogin("login", username, password);
         UserInfo.getClient().sendMessage(json.toString());
 		String response = UserInfo.getClient().getResponse();
