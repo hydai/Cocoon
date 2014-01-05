@@ -36,7 +36,7 @@ public class JSONReader{
 				String type = JSONlogin.getString("type");
 				login = new Login(type, JSONlogin.getString("username"), JSONlogin.getString("password"));
 				if (type.equals("check")) {
-					login.setUid(-1);
+					login.setUid(JSONlogin.getJSONObject("check").getLong("UID"));
 					login.setStatement(JSONlogin.getJSONObject("check").getString("statement"));
 				}
 			}

@@ -58,6 +58,9 @@ public class Login {
 	public void setStatement(String statement) {
 		jsonReader.getLogin().setStatement(statement);;
 	}
+	public String getType() {
+		return jsonReader.getLogin().getType();
+	}
 	public void run() {
 		if (jsonReader.getLogin().getType().equals("login")) {
 			this.login();

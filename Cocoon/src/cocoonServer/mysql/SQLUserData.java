@@ -20,7 +20,7 @@ public class SQLUserData extends SQLData{
 			insertdbSQL = "insert into User(id,name,passwd) " +
 			"select ifNULL(max(id),0)+1, ?, ? FROM User";
 			selectSQL = "select * from User ";
-			checkUserExistSQL = "select * from User where name = '?' ";
+			checkUserExistSQL = "select * from User where name = ? ";
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -83,7 +83,7 @@ public class SQLUserData extends SQLData{
 	}
 	public int getUserId(String username) {
 		int uid = -1;
-		String getUserIdSQL = "select * from User where name = '?' ";
+		String getUserIdSQL = "select * from User where name = ? ";
 		try {
 			PreparedStatement getUserIdPreparedStatement =
 					connection.prepareStatement(getUserIdSQL);
@@ -100,7 +100,7 @@ public class SQLUserData extends SQLData{
 	}
 	public int checkUserPassword(String username, String password) {
 		int uid = -1;
-		String checkUserPasswordSQL = "select * from User where name = '?' AND passwd = '?' ";
+		String checkUserPasswordSQL = "select * from User where name = ? AND passwd = ? ";
 		try {
 			PreparedStatement checkUserPasswordPreparedStatement = 
 					connection.prepareStatement(checkUserPasswordSQL);
