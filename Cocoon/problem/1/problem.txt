@@ -1,11 +1,12 @@
-Hello, world!
-
+A + B
 :
-	Welcome! Your first task is to print "Hello, world!" to console.
+	There are many test cases.
+	Give two integers A, B. Please print A+B.
 Input:
 
+1 2
 
 Output:
 
-Hello, world!
+3
 

@@ -1,0 +1,11 @@
+Hello, world!
+
+:
+	Welcome! Your first task is to print "Hello, world!" to console.
+Input:
+
+
+Output:
+
+Hello, world!
+

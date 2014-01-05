@@ -33,10 +33,15 @@ public class Submission {
 			System.err.println("Error: " + e.getMessage());
 		}
 		
-		runCode = new RunCode(jsonReader.getSubmission().getLanguage(), jsonReader.getSubmission().getSubmissionID());
+		runCode = new RunCode(
+				jsonReader.getSubmission().getLanguage(), 
+				jsonReader.getSubmission().getSubmissionID());
 		runCode.setMemoryLimit(130000);
 		runCode.setTimeLimit(1000);
-		runCode.setProblemID(2);
+		runCode.setProblemID(
+				jsonReader.getSubmission().
+				getInfo().
+				getPID());
 		runCode.setStrictJudge(true);
 	}
 	public void run() {
