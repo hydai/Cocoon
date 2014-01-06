@@ -125,7 +125,6 @@ public class ChatClient{
 					line = reader.readLine();
 					if(line == null)
 						break;
-					System.out.println(line);
 					String type = new JSONReader(line).getType();
 					UserInfo.getPanels().get(type).recieveResponse(line);
 				}
@@ -133,7 +132,7 @@ public class ChatClient{
 					break;
 				}
 				catch(Exception e){
-					System.out.println("Wrong JSON format");
+					e.printStackTrace();
 				}
 			}
 			

@@ -1,6 +1,8 @@
 package cocoonClient.Panels;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -20,6 +22,8 @@ public class StatusPanel extends AbstractDisplayPanel implements AbstractConnect
 	private JTable table;
 	public StatusPanel(){
 		super(UserInfo.getMainFrame());
+		setRightPanel(new TestRightPanel());
+		this.setSize(600, 500);
 		this.setLayout(new FlowLayout());
 		init();
 		UserInfo.getPanels().put("status", this);
@@ -32,15 +36,23 @@ public class StatusPanel extends AbstractDisplayPanel implements AbstractConnect
 		          super.valueChanged(e); //呼叫基礎類別的valueChanged()方法, 否則選取動作無法正常執行
 		          if( table.getSelectedRow() == -1) return;//取得表格目前的選取列,若沒有選取列則終止執行方法
 		        }
-		      };    
+		      }; 
+		      
+		      table.setModel(new DefaultTableModel(){
+		    	  @Override
+		    	  public boolean isCellEditable(int row, int column){
+		    		  return false;
+		    	  }
+		      });
+		      table.setShowGrid(true);
 		      table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);         
 		      table.setSelectionBackground(Color.ORANGE);//設定選取背景顏色    
 		      table.setCellSelectionEnabled(true); //設定允許儲存格選取
-		      
+
 		      //取得處理表格資料的Model物件,建立關聯
 		      DefaultTableModel dtm = (DefaultTableModel)table.getModel(); //宣告處理表格資料的TableModel物件
 		      String columnTitle[] = new String[]{"Date", "Username", "Problem", "Status", "Source"};
-		      int columnWidth[] = new  int[]{80, 80, 140, 70, 70};
+		      int columnWidth[] = new  int[]{150, 120, 140, 120, 60};
 		      for(int i = 0; i < columnTitle.length; i++){
 		    	dtm.addColumn(columnTitle[i]);
 		      }
@@ -49,7 +61,7 @@ public class StatusPanel extends AbstractDisplayPanel implements AbstractConnect
 			      	table.getColumnModel().getColumn(i).setPreferredWidth(columnWidth[i]);
 		      }
 		      //註冊回應JTable元件的MouseEvent事件的監聽器物件
-		      table.addMouseListener(new MouseAdapter(){
+		     /* table.addMouseListener(new MouseAdapter(){
 		        public void mouseClicked(MouseEvent e){
 		          int selRow  = table.rowAtPoint(e.getPoint());//取得滑鼠點選位置所在之資料的列索引
 		          String Size = (String) table.getValueAt(selRow, 2);  //取得被點選資料列的第3欄的值
@@ -57,28 +69,26 @@ public class StatusPanel extends AbstractDisplayPanel implements AbstractConnect
 		           
 		          }
 		        }
-		      });
+		      });*/
 		      
 		    }catch ( Exception  e){
 		      e.printStackTrace();
 		    }
-		Box bxMix = new Box(BoxLayout.X_AXIS);
-		bxMix.add(Box.createHorizontalStrut(10));//Strut:固定長度的透明支架
-		bxMix.add(new JScrollPane(table));//放在 JScrollPane 內才有, Scrollbar
-		bxMix.add(Box.createHorizontalStrut(10));//Strut:固定長度的透明支架
-		bxMix.add(Box.createVerticalStrut(10));//Strut:固定長度的透明支架
-		add(bxMix);
+		JScrollPane pane = new JScrollPane(table);
+		pane.setPreferredSize(new Dimension(600, 450));
+		add(pane);
 	}
 	
 	private void addStatus(String response){
 		JSONReader reader = new JSONReader(response);
 	    DefaultTableModel dtm = (DefaultTableModel)table.getModel();
+	    String result = reader.getStatus().getResult().split("\n")[0];
 	    dtm.addRow(new String[] {
 	    		reader.getBroadcast().getStatus().getTime(),
 	    		reader.getBroadcast().getStatus().getUID().toString(),
 	    		"Name",
-	    		reader.getBroadcast().getStatus().getResult(),
-	    		reader.getSubmission().getLanguage(),
+	    		result,
+	    		"C++"
 	    		});  
 	}
 	

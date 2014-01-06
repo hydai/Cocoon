@@ -14,8 +14,8 @@ public class SubmitFrame extends JFrame{
 	public SubmitFrame() {
 		this.setTitle("Submit Your Code Here");
 		this.setResizable(false);
-		this.setBounds(UserInfo.getMainFrame().getX()+UserInfo.getMainFrame().getWidth()/2,
-				UserInfo.getMainFrame().getY()+UserInfo.getMainFrame().getHeight()/2,
+		this.setBounds(UserInfo.getMainFrame().getX()+UserInfo.getMainFrame().getWidth()/2-100,
+				UserInfo.getMainFrame().getY()+UserInfo.getMainFrame().getHeight()/2-100,
 				600, 500);
 		this.setAlwaysOnTop(true);
 		this.add(new SubmitPanel(this));
@@ -67,8 +67,8 @@ public class SubmitFrame extends JFrame{
 		this.setTitle("Submit Your Code Here (" + name + ")");
 	}
 	public void open(){
-		this.setBounds(UserInfo.getMainFrame().getX()+UserInfo.getMainFrame().getWidth()/2,
-				UserInfo.getMainFrame().getY()+UserInfo.getMainFrame().getHeight()/2,
+		this.setBounds(UserInfo.getMainFrame().getX()+UserInfo.getMainFrame().getWidth()/2-100,
+				UserInfo.getMainFrame().getY()+UserInfo.getMainFrame().getHeight()/2-100,
 				600, 500);
 		this.setVisible(true);
 	}

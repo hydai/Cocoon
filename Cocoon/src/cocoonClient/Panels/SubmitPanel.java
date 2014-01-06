@@ -207,7 +207,7 @@ public class SubmitPanel extends JPanel implements AbstractConnector{
 	}
 	private void submit(){
 		if(isSubmittable){
-			String time = new SimpleDateFormat("yyyy/MM/dd_HH:mm:ss").format(Calendar.getInstance().getTime());
+			String time = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime());
 			json = new JSONCreater().setType("submission")
 			.setSubmission(t.getText(), language)
 			.setSubmissionInfo(UserInfo.getPID(), UserInfo.getUID(), UserInfo.getIP(), time);
