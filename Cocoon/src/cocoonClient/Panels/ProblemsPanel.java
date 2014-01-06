@@ -80,7 +80,7 @@ public class ProblemsPanel extends AbstractDisplayPanel{
 				if(problemSet.containsKey(selection)){
 					UserInfo.setPID(problemSet.get(selection));
 					submitFrame.changeProblemName(selection);
-					String url = "https://dl.dropboxusercontent.com/u/113630504/OJ/" + problemSet.get(selection)+ ".htm";
+					String url = "https://dl.dropboxusercontent.com/u/176423666/OJ/" + problemSet.get(selection)+ ".html";
 					browser.loadURL(url);
 				}
 			}
