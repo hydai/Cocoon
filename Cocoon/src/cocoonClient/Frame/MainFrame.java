@@ -18,7 +18,7 @@ import cocoonClient.Component.SwitchButton;
 import cocoonClient.Connector.ChatClient;
 import cocoonClient.Connector.LoginDialogue;
 import cocoonClient.Data.UserInfo;
-import cocoonClient.Panels.AbstractDisplayPanel;
+import cocoonClient.Panels.*;
 import cocoonClient.Panels.AbstractRightPanel;
 import cocoonClient.Panels.InfoPanel;
 import cocoonClient.Panels.ProblemsPanel;
@@ -73,20 +73,16 @@ public class MainFrame extends JFrame {
 		panel.setLayout(new FlowLayout());
 		JButton[] buttons = new JButton[4];
 		final String[] buttonTitle = new String[]{"Problem", "Status", "Info", "Set"};
-		
+		AbstractDisplayPanel panels[] = new AbstractDisplayPanel[]{new ProblemsPanel(), new StatusPanel(), new TestPanel("Info"), new TestPanel("Set")};
 		for (int i = 0; i < buttons.length; i++) {
-			if(i > 0)
-				buttons[i] = new SwitchButton(this, new TestPanel(buttonTitle[i]), buttonTitle[i]);
-			else if(i == 0){
-				ProblemsPanel problemsPanel = new ProblemsPanel();
-				buttons[0] = new SwitchButton(this, problemsPanel, buttonTitle[0]);
-				problemsPanel.switchToThisPanel();
-			}
+			
+			buttons[i] = new SwitchButton(this, panels[i], buttonTitle[i]);
 			this.add(buttons[i]);
 			buttons[i].setVisible(true);
 			panel.add(buttons[i]);
 		}
 		this.add(panel, BorderLayout.SOUTH);
+		panels[0].switchToThisPanel();
 	}
 	
 	private void setMenu(){
