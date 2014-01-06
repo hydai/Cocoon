@@ -3,7 +3,7 @@
 	
 	"broadcast":
 	{
-		"type":<string> [status | system]
+		"type":<string> [status | system | rank]
 		"UID":<long> [ 0(all people) | other number ]
 		"status":
 		{
@@ -18,6 +18,11 @@
 		{
 			"message":<string>
 		}
+		"rank":
+		{
+            "list":[JSON Array]
+		}
+        
 	}
 	
 	"query":
