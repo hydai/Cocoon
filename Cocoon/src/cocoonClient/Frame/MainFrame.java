@@ -72,8 +72,8 @@ public class MainFrame extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setLayout(new FlowLayout());
 		JButton[] buttons = new JButton[4];
-		final String[] buttonTitle = new String[]{"Problem", "Status", "Info", "Set"};
-		AbstractDisplayPanel panels[] = new AbstractDisplayPanel[]{new ProblemsPanel(), new StatusPanel(), new TestPanel("Info"), new TestPanel("Set")};
+		final String[] buttonTitle = new String[]{"Problem", "Status", "Info", "About"};
+		AbstractDisplayPanel panels[] = new AbstractDisplayPanel[]{new ProblemsPanel(), new StatusPanel(), new TestPanel("Info"), new AboutPanel()};
 		for (int i = 0; i < buttons.length; i++) {
 			
 			buttons[i] = new SwitchButton(this, panels[i], buttonTitle[i]);
