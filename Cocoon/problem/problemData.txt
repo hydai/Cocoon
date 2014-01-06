@@ -1,0 +1,10 @@
+1 1 16 The A+B Problem
+2 1 32 GCD
+3 1 32 Palindrome
+4 1 32 Partial Sum
+5 1 16 Age Sort
+6 1 32 String Reverse
+7 1 32 Alphabetically order
+8 1 32 Word Frequency
+9 1 32 Polynomial Addition
+10 1 32 LCM
