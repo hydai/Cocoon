@@ -2,17 +2,18 @@ package cocoonServer;
 
 import java.io.PrintWriter;
 
+import cocoonServer.mysql.SQLUserData;
 import JSONTransmitProtocol.reader.JSONReader;
 
-public class Submission {
+public class ServerSubmission {
 	private JSONReader jsonReader;
 	private RunCode runCode;
 	private String result;
 	@SuppressWarnings("unused")
-	private Submission() {
+	private ServerSubmission() {
 		// Do nothing
 	}
-	public Submission(JSONReader reader) {
+	public ServerSubmission(JSONReader reader) {
 		this.jsonReader = reader;
 
 		String type;
@@ -59,5 +60,12 @@ public class Submission {
 	}
 	public String getTime() {
 		return jsonReader.getSubmission().getInfo().getTime();
+	}
+	public int getPID() {
+		return jsonReader.getSubmission().getInfo().getPID();
+	}
+	public String getUsername() {
+		SQLUserData userData = new SQLUserData();
+		return userData.getUsername((int)jsonReader.getSubmission().getInfo().getUID());
 	}
 }

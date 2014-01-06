@@ -8,6 +8,8 @@
 		"status":
 		{
 			"UID":<long>
+			"PID":<int>
+			"username"<String>
 			"submissionID":<long>
 			"result":<string>
 			"time":<string>

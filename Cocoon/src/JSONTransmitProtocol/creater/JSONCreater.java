@@ -7,7 +7,18 @@ public class JSONCreater extends JSONObject{
 	private JSONObject query = new JSONObject();
 	private JSONObject login = new JSONObject();
 	private JSONObject broadcast = new JSONObject();
-	
+	public JSONCreater(JSONCreater json){
+		try {
+			submission = json.getJSONObject("submission");
+			query = json.getJSONObject("query");
+			login = json.getJSONObject("login");
+			broadcast = json.getJSONObject("broadcast");
+			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	public JSONCreater(){
 		super();
 		try{
@@ -61,6 +72,20 @@ public class JSONCreater extends JSONObject{
 		try {
 			broadcast.put("type", type);
 			broadcast.put("UID", uid);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return this;
+	}
+	public JSONCreater setBroadcastStatus(long uid, int pid, String username, long submissionID, String result, String time){
+		try {
+			JSONObject status = broadcast.getJSONObject("status");
+			status.put("UID", uid);
+			status.put("PID", pid);
+			status.put("username", username);
+			status.put("submissionID", submissionID);
+			status.put("result", result);
+			status.put("time", time);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

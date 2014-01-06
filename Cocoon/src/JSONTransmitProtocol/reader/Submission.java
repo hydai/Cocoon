@@ -39,4 +39,5 @@ public class Submission {
 	public Info getInfo() {
 		return info;
 	}
+	
 }

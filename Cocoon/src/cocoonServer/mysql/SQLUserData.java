@@ -117,4 +117,22 @@ public class SQLUserData extends SQLData{
 		
 		return uid;
 	}
+	public String getUsername(int uid) {
+		String username = "";
+		String getUsernameSQL = "select * from User where id = ?";
+		try {
+			PreparedStatement getUsernamePreparedStatement = 
+					connection.prepareStatement(getUsernameSQL);
+			getUsernamePreparedStatement.setInt(1, uid);
+			ResultSet resultSet = getUsernamePreparedStatement.executeQuery();
+			if (resultSet.next()) {
+				username = resultSet.getString("name");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return username;
+	}
 }

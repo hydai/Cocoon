@@ -79,18 +79,20 @@ public class Server {
 					jsonReader = new JSONReader(jsonString);
 					if (jsonReader.getType().equals("submission")) {
 						jsonReader.getSubmission().setSubmissionID(runtimeIDLong);
-						Submission submission = new Submission(jsonReader);
+						ServerSubmission submission = new ServerSubmission(jsonReader);
 						submission.run();
 						JSONObject json = new JSONCreater().setType("broadcast")
 								.setBroadcast("status", submission.getUserID())
-								.setBroadcastStatus(submission.getUserID(), 
+								.setBroadcastStatus(submission.getUserID(),
+										submission.getPID(),
+										submission.getUsername(),
 										submission.getSubmissionID(), 
 										submission.getResult(), 
 										submission.getTime());
 						broadcast(json.toString());
 					}
 					else if (jsonReader.getType().equals("login")) {
-						Login login = new Login(jsonReader);
+						ServerLogin login = new ServerLogin(jsonReader);
 						login.run();
 						JSONCreater json = new JSONCreater().setType("login").
 								setLogin("check", login.getUsername(), login.getPassword()).

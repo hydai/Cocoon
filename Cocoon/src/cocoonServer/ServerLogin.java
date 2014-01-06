@@ -3,14 +3,14 @@ package cocoonServer;
 import JSONTransmitProtocol.reader.JSONReader;
 import cocoonServer.mysql.SQLUserData;
 
-public class Login {
+public class ServerLogin {
 	private JSONReader jsonReader;
 	private SQLUserData userData;
 	
 	@SuppressWarnings("unused")
-	private Login() {	}
+	private ServerLogin() {	}
 	
-	public Login(JSONReader jsonReader) {
+	public ServerLogin(JSONReader jsonReader) {
 		this.jsonReader = jsonReader;
 		userData = new SQLUserData();
 		

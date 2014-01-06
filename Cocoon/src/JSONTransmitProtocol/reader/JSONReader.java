@@ -48,6 +48,8 @@ public class JSONReader{
 				JSONObject JSONbroadcast = jsonObject.getJSONObject("broadcast");
 				JSONObject JSONstatus = JSONbroadcast.getJSONObject("status");
 				status = new Status(JSONstatus.getLong("UID"), JSONstatus.getLong("submissionID"), JSONstatus.getString("result"), JSONstatus.getString("time"));
+				status.setPID(JSONstatus.getInt("PID"));
+				status.setUsername(JSONstatus.getString("username"));
 				broadcast = new Broadcast(JSONbroadcast.getString("type"), status);
 			}
 			else {

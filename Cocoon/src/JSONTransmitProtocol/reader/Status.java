@@ -1,10 +1,12 @@
 package JSONTransmitProtocol.reader;
 
 public class Status {
-	private Long UID;
-	private Long submissionID;
+	private long UID;
+	private long submissionID;
 	private String result;
 	private String time;
+	private String username;
+	private int PID;
 	
 	@SuppressWarnings("unused")
 	private Status() {
@@ -32,5 +34,17 @@ public class Status {
 	}
 	public Long getUID() {
 		return UID;
+	}
+	public void setPID(int pID) {
+		PID = pID;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public int getPID() {
+		return PID;
+	}
+	public String getUsername() {
+		return username;
 	}
 }
