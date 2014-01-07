@@ -2,8 +2,6 @@ package JSONTransmitProtocol.newcreater.submission;
 
 import org.json.JSONObject;
 
-import JSONTransmitProtocol.reader.Submission;
-
 public class CreaterSubmission extends JSONObject{
 	public CreaterSubmission(String type, SubmissionSent sent) {
 		super();

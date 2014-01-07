@@ -22,7 +22,7 @@ import javax.swing.SwingUtilities;
 
 import cocoonClient.Data.UserInfo;
 import cocoonClient.Frame.MainFrame;
-import JSONTransmitProtocol.reader.JSONReader;
+import JSONTransmitProtocol.newReader.*;
 
 
 public class ChatClient{

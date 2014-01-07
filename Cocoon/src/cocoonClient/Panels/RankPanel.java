@@ -1,6 +1,5 @@
 package cocoonClient.Panels;
 
-import JSONTransmitProtocol.reader.JSONReader;
 import cocoonClient.Connector.AbstractConnector;
 import cocoonClient.Data.UserInfo;
 import cocoonClient.Frame.MainFrame;
@@ -14,8 +13,8 @@ public class RankPanel extends AbstractRightPanel implements AbstractConnector{
 
 	@Override
 	public void recieveResponse(String response) {
-		JSONReader jsonReader = new JSONReader(response);
 		
+		//TODO
 	}
 
 }

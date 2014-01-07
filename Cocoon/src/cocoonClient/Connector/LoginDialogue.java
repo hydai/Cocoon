@@ -6,10 +6,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+
 import javax.swing.*;
 
+import JSONTransmitProtocol.newReader.JSONReader;
 import cocoonClient.Data.UserInfo;
-import JSONTransmitProtocol.reader.JSONReader;
 
 public class LoginDialogue extends JDialog implements AbstractConnector{
 	private JLabel userLabel, passwordLabel, msg;
@@ -132,9 +133,8 @@ public class LoginDialogue extends JDialog implements AbstractConnector{
 	public void recieveResponse(String response) {
 		JSONReader reader = new JSONReader(response);
 		if(reader.getType().equals("login")){
-			System.out.println(reader.getLogin().getUid());
-			if(reader.getLogin().getUid() > 0L){
-				UserInfo.setUID((int)reader.getLogin().getUid());
+			if(reader.getLogin().getUID() > 0){
+				UserInfo.setUID(reader.getLogin().getUID() );
 				parent.setVisible(true);
                 dispose();
 				return;

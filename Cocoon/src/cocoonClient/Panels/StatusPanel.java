@@ -14,7 +14,7 @@ import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 
-import JSONTransmitProtocol.reader.JSONReader;
+import JSONTransmitProtocol.newReader.JSONReader;
 import cocoonClient.Connector.AbstractConnector;
 import cocoonClient.Data.UserInfo;
 
@@ -82,11 +82,11 @@ public class StatusPanel extends AbstractDisplayPanel implements AbstractConnect
 	private void addStatus(String response){
 		JSONReader reader = new JSONReader(response);
 	    DefaultTableModel dtm = (DefaultTableModel)table.getModel();
-	    String result = reader.getStatus().getResult().split("\n")[0];
+	    String result = reader.getSubmission().getResult().split("\n")[0];
 	    dtm.addRow(new String[] {
-	    		reader.getBroadcast().getStatus().getTime(),
-	    		reader.getBroadcast().getStatus().getUsername(),
-	    		Integer.toString(reader.getBroadcast().getStatus().getPID()),
+	    		reader.getSubmission().getTime(),
+	    		reader.getSubmission().getUsername(),
+	    		Integer.toString(reader.getSubmission().getPID()),
 	    		result
 	    		});  
 	}

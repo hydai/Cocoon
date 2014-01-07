@@ -146,4 +146,16 @@ public class JSONReader{
 	public String getType() {
 		return type;
 	}
+	public Info getInfo() {
+		return info;
+	}
+	public Login getLogin() {
+		return login;
+	}
+	public Query getQuery() {
+		return query;
+	}
+	public Submission getSubmission() {
+		return submission;
+	}
 }

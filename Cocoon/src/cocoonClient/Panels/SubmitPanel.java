@@ -28,11 +28,12 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.logging.Level;
 
+import JSONTransmitProtocol.newReader.JSONReader;
 import JSONTransmitProtocol.newcreater.*;
 import JSONTransmitProtocol.newcreater.info.CreaterInfo;
 import JSONTransmitProtocol.newcreater.submission.CreaterSubmission;
 import JSONTransmitProtocol.newcreater.submission.SubmissionSent;
-import JSONTransmitProtocol.reader.JSONReader;
+
 
 
 public class SubmitPanel extends JPanel implements AbstractConnector{
@@ -228,8 +229,8 @@ public class SubmitPanel extends JPanel implements AbstractConnector{
 	public void recieveResponse(String response){
 		UserInfo.getPanels().get("status").recieveResponse(response);
 		JSONReader reader = new JSONReader(response);
-		if(reader.getBroadcast().getStatus().getUID() == UserInfo.getUID()){
-			JOptionPane.showMessageDialog(parent, "Response: " + reader.getBroadcast().getStatus().getResult());
+		if(reader.getSubmission().getUID() == UserInfo.getUID()){
+			JOptionPane.showMessageDialog(parent, "User: " + reader.getSubmission().getUsername() + "\nResponse: " + reader.getSubmission().getResult());
 		}
 	}
 }	

@@ -46,7 +46,6 @@ public class MainFrame extends JFrame {
 		this.setMenu();
 		initBtn();
 		LoginDialogue loginDialogue = new LoginDialogue(this);
-		//this.setVisible(true);
 	}
 	public void setRightPanel(AbstractRightPanel panel){
 		if(rightPanel != null){
