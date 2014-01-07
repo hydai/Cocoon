@@ -42,8 +42,8 @@
 	
 	"query":
 	{
-		"type":<String> [query | response]
-		"query":
+		"type":<String> [question | response]
+		"question":
 		{
 			"type":<String> [rank | friendlist | problemrate | statistics]
 			"problemrate":<int> [PID]

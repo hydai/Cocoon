@@ -9,8 +9,6 @@ import cocoonClient.Connector.AbstractConnector;
 import cocoonClient.Connector.ChatClient;
 import cocoonClient.Data.UserInfo;
 
-import com.restfb.types.User;
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
