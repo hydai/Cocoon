@@ -13,6 +13,9 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import JSONTransmitProtocol.newcreater.JSONCreater;
+import JSONTransmitProtocol.newcreater.query.CreaterQuery;
+import JSONTransmitProtocol.newcreater.query.QueryQuestion;
 import cocoonClient.Component.*;
 import cocoonClient.Data.GetProblemSet;
 import cocoonClient.Data.UserInfo;
@@ -78,5 +81,13 @@ public class ProblemsPanel extends AbstractDisplayPanel{
 	    tree.setOpaque(false);
 	    tree.setPreferredSize(new Dimension(160, 500));
 	    this.add(tree, BorderLayout.WEST);
+	 }
+	 @Override
+	 public void switchToThisPanel(){
+		 super.switchToThisPanel();
+		 JSONCreater json = new JSONCreater("query")
+		 .setInfo(UserInfo.getUserInfo())
+		 .setQuery(new CreaterQuery("question", new QueryQuestion("problemrate", UserInfo.getPID())));
+		 UserInfo.getClient().sendMessage(json.toString());
 	 }
 }
