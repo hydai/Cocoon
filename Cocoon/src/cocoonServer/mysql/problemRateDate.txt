@@ -1,3 +1,0 @@
-pid,totalSubmission,accept,wrongAnswer,runtimeError,timeLimitExceeded,memoryLimitExceeded,CompileError
-1 53 50 3 0 0 0 0
-2 12 6 3 0 
