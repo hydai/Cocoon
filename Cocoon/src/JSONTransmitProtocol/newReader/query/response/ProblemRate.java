@@ -8,7 +8,7 @@ public class ProblemRate {
 	private int RuntimeError;
 	private int TimeLimitExceeded;
 	private int MemoryLimitExceeded;
-	private int UnknownError;
+	private int CompileError;
 	public ProblemRate() {
 		PID = 0;
 		TotalSubmission = 0;
@@ -17,7 +17,7 @@ public class ProblemRate {
 		RuntimeError = 0;
 		TimeLimitExceeded = 0;
 		MemoryLimitExceeded = 0;
-		UnknownError = 0;
+		CompileError = 0;
 	}
 	public void setAccept(int accept) {
 		Accept = accept;
@@ -37,8 +37,8 @@ public class ProblemRate {
 	public void setTotalSubmission(int totalSubmission) {
 		TotalSubmission = totalSubmission;
 	}
-	public void setUnknownError(int unknownError) {
-		UnknownError = unknownError;
+	public void setCompileError(int compileError) {
+		CompileError = compileError;
 	}
 	public void setWrongAnswer(int wrongAnswer) {
 		WrongAnswer = wrongAnswer;
@@ -61,8 +61,8 @@ public class ProblemRate {
 	public int getTotalSubmission() {
 		return TotalSubmission;
 	}
-	public int getUnknownError() {
-		return UnknownError;
+	public int getCompileError() {
+		return CompileError;
 	}
 	public int getWrongAnswer() {
 		return WrongAnswer;

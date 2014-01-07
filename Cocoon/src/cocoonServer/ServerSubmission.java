@@ -45,6 +45,7 @@ public class ServerSubmission {
 	public void run() {
 		runCode.run();
 		result = runCode.getResult();
+		jsonReader.getSubmission().setResult(result);
 	}
 	public String getResult() {
 		return result;

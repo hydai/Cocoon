@@ -8,8 +8,9 @@ public class  SubmissionResponse extends JSONObject{
 		try{
 			this.put("UID", UID);
 			this.put("PID", PID);
-			this.	put("username", username);
+			this.put("submissionID", submissionID);
 			this.put("result", result);
+			this.	put("username", username);
 			this.put("time", time);
 		}
 		catch(Exception e){

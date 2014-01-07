@@ -1,5 +1,11 @@
 package cocoonClient.Panels;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
+import JSONTransmitProtocol.newReader.JSONReader;
 import cocoonClient.Connector.AbstractConnector;
 import cocoonClient.Data.UserInfo;
 import cocoonClient.Frame.MainFrame;
@@ -13,8 +19,10 @@ public class RankPanel extends AbstractRightPanel implements AbstractConnector{
 
 	@Override
 	public void recieveResponse(String response) {
-		
-		//TODO
+		Map<String, Integer>rank = new JSONReader(response).getQuery().getResponse().getRank().getRankMap();
+		for(Entry<String, Integer> entry :rank.entrySet()){
+			
+		}
 	}
 
 }
