@@ -1,0 +1,26 @@
+2 4
+We can use ctrl + F to search for some string in the article.
+Please find a string appear how many times in the article.
+Article
+2
+4
+A
+3 2
+ZZZZZZZZZZZZZZZZZZZZzzzzzzzzZZZZZZZ
+OAQAOAQAOAOAOAQAQAQAQAOAQAOAOAQAQAQAO
+Qwertyuio;khasdfghjklxcvbjfnqllqefui qiwuehfl qewlhfh iwe
+zz
+OAQ
+3 9
+piwoevnf;slululaubf.hwkvawelkfcn2 fhlquigy baw, ejfawsd.
+1234oo7stufgl2vtasdfcowuielulj f awlkjf v oaluwj3hro2qyieuwfdj.
+222222222226546564vqw3e5vsv32f83w2e000654000000qwer3va3sd2803asd.
+0
+2
+22
+222
+2222
+22222
+654
+lul
+.
