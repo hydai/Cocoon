@@ -5,7 +5,7 @@ public class ProblemRate {
 	private int TotalSubmission;
 	private int Accept;
 	private int WrongAnswer;
-	private int RubtimeError;
+	private int RuntimeError;
 	private int TimeLimitExceeded;
 	private int MemoryLimitExceeded;
 	private int UnknownError;
@@ -14,7 +14,7 @@ public class ProblemRate {
 		TotalSubmission = 0;
 		Accept = 0;
 		WrongAnswer = 0;
-		RubtimeError = 0;
+		RuntimeError = 0;
 		TimeLimitExceeded = 0;
 		MemoryLimitExceeded = 0;
 		UnknownError = 0;
@@ -28,8 +28,8 @@ public class ProblemRate {
 	public void setPID(int pID) {
 		PID = pID;
 	}
-	public void setRubtimeError(int rubtimeError) {
-		RubtimeError = rubtimeError;
+	public void setRuntimeError(int runtimeError) {
+		RuntimeError = runtimeError;
 	}
 	public void setTimeLimitExceeded(int timeLimitExceeded) {
 		TimeLimitExceeded = timeLimitExceeded;
@@ -53,7 +53,7 @@ public class ProblemRate {
 		return PID;
 	}
 	public int getRubtimeError() {
-		return RubtimeError;
+		return RuntimeError;
 	}
 	public int getTimeLimitExceeded() {
 		return TimeLimitExceeded;

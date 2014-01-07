@@ -1,6 +1,9 @@
 package JSONTransmitProtocol.newReader;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import JSONTransmitProtocol.newReader.query.Response;
 
 
 public class JSONReader{
@@ -90,7 +93,46 @@ public class JSONReader{
 					}
 				}
 				else if (queryType.equals("response")) {
-					//TODO: response jsonReader
+					JSONObject responseJsonObject = queryJsonObject.getJSONObject("response");
+					String responseType = responseJsonObject.getString("type");
+					query.setResponse(new Response(responseType));
+					if (responseType.equals("rank")) {
+						JSONArray rankJsonArray = responseJsonObject.getJSONArray("rank");
+						for (int i = 0; i < rankJsonArray.length(); i++) {
+							String username;
+							int solved;
+							JSONObject rankPair = rankJsonArray.getJSONObject(i);
+							username = rankPair.getString("username");
+							solved = rankPair.getInt("solved");
+							query.getResponse().getRank().AddRank(username, solved);
+						}
+					}
+					else if (responseType.equals("problemrate")) {
+						JSONObject problemrateJsonObject = responseJsonObject.getJSONObject("problemrate");
+						query.getResponse().getProblemRate().setPID(problemrateJsonObject.getInt("PID"));
+						query.getResponse().getProblemRate().setTotalSubmission(problemrateJsonObject.getInt("TotalSubmission"));
+						query.getResponse().getProblemRate().setAccept(problemrateJsonObject.getInt("Accept"));
+						query.getResponse().getProblemRate().setWrongAnswer(problemrateJsonObject.getInt("WrongAnswer"));
+						query.getResponse().getProblemRate().setRuntimeError(problemrateJsonObject.getInt("RuntimeError"));
+						query.getResponse().getProblemRate().setTimeLimitExceeded(problemrateJsonObject.getInt("TimeLimitExceeded"));
+						query.getResponse().getProblemRate().setMemoryLimitExceeded(problemrateJsonObject.getInt("MemoryLimitExceeded"));
+						query.getResponse().getProblemRate().setUnknownError(problemrateJsonObject.getInt("UnknownError"));
+					}
+					else if (responseType.equals("friendlist")){
+						JSONArray friendlistJsonArray = responseJsonObject.getJSONArray("friendlist");
+						for (int i = 0; i < friendlistJsonArray.length(); i++) {
+							query.getResponse().getFriendList().addFriend(friendlistJsonArray.getString(i));
+						}
+					}
+					else if (responseType.equals("statistics")) {
+						JSONArray statisticsJsonArray = responseJsonObject.getJSONArray("statistics");
+						for (int i = 0; i < statisticsJsonArray.length(); i++) {
+							JSONObject problemtypeAndSolvedJsonObject = statisticsJsonArray.getJSONObject(i);
+							String problemtype = problemtypeAndSolvedJsonObject.getString("problemtype");
+							int solved = problemtypeAndSolvedJsonObject.getInt("solved");
+							query.getResponse().getStatistics().AddStatistics(problemtype, solved);
+						}
+					}
 				}
 			}
 			else {
