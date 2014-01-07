@@ -33,17 +33,7 @@ public class ProblemsPanel extends AbstractDisplayPanel{
 		initButtonPanel();
 	}
 	private void initButtonPanel() {
-		AbstractRightPanel panel = new AbstractRightPanel(UserInfo.getMainFrame());
-		panel.setLayout(new FlowLayout());
-		CocoonButton submit = new CocoonButton("Submit");
-		submit.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				submitFrame.open();
-			}
-		});;
-		panel.add(submit);
+		AbstractRightPanel panel = new ProblemsRightPanel(submitFrame);
 		this.setRightPanel(panel);
 	}
 	private void initBrowser(){

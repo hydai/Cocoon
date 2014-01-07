@@ -125,8 +125,7 @@ public class ChatClient{
 					line = reader.readLine();
 					if(line == null)
 						break;
-					String type = new JSONReader(line).getType();
-					UserInfo.getPanels().get(type).recieveResponse(line);
+					Distributor.distribute(line);
 				}
 				catch(IOException e){
 					break;
