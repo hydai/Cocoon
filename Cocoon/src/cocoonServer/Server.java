@@ -17,6 +17,9 @@ import JSONTransmitProtocol.newcreater.JSONCreater;
 import JSONTransmitProtocol.newcreater.info.CreaterInfo;
 import JSONTransmitProtocol.newcreater.login.CreaterLogin;
 import JSONTransmitProtocol.newcreater.login.LoginCheck;
+import JSONTransmitProtocol.newcreater.query.CreaterQuery;
+import JSONTransmitProtocol.newcreater.query.QueryResponse;
+import JSONTransmitProtocol.newcreater.query.ResponseProblemrate;
 import JSONTransmitProtocol.newcreater.submission.CreaterSubmission;
 import JSONTransmitProtocol.newcreater.submission.SubmissionResponse;
 
@@ -85,8 +88,6 @@ public class Server {
 					jsonReader = new JSONReader(jsonString);
 					if (jsonReader.getType().equals("submission")) {
 						jsonReader.getSubmission().setSubmissionID(runtimeIDLong);
-						System.out.println("Submission ID: " + jsonReader.getSubmission().getSubmissionID());
-						System.out.println("Submission type: " + jsonReader.getSubmission().getLanguage());
 						ServerSubmission submission = new ServerSubmission(jsonReader);
 						submission.run();
 						JSONObject json = new JSONCreater("submission").
@@ -123,6 +124,31 @@ public class Server {
 										new LoginCheck(
 												jsonReader.getLogin().getUID(),
 												jsonReader.getLogin().getStatement())));
+						sendMessage(json.toString());
+					}
+					else if (jsonReader.getType().equals("query")) {
+						ServerQuery query = new ServerQuery(jsonReader);
+						query.run();
+						JSONCreater json = new JSONCreater("query").
+								setInfo(new CreaterInfo(
+										jsonReader.getInfo().getUsername(),
+										jsonReader.getInfo().getPID(), 
+										jsonReader.getInfo().getUID(),
+										jsonReader.getInfo().getIP(),
+										jsonReader.getInfo().getTime())).
+								setQuery(new CreaterQuery(
+										"response", 
+										new QueryResponse(
+												"problemrate", 
+												new ResponseProblemrate(
+														jsonReader.getQuery().getResponse().getProblemRate().getPID(), 
+														jsonReader.getQuery().getResponse().getProblemRate().getTotalSubmission(),
+														jsonReader.getQuery().getResponse().getProblemRate().getAccept(), 
+														jsonReader.getQuery().getResponse().getProblemRate().getWrongAnswer(), 
+														jsonReader.getQuery().getResponse().getProblemRate().getRubtimeError(), 
+														jsonReader.getQuery().getResponse().getProblemRate().getTimeLimitExceeded(), 
+														jsonReader.getQuery().getResponse().getProblemRate().getMemoryLimitExceeded(), 
+														jsonReader.getQuery().getResponse().getProblemRate().getCompileError()))));
 						sendMessage(json.toString());
 					}
 				} catch (IOException e) {

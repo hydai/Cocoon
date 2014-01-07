@@ -1,9 +1,20 @@
 package cocoonServer.mysql;
 
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class SQLProblemRate extends SQLData{
+	private String querySQLString = "select * from ProblemRate where pid = ?";
+	private int pid;
+	private int totalSubmission;
+	private int accept;
+	private int wrongAnswer;
+	private int runtimeError;
+	private int timeLimitExceeded;
+	private int memoryLimitExceeded;
+	private int compileError;
 	public SQLProblemRate() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -20,7 +31,7 @@ public class SQLProblemRate extends SQLData{
 			",	memoryLimitExceeded INTEGER " +
 			",	compileError INTEGER )";
 			insertdbSQL = "insert into ProblemRate(pid,totalSubmission,accept,wrongAnswer,runtimeError,timeLimitExceeded,memoryLimitExceeded,compileError) " +
-			" ?, ?, ?, ?, ?, ?, ?, ?  ";
+			" VALUES ( ?, ?, ?, ?, ?, ?, ?, ? ) ";
 			selectSQL = "select * from ProblemRate ";
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
@@ -84,7 +95,51 @@ public class SQLProblemRate extends SQLData{
 		{
 			close();
 		}
-		
+	}
+	
+	public void runProblemRateQuery(int pid) {
+		try {
+			PreparedStatement getUsernamePreparedStatement = 
+					connection.prepareStatement(querySQLString);
+			getUsernamePreparedStatement.setInt(1, pid);
+			ResultSet resultSet = getUsernamePreparedStatement.executeQuery();
+			if (resultSet.next()) {
+				totalSubmission = resultSet.getInt("totalSubmission");
+				accept = resultSet.getInt("accept");
+				wrongAnswer = resultSet.getInt("wrongAnswer");
+				runtimeError = resultSet.getInt("runtimeError");
+				timeLimitExceeded = resultSet.getInt("timeLimitExceeded");
+				memoryLimitExceeded = resultSet.getInt("memoryLimitExceeded");
+				compileError = resultSet.getInt("compileError");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public int getAccept() {
+		return accept;
+	}
+	public int getCompileError() {
+		return compileError;
+	}
+	public int getMemoryLimitExceeded() {
+		return memoryLimitExceeded;
+	}
+	public int getPid() {
+		return pid;
+	}
+	public int getRuntimeError() {
+		return runtimeError;
+	}
+	public int getTotalSubmission() {
+		return totalSubmission;
+	}
+	public int getTimeLimitExceeded() {
+		return timeLimitExceeded;
+	}
+	public int getWrongAnswer() {
+		return wrongAnswer;
 	}
 }
 /*

@@ -1,9 +1,8 @@
 package cocoonServer.mysql;
 
-import java.util.Scanner;
-
 public class LinkToMySQL {
 	public static void main(String[] args) {
+		/*
 		SQLUserData userData = new SQLUserData();
 		userData.dropTable();
 		userData.createTable();
@@ -17,6 +16,27 @@ public class LinkToMySQL {
 		}
 		scanner.close();
 		userData.selectTable();
+		*/
+		/*
+		SQLProblemRate problemRate = new SQLProblemRate();
+		problemRate.dropTable();
+		problemRate.createTable();
+		System.out.println(LinkToMySQL.class.getResourceAsStream("problemRateData.txt"));
+		Scanner scanner = new Scanner(LinkToMySQL.class.getResourceAsStream("problemRateData.txt"));
+		while (scanner.hasNext()) {
+			int pid = scanner.nextInt();
+			int totalSubmission = scanner.nextInt();
+			int accept = scanner.nextInt();
+			int wrongAnswer = scanner.nextInt();
+			int runtimeError = scanner.nextInt();
+			int timeLimitExceeded = scanner.nextInt();
+			int memoryLimitExceeded = scanner.nextInt();
+			int compileError = scanner.nextInt();
+			problemRate.insertTable(pid, totalSubmission, accept, wrongAnswer, runtimeError, timeLimitExceeded, memoryLimitExceeded, compileError);
+		}
+		scanner.close();
+		problemRate.selectTable();
+		*/
 		/*
 		SQLProblemData problemData = new SQLProblemData();
 		problemData.dropTable();
