@@ -20,7 +20,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.*;	 //���Ѩt�ο�J�M��X�q�L�ƾڬy�A�ǦC�ƩM���t��
+import java.io.*;	 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
@@ -28,7 +28,10 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.logging.Level;
 
-import JSONTransmitProtocol.creater.*;
+import JSONTransmitProtocol.newcreater.*;
+import JSONTransmitProtocol.newcreater.info.CreaterInfo;
+import JSONTransmitProtocol.newcreater.submission.CreaterSubmission;
+import JSONTransmitProtocol.newcreater.submission.SubmissionSent;
 import JSONTransmitProtocol.reader.JSONReader;
 
 
@@ -205,10 +208,12 @@ public class SubmitPanel extends JPanel implements AbstractConnector{
 	}
 	private void submit(){
 		if(isSubmittable){
-			String time = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime());
-			json = new JSONCreater().setType("submission")
-			.setSubmission(t.getText(), language)
-			.setSubmissionInfo(UserInfo.getPID(), UserInfo.getUID(), UserInfo.getIP(), time);
+			
+			json = new JSONCreater("submission")
+			.setInfo(UserInfo.getUserInfo())
+			.setSubmission(new CreaterSubmission("sent", new SubmissionSent(t.getText(), language)));
+			//.setSubmission(t.getText(), language)
+			//.setSubmissionInfo(UserInfo.getPID(), UserInfo.getUID(), UserInfo.getIP(), time);
 			client.sendMessage(json.toString());
 			t.setText("");
 			json = null;

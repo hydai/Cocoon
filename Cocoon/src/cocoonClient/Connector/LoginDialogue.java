@@ -83,7 +83,7 @@ public class LoginDialogue extends JDialog implements AbstractConnector{
 						String username = userText.getText();
 						String password = passwordText.getText();
 						if(username.equals("cocoon") && password.equals("admin")){
-							UserInfo.setUID(-217L);
+							UserInfo.setUID(-217);
 							parent.setVisible(true);
 			                dispose();
 						}
@@ -130,12 +130,11 @@ public class LoginDialogue extends JDialog implements AbstractConnector{
 	}
 	@Override
 	public void recieveResponse(String response) {
-		System.out.println("login:\n" + response);
 		JSONReader reader = new JSONReader(response);
 		if(reader.getType().equals("login")){
 			System.out.println(reader.getLogin().getUid());
 			if(reader.getLogin().getUid() > 0L){
-				UserInfo.setUID(reader.getLogin().getUid());
+				UserInfo.setUID((int)reader.getLogin().getUid());
 				parent.setVisible(true);
                 dispose();
 				return;

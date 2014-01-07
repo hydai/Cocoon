@@ -35,7 +35,7 @@ public class MainFrame extends JFrame {
 	private ChatClient client;
 	
 	public MainFrame() {
-		UserInfo.initUserInfo(this, -1L);
+		UserInfo.initUserInfo(this, -1);
 		this.client = UserInfo.getClient();
 		this.setTitle("Cocoon");
 		this.setSize(800, 600);

@@ -3,16 +3,28 @@ package JSONTransmitProtocol.newcreater.query;
 import org.json.JSONObject;
 
 public class QueryQuestion extends JSONObject{
-	public QueryQuestion(String type){
+	public QueryQuestion(String type, int num){
 		super();
 		try{
 			this.put("type", type);
+			this.put(type, num);
 		}
 		catch(Exception e){
 			e.printStackTrace();
 		}
 	}
-	public QueryQuestion setUID(int UID){
+	
+	public QueryQuestion(String type, String str){
+		super();
+		try{
+			this.put("type", type);
+			this.put(type, str);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	/*public QueryQuestion setUID(int UID){
 		try{
 			this.put("UID", UID);
 		}
@@ -38,5 +50,5 @@ public class QueryQuestion extends JSONObject{
 			e.printStackTrace();
 		}
 		return this;
-	}
+	}*/
 }

@@ -7,6 +7,7 @@ public class JSONCreater extends JSONObject{
 	private JSONObject query = new JSONObject();
 	private JSONObject login = new JSONObject();
 	private JSONObject broadcast = new JSONObject();
+	
 	public JSONCreater(JSONCreater json){
 		try {
 			submission = json.getJSONObject("submission");

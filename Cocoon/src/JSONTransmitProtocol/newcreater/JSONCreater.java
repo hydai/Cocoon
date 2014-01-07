@@ -9,11 +9,9 @@ import JSONTransmitProtocol.newcreater.submission.CreaterSubmission;
 
 public class JSONCreater extends JSONObject{
 	
-	public JSONCreater(){
-		super();
-	}
+	
 	public JSONCreater(String type){
-		this();
+		super();
 		try{
 			this.put("type", type);
 		}
@@ -39,7 +37,7 @@ public class JSONCreater extends JSONObject{
 		}
 		return this;
 	}
-	public JSONCreater setInfo(CreaterLogin login){
+	public JSONCreater setLogin(CreaterLogin login){
 		try{
 			this.put("login", login);
 		}
@@ -48,7 +46,7 @@ public class JSONCreater extends JSONObject{
 		}
 		return this;
 	}
-	public JSONCreater setInfo(CreaterQuery query){
+	public JSONCreater setQuery(CreaterQuery query){
 		try{
 			this.put("info", query);
 		}
