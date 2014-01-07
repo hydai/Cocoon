@@ -5,8 +5,6 @@ import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 
-import com.restfb.types.User;
-
 import cocoonClient.Data.UserInfo;
 import cocoonClient.Panels.SubmitPanel;
 
