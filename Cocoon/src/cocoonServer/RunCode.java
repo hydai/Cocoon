@@ -6,12 +6,12 @@ import java.util.Scanner;
 public class RunCode {
 	private String language;
 	private String result;
-	private Long runtimeID;
+	private int runtimeID;
 	private int timeLimit;
 	private int memoryLimit;
 	private int problemID;
 	private boolean isStrictJudge;
-	public RunCode(String lang, Long runtimeID) {
+	public RunCode(String lang, int runtimeID) {
 		this.language = lang;
 		this.runtimeID = runtimeID;
 	}

@@ -2,8 +2,8 @@ package cocoonServer;
 
 import java.io.PrintWriter;
 
+import JSONTransmitProtocol.newReader.JSONReader;
 import cocoonServer.mysql.SQLUserData;
-import JSONTransmitProtocol.reader.JSONReader;
 
 public class ServerSubmission {
 	private JSONReader jsonReader;
@@ -39,10 +39,7 @@ public class ServerSubmission {
 				jsonReader.getSubmission().getSubmissionID());
 		runCode.setMemoryLimit(130000);
 		runCode.setTimeLimit(1000);
-		runCode.setProblemID(
-				jsonReader.getSubmission().
-				getInfo().
-				getPID());
+		runCode.setProblemID(jsonReader.getInfo().getPID());
 		runCode.setStrictJudge(true);
 	}
 	public void run() {
@@ -52,20 +49,20 @@ public class ServerSubmission {
 	public String getResult() {
 		return result;
 	}
-	public Long getUserID() {
-		return jsonReader.getSubmission().getInfo().getUID();
+	public int getUserID() {
+		return jsonReader.getInfo().getUID();
 	}
-	public Long getSubmissionID() {
+	public int getSubmissionID() {
 		return jsonReader.getSubmission().getSubmissionID();
 	}
 	public String getTime() {
-		return jsonReader.getSubmission().getInfo().getTime();
+		return jsonReader.getInfo().getTime();
 	}
 	public int getPID() {
-		return jsonReader.getSubmission().getInfo().getPID();
+		return jsonReader.getInfo().getPID();
 	}
 	public String getUsername() {
 		SQLUserData userData = new SQLUserData();
-		return userData.getUsername((int)jsonReader.getSubmission().getInfo().getUID());
+		return userData.getUsername(jsonReader.getInfo().getUID());
 	}
 }

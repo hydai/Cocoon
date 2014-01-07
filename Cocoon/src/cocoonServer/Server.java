@@ -12,8 +12,14 @@ import java.util.List;
 
 import org.json.JSONObject;
 
-import JSONTransmitProtocol.creater.JSONCreater;
-import JSONTransmitProtocol.reader.JSONReader;
+import JSONTransmitProtocol.newReader.JSONReader;
+import JSONTransmitProtocol.newcreater.JSONCreater;
+import JSONTransmitProtocol.newcreater.info.CreaterInfo;
+import JSONTransmitProtocol.newcreater.login.CreaterLogin;
+import JSONTransmitProtocol.newcreater.login.LoginCheck;
+import JSONTransmitProtocol.newcreater.submission.CreaterSubmission;
+import JSONTransmitProtocol.newcreater.submission.SubmissionResponse;
+
 
 public class Server {
 	private RuntimeID runtimeID;
@@ -75,28 +81,45 @@ public class Server {
 					jsonString = this.reader.readLine();
 					if (jsonString == null)
 						break;
-					Long runtimeIDLong = runtimeID.getRuntimeID();
+					int runtimeIDLong = runtimeID.getRuntimeID();
 					jsonReader = new JSONReader(jsonString);
 					if (jsonReader.getType().equals("submission")) {
 						jsonReader.getSubmission().setSubmissionID(runtimeIDLong);
 						ServerSubmission submission = new ServerSubmission(jsonReader);
 						submission.run();
-						JSONObject json = new JSONCreater().setType("broadcast")
-								.setBroadcast("status", submission.getUserID())
-								.setBroadcastStatus(submission.getUserID(),
-										submission.getPID(),
-										submission.getUsername(),
-										submission.getSubmissionID(), 
-										submission.getResult(), 
-										submission.getTime());
+						JSONObject json = new JSONCreater("submission").
+								setInfo(new CreaterInfo(
+										jsonReader.getInfo().getUsername(),
+										jsonReader.getInfo().getPID(), 
+										jsonReader.getInfo().getUID(),
+										jsonReader.getInfo().getIP(),
+										jsonReader.getInfo().getTime())).
+								setSubmission(new CreaterSubmission(
+										"response", new SubmissionResponse(
+												jsonReader.getInfo().getUID(), 
+												jsonReader.getInfo().getPID(), 
+												jsonReader.getInfo().getUsername(), 
+												jsonReader.getSubmission().getSubmissionID(),
+												jsonReader.getSubmission().getResult(),
+												jsonReader.getInfo().getTime())));
 						broadcast(json.toString());
 					}
 					else if (jsonReader.getType().equals("login")) {
 						ServerLogin login = new ServerLogin(jsonReader);
 						login.run();
-						JSONCreater json = new JSONCreater().setType("login").
-								setLogin("check", login.getUsername(), login.getPassword()).
-								setLoginCheck(login.getUid(), login.getStatement());
+						JSONCreater json = new JSONCreater("login").
+								setInfo(new CreaterInfo(
+										jsonReader.getInfo().getUsername(),
+										jsonReader.getInfo().getPID(), 
+										jsonReader.getInfo().getUID(),
+										jsonReader.getInfo().getIP(),
+										jsonReader.getInfo().getTime())).
+								setLogin(new CreaterLogin(
+										"check", 
+										jsonReader.getLogin().getPassword(),
+										new LoginCheck(
+												jsonReader.getLogin().getUID(),
+												jsonReader.getLogin().getStatement())));
 						sendMessage(json.toString());
 					}
 				} catch (IOException e) {

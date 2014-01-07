@@ -1,6 +1,7 @@
 package cocoonServer;
 
-import JSONTransmitProtocol.reader.JSONReader;
+
+import JSONTransmitProtocol.newReader.JSONReader;
 import cocoonServer.mysql.SQLUserData;
 
 public class ServerLogin {
@@ -17,37 +18,37 @@ public class ServerLogin {
 	}
 	
 	public void register() {
-		if (!userData.isUserExist(jsonReader.getLogin().getUsername())) {
-			userData.insertTable(jsonReader.getLogin().getUsername(), jsonReader.getLogin().getPassword());
-			jsonReader.getLogin().setUid(userData.getUserId(jsonReader.getLogin().getUsername()));
+		if (!userData.isUserExist(jsonReader.getInfo().getUsername())) {
+			userData.insertTable(jsonReader.getInfo().getUsername(), jsonReader.getLogin().getPassword());
+			jsonReader.getLogin().setUID(userData.getUserId(jsonReader.getInfo().getUsername()));
 			jsonReader.getLogin().setStatement("");
 		}
 		else {
-			jsonReader.getLogin().setUid(-1);
+			jsonReader.getLogin().setUID(-1);
 			jsonReader.getLogin().setStatement("Used username");
 		}
 	}
 	public void login() {
-		jsonReader.getLogin().setUid(-1);
-		if (userData.isUserExist(jsonReader.getLogin().getUsername())) {
-			jsonReader.getLogin().setUid(
+		jsonReader.getLogin().setUID(-1);
+		if (userData.isUserExist(jsonReader.getInfo().getUsername())) {
+			jsonReader.getLogin().setUID(
 					userData.checkUserPassword(
-							jsonReader.getLogin().getUsername(),
+							jsonReader.getInfo().getUsername(),
 							jsonReader.getLogin().getPassword()));
-			if (jsonReader.getLogin().getUid() != -1) {
+			if (jsonReader.getLogin().getUID() != -1) {
 				jsonReader.getLogin().setStatement("");
 			}
 			else {
-				jsonReader.getLogin().setUid(-1);
+				jsonReader.getLogin().setUID(-1);
 				jsonReader.getLogin().setStatement("incorrect username or password");
 			}
 		}
 	}
 	public long getUid() {
-		return jsonReader.getLogin().getUid();
+		return jsonReader.getLogin().getUID();
 	}
 	public String getUsername() {
-		return jsonReader.getLogin().getUsername();
+		return jsonReader.getInfo().getUsername();
 	}
 	public String getPassword() {
 		return jsonReader.getLogin().getPassword();

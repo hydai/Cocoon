@@ -1,10 +1,10 @@
 package cocoonServer;
 
 public class RuntimeID {
-	private static Long runtimeID;
+	private static int runtimeID;
 	private static RuntimeID self;
 	private RuntimeID() {
-		runtimeID = 0L;
+		runtimeID = 0;
 	}
 	public static synchronized RuntimeID getInstance() {
 		if (self == null) {
@@ -12,7 +12,7 @@ public class RuntimeID {
 		}
 		return self;
 	}
-	public synchronized Long getRuntimeID() {
+	public synchronized int getRuntimeID() {
 		runtimeID++;
 		return runtimeID;
 	}
