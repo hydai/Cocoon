@@ -71,10 +71,21 @@ public class ProblemsPanel extends AbstractDisplayPanel{
 				String selection;
 				selection = tree.getLastSelectedPathComponent().toString();
 				if(problemSet.containsKey(selection)){
+					UserInfo.setProblemName(selection);
 					UserInfo.setPID(problemSet.get(selection));
 					submitFrame.changeProblemName(selection);
 					String url = "https://dl.dropboxusercontent.com/u/176423666/OJ/" + problemSet.get(selection)+ ".html";
 					browser.loadURL(url);
+					
+					if(UserInfo.getPID() > 0){
+						if(UserInfo.getUID() <= 0)
+							 return;
+						 JSONCreater json = new JSONCreater("query")
+						 .setInfo(UserInfo.getUserInfo())
+						 .setQuery(new CreaterQuery("question", new QueryQuestion("problemrate", UserInfo.getPID())));
+						 UserInfo.getClient().sendMessage(json.toString());
+					}
+					
 				}
 			}
 		});
@@ -82,14 +93,5 @@ public class ProblemsPanel extends AbstractDisplayPanel{
 	    tree.setPreferredSize(new Dimension(160, 500));
 	    this.add(tree, BorderLayout.WEST);
 	 }
-	 @Override
-	 public void switchToThisPanel(){ 
-		 super.switchToThisPanel();
-		 if(UserInfo.getUID() <= 0)
-			 return;
-		 JSONCreater json = new JSONCreater("query")
-		 .setInfo(UserInfo.getUserInfo())
-		 .setQuery(new CreaterQuery("question", new QueryQuestion("problemrate", UserInfo.getPID())));
-		 UserInfo.getClient().sendMessage(json.toString());
-	 }
+	
 }

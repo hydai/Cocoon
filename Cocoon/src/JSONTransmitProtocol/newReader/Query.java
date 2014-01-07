@@ -12,6 +12,8 @@ public class Query {
 	private Query() {}
 	public Query(String type) {
 		this.type = type;
+		question = new Question();
+		response = new Response();
 	}
 	
 	public Question getQuestion() {

@@ -74,6 +74,7 @@ public class JSONReader{
 			else if (type.equals("query")) {
 				JSONObject queryJsonObject = jsonObject.getJSONObject("query");
 				String queryType = queryJsonObject.getString("type");
+
 				query = new Query(queryType);
 				if (queryType.equals("question")) {
 					JSONObject questionJsonObject = queryJsonObject.getJSONObject("question");

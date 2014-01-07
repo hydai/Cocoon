@@ -10,9 +10,10 @@ public class ResponseProblemrate extends JSONObject{
 			this.put("PID", PID);
 			this.put("TotalSubmission", TotalSubmission);
 			this.put("Accept", Accept);
+			this.put("WrongAnswer", WrongAnswer);
 			this.put("RuntimeError", RuntimeError);
-			this.put("TimeLimitExceed", TimeLimitExceed);
-			this.put("MemoryLimitExceed", MemoryLimitExceed);
+			this.put("TimeLimitExceeded", TimeLimitExceed);
+			this.put("MemoryLimitExceeded", MemoryLimitExceed);
 			this.put("CompileError", CompileError);
 		}
 		catch(Exception e){

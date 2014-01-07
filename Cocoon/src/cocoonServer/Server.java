@@ -76,6 +76,7 @@ public class Server {
 		public void sendMessage(String message) {
 			this.writer.println(message);
 			this.writer.flush();
+			System.out.println("SendMessage> " + message);
 		}
 		public void run() {
 			while (reader != null) {

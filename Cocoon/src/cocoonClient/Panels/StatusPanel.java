@@ -26,7 +26,7 @@ public class StatusPanel extends AbstractDisplayPanel implements AbstractConnect
 		this.setSize(600, 500);
 		this.setLayout(new FlowLayout());
 		init();
-		UserInfo.getPanels().put("response", this);
+		UserInfo.getPanels().put("SubmissionResponse", this);
 	}
 	private void init() {
 		try{
@@ -82,7 +82,11 @@ public class StatusPanel extends AbstractDisplayPanel implements AbstractConnect
 	private void addStatus(String response){
 		JSONReader reader = new JSONReader(response);
 	    DefaultTableModel dtm = (DefaultTableModel)table.getModel();
-	    String result = reader.getSubmission().getResult().split("\n")[0];
+	    String result = "";
+	    try{
+	    	result = reader.getSubmission().getResult().split("\n")[0];
+	    }
+	    catch(Exception e){}
 	    dtm.addRow(new String[] {
 	    		reader.getSubmission().getTime(),
 	    		reader.getSubmission().getUsername(),

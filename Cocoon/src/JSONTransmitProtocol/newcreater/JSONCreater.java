@@ -48,7 +48,7 @@ public class JSONCreater extends JSONObject{
 	}
 	public JSONCreater setQuery(CreaterQuery query){
 		try{
-			this.put("info", query);
+			this.put("query", query);
 		}
 		catch(Exception e){
 			e.printStackTrace();

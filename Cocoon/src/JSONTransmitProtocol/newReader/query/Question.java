@@ -7,8 +7,7 @@ public class Question {
 	private String statistics;
 	
 	
-	@SuppressWarnings("unused")
-	private Question() {}
+	public Question() {}
 	public Question(String type) {
 		this.type = type;
 	}

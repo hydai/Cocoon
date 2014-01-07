@@ -1,6 +1,7 @@
 package cocoonClient.Panels;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +16,7 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import JSONTransmitProtocol.newReader.JSONReader;
 import cocoonClient.Component.CocoonButton;
 import cocoonClient.Connector.AbstractConnector;
@@ -22,6 +24,7 @@ import cocoonClient.Data.UserInfo;
 import cocoonClient.Frame.SubmitFrame;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
+import javafx.geometry.Side;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
@@ -36,6 +39,7 @@ public class ProblemsRightPanel extends AbstractRightPanel implements AbstractCo
 	ProblemsRightPanel(final SubmitFrame submitFrame){
 		super(UserInfo.getMainFrame());
 		setLayout(new BorderLayout());
+		UserInfo.getPanels().put("problemrate", this);
 		CocoonButton submit = new CocoonButton("Submit");
 		submit.addActionListener(new ActionListener() {
 			
@@ -46,7 +50,8 @@ public class ProblemsRightPanel extends AbstractRightPanel implements AbstractCo
 		});
 		this.add(submit, BorderLayout.NORTH);
 		UserInfo.getPanels().put("problemrate", this);
-		final JFXPanel fxPanel = new JFXPanel();
+		fxPanel = new JFXPanel();
+		fxPanel.setPreferredSize(new Dimension(200, 350));
 		this.add(fxPanel,BorderLayout.SOUTH);
 		Platform.runLater(new Runnable() {
             @Override
@@ -55,7 +60,7 @@ public class ProblemsRightPanel extends AbstractRightPanel implements AbstractCo
             }
        });
 	}
-
+	final JFXPanel fxPanel;
 	private  void initFX(JFXPanel fxPanel) {
         // This method is invoked on the JavaFX thread
         Scene scene = createScene();
@@ -64,40 +69,21 @@ public class ProblemsRightPanel extends AbstractRightPanel implements AbstractCo
 	private PieChart chart;
     private Scene createScene() {
         Group  root  =  new  Group();
-        Scene  scene  =  new  Scene(root, Color.ALICEBLUE);
-        
+        Scene  scene  =  new  Scene(root, Color.TRANSPARENT);
+        if(reader == null)
+        	return scene;
         //
-        ObservableList<PieChart.Data> pieChartData =
-                FXCollections.observableArrayList(
-                new PieChart.Data("Grapefruit", 13),
-                new PieChart.Data("Oranges", 25),
-                new PieChart.Data("Plums", 10),
-                new PieChart.Data("Pears", 22),
-                new PieChart.Data("Apples", 30));
+        Text  text  =  new  Text();
         
-        chart = new PieChart(pieChartData);
-        chart.setScaleX(0.5);
-        chart.setScaleY(0.5);
-        chart.setTitle("Statistics");
+        text.setX(20);
+        text.setY(20);
+        text.setFont(new Font(14));
+        text.setTextAlignment(TextAlignment.CENTER);
+        text.setText(" Statistics of\n" + UserInfo.getProblemName());
 
-        ((Group) scene.getRoot()).getChildren().add(chart);
+        root.getChildren().add(text);
         
-        //
-        return (scene);
-    }
-    
-	@Override
-	public void recieveResponse(String response) {
-		JSONReader reader = new JSONReader(response);
-		/*Map<String, Integer> map = ;
-		"TotalSubmission":<int>
-		"Accept":<int>
-		"WrongAnswer":<int>
-		"RuntimeError":<int>
-		"TimeLimitExceeded":<int>
-		"MemoryLimitExceeded":<int>
-		"CompileError":<int>*/
-		ObservableList<PieChart.Data> pieChartData =
+        ObservableList<PieChart.Data> pieChartData =
                 FXCollections.observableArrayList(
                 new PieChart.Data("AC", reader.getQuery().getResponse().getProblemRate().getAccept()),
                 new PieChart.Data("CE", reader.getQuery().getResponse().getProblemRate().getCompileError()),
@@ -106,11 +92,26 @@ public class ProblemsRightPanel extends AbstractRightPanel implements AbstractCo
                 new PieChart.Data("TLE", reader.getQuery().getResponse().getProblemRate().getTimeLimitExceeded()),
                 new PieChart.Data("WA", reader.getQuery().getResponse().getProblemRate().getWrongAnswer())
                 		);
-        chart.setAnimated(true);
-        
         chart = new PieChart(pieChartData);
-        chart.setScaleX(0.4);
-        chart.setScaleY(0.4);
-		chart.setTitle("Statistics");
+        //chart.setTitle("Statistics");
+        chart.setTitleSide(Side.TOP);
+        chart.setMaxSize(200, 300);
+        chart.setLegendVisible(true);
+        chart.setLegendSide(Side.BOTTOM);
+        ((Group) scene.getRoot()).getChildren().add(chart);
+        
+        //
+        return (scene);
+    }
+   private  JSONReader reader;;
+	@Override
+	public void recieveResponse(String response) {
+		reader = new JSONReader(response);
+		Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                initFX(fxPanel);
+            }
+       });
 	}
 }

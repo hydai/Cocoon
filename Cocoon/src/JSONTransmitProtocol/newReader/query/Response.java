@@ -13,8 +13,12 @@ public class Response {
 	private Statistics statistics;
 	
 	
-	@SuppressWarnings("unused")
-	private Response() {}
+	public Response() {
+		problemRate = new ProblemRate();
+		rank = new Rank();
+		friendList = new FriendList();
+		statistics = new Statistics();
+	}
 	public Response(String type) {
 		this.type = type;
 		problemRate = new ProblemRate();

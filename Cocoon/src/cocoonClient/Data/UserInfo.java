@@ -17,7 +17,7 @@ public class UserInfo {
 	private static int uid;
 	private static int pid;
 	private static MainFrame parent;
-	private static String ip, problemName, username;
+	private static String ip = "", problemName = "", username = "";
 	private static HashMap<String, AbstractConnector> panels = new HashMap<String, AbstractConnector>();
 	private UserInfo(MainFrame parent, int uid){
 		UserInfo.parent = parent;

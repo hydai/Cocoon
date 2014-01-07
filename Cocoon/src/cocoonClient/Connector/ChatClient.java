@@ -45,6 +45,7 @@ public class ChatClient{
 	public void sendMessage(String message) {
 		this.writer.println(message);
 		this.writer.flush();
+		System.out.println("Client message > " + message);
 	}
 	public String getIPAddress(){
 		return this.destinationIPAddr;
