@@ -75,11 +75,11 @@ public class ProblemsRightPanel extends AbstractRightPanel implements AbstractCo
         //
         Text  text  =  new  Text();
         
-        text.setX(20);
+        text.setX(30);
         text.setY(20);
         text.setFont(new Font(14));
-        text.setTextAlignment(TextAlignment.CENTER);
-        text.setText(" Statistics of\n" + UserInfo.getProblemName());
+        //text.setTextAlignment(TextAlignment.CENTER);
+        text.setText(" Statistics of\n-" + UserInfo.getProblemName());
 
         root.getChildren().add(text);
         

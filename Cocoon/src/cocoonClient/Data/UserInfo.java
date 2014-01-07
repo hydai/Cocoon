@@ -19,6 +19,8 @@ public class UserInfo {
 	private static MainFrame parent;
 	private static String ip = "", problemName = "", username = "";
 	private static HashMap<String, AbstractConnector> panels = new HashMap<String, AbstractConnector>();
+	private static GetProblemSet problemSet;
+
 	private UserInfo(MainFrame parent, int uid){
 		UserInfo.parent = parent;
 		UserInfo.uid = uid;
@@ -81,5 +83,13 @@ public class UserInfo {
 	public static CreaterInfo getUserInfo(){
 		String time = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime());
 		return new CreaterInfo(username, pid, uid, ip, time);
+	}
+	
+	public static void setProblemSet(GetProblemSet set) {
+		UserInfo.problemSet = set;
+		
+	}
+	public static  GetProblemSet getProblemSet() {
+		return problemSet;
 	}
 }

@@ -50,7 +50,7 @@ public class SubmitPanel extends JPanel implements AbstractConnector{
 		//By default, connect to localhost.
 		client = UserInfo.getClient();
 		client.connect();
-		UserInfo.getPanels().put("submission", this);
+		UserInfo.getPanels().put("SubmissionResponse", this);
 		setLayout(new BorderLayout());
 		setRadioButton();
 		setTextArea();
@@ -227,7 +227,7 @@ public class SubmitPanel extends JPanel implements AbstractConnector{
 	
 	@Override
 	public void recieveResponse(String response){
-		UserInfo.getPanels().get("response").recieveResponse(response);
+		UserInfo.getPanels().get("Status").recieveResponse(response);
 		JSONReader reader = new JSONReader(response);
 		if(reader.getSubmission().getUID() == UserInfo.getUID()){
 			JOptionPane.showMessageDialog(parent, "User: " + reader.getSubmission().getUsername() + "\nResponse: " + reader.getSubmission().getResult());

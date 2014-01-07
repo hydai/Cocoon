@@ -26,7 +26,7 @@ public class StatusPanel extends AbstractDisplayPanel implements AbstractConnect
 		this.setSize(600, 500);
 		this.setLayout(new FlowLayout());
 		init();
-		UserInfo.getPanels().put("SubmissionResponse", this);
+		UserInfo.getPanels().put("Status", this);
 	}
 	private void init() {
 		try{
@@ -90,7 +90,7 @@ public class StatusPanel extends AbstractDisplayPanel implements AbstractConnect
 	    dtm.addRow(new String[] {
 	    		reader.getSubmission().getTime(),
 	    		reader.getSubmission().getUsername(),
-	    		Integer.toString(reader.getSubmission().getPID()),
+	    		UserInfo.getProblemSet().getProblemName(reader.getSubmission().getPID()),
 	    		result
 	    		});  
 	}

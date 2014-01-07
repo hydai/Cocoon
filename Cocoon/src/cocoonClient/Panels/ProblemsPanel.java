@@ -2,6 +2,7 @@ package cocoonClient.Panels;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -28,7 +29,9 @@ public class ProblemsPanel extends AbstractDisplayPanel{
 	private SubmitFrame submitFrame;
 	public ProblemsPanel(){
 		super(UserInfo.getMainFrame());
-		problemSet = new GetProblemSet().getProblemSet();
+		GetProblemSet set = new GetProblemSet();
+		problemSet = set.getProblemSet();
+		UserInfo.setProblemSet(set);
 		this.setLayout(new BorderLayout());
 		this.submitFrame = new SubmitFrame();
 		initBrowser();
@@ -64,6 +67,8 @@ public class ProblemsPanel extends AbstractDisplayPanel{
 	    root.add(intermediate);
 	    root.add(hard);
 	    tree = new JTree(root);
+	    tree.setAutoscrolls(true);
+	    //tree.setFont(new Font("", Font.PLAIN, 8));
 	    tree.setRootVisible(false);
 	    tree.getSelectionModel().addTreeSelectionListener(new TreeSelectionListener() {
 			@Override
