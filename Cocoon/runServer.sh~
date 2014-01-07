@@ -1,0 +1,4 @@
+#!/bin/bash
+v4l2-ctl -i 2
+echo "Run server"
+java -jar Server.jar

@@ -46,6 +46,7 @@
 		"query":
 		{
 			"type":<String> [rank | friendlist | problemrate | statistics]
+			
 			"problemrate":<int> [PID]
 			"rank":<int> [top <int>]
 			"statistics":<String> [username which is wanted to query]
