@@ -75,7 +75,7 @@ public class UserInfo {
 	public static String getUsername(){
 		return UserInfo.username;
 	}
-	public void  setUsername(String username){
+	public static void  setUsername(String username){
 		UserInfo.username = username;
 	}
 	public static CreaterInfo getUserInfo(){

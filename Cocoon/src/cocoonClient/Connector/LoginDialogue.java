@@ -79,6 +79,7 @@ public class LoginDialogue extends JDialog implements AbstractConnector{
 		ActionListener listener = new ActionListener() {	
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				UserInfo.setUsername(userText.getText());
 				new Thread(new Runnable() {
 					public void run() {
 						String username = userText.getText();
@@ -135,6 +136,7 @@ public class LoginDialogue extends JDialog implements AbstractConnector{
 		if(reader.getType().equals("login")){
 			if(reader.getLogin().getUID() > 0){
 				UserInfo.setUID(reader.getLogin().getUID() );
+				UserInfo.getMainFrame().setTitle("Cocoon - " + UserInfo.getUsername());
 				parent.setVisible(true);
                 dispose();
 				return;
@@ -145,11 +147,11 @@ public class LoginDialogue extends JDialog implements AbstractConnector{
 			@Override
 			public void run() {
 				try{
-					for(int i = 0; i < 2; i++){
+					for(int i = 0; i < 1; i++){
 	                    msg.setText("Incorrect User Name or Password");
-	                    Thread.sleep(250);
+	                    Thread.sleep(3000);
 	                    msg.setText("");
-	                    Thread.sleep(250);
+	           
 					}
 				}
 				catch(Exception e){}

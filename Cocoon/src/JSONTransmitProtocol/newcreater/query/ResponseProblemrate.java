@@ -4,7 +4,7 @@ import org.json.JSONObject;
 
 public class ResponseProblemrate extends JSONObject{
 	public ResponseProblemrate(int PID, int TotalSubmission, int Accept, int WrongAnswer, int RuntimeError, int TimeLimitExceed, 
-			int MemoryLimitExceed, int UnknownError){
+			int MemoryLimitExceed, int CompileError){
 		super();
 		try{
 			this.put("PID", PID);
@@ -13,7 +13,7 @@ public class ResponseProblemrate extends JSONObject{
 			this.put("RuntimeError", RuntimeError);
 			this.put("TimeLimitExceed", TimeLimitExceed);
 			this.put("MemoryLimitExceed", MemoryLimitExceed);
-			this.put("UnknownError", UnknownError);
+			this.put("CompileError", CompileError);
 		}
 		catch(Exception e){
 			

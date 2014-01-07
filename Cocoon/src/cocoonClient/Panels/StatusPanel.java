@@ -26,7 +26,7 @@ public class StatusPanel extends AbstractDisplayPanel implements AbstractConnect
 		this.setSize(600, 500);
 		this.setLayout(new FlowLayout());
 		init();
-		UserInfo.getPanels().put("status", this);
+		UserInfo.getPanels().put("response", this);
 	}
 	private void init() {
 		try{

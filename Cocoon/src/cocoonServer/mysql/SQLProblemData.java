@@ -16,7 +16,7 @@ public class SQLProblemData extends SQLData{
 			",	timeLimit	INTEGER " +
 			",	memoryLimit INTEGER)";
 			insertdbSQL = "insert into Problem(pid,title,timeLimit,memoryLimit) " +
-			"select ifNULL(max(pid),1)+1, ?, ? FROM Problem";
+			" ?, ?, ?, ? ";
 			selectSQL = "select * from Problem ";
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
@@ -30,10 +30,10 @@ public class SQLProblemData extends SQLData{
 	public void insertTable(int pid, String title, int timeLimit, int memoryLimit) {
 		try {
 			preparedStatement = connection.prepareStatement(insertdbSQL);
-			preparedStatement.setInt(0, pid);
-			preparedStatement.setString(1, title);
-			preparedStatement.setInt(2, timeLimit);
-			preparedStatement.setInt(3, memoryLimit);
+			preparedStatement.setInt(1, pid);
+			preparedStatement.setString(2, title);
+			preparedStatement.setInt(3, timeLimit);
+			preparedStatement.setInt(4, memoryLimit);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

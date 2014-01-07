@@ -116,7 +116,7 @@ public class JSONReader{
 						query.getResponse().getProblemRate().setRuntimeError(problemrateJsonObject.getInt("RuntimeError"));
 						query.getResponse().getProblemRate().setTimeLimitExceeded(problemrateJsonObject.getInt("TimeLimitExceeded"));
 						query.getResponse().getProblemRate().setMemoryLimitExceeded(problemrateJsonObject.getInt("MemoryLimitExceeded"));
-						query.getResponse().getProblemRate().setUnknownError(problemrateJsonObject.getInt("UnknownError"));
+						query.getResponse().getProblemRate().setCompileError(problemrateJsonObject.getInt("CompileError"));
 					}
 					else if (responseType.equals("friendlist")){
 						JSONArray friendlistJsonArray = responseJsonObject.getJSONArray("friendlist");

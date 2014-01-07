@@ -41,7 +41,7 @@ public class SubmitPanel extends JPanel implements AbstractConnector{
 	private JSONObject json;
 	private JTextArea t;
 	private JScrollPane scroll;
-	private String selectPath = null, language = "C++";
+	private String selectPath = null, language = "CPP";
 	private JButton btn, btn2;
 	private boolean isSubmittable;
 	private JFrame parent;
@@ -50,7 +50,7 @@ public class SubmitPanel extends JPanel implements AbstractConnector{
 		//By default, connect to localhost.
 		client = UserInfo.getClient();
 		client.connect();
-		UserInfo.getPanels().put("broadcast", this);
+		UserInfo.getPanels().put("submission", this);
 		setLayout(new BorderLayout());
 		setRadioButton();
 		setTextArea();
@@ -77,7 +77,7 @@ public class SubmitPanel extends JPanel implements AbstractConnector{
 		radioButtonCPlusPlus.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				language = "C++";
+				language = "CPP";
 			}
 		});
 		panel.add(radioButtonC);
@@ -227,7 +227,7 @@ public class SubmitPanel extends JPanel implements AbstractConnector{
 	
 	@Override
 	public void recieveResponse(String response){
-		UserInfo.getPanels().get("status").recieveResponse(response);
+		UserInfo.getPanels().get("response").recieveResponse(response);
 		JSONReader reader = new JSONReader(response);
 		if(reader.getSubmission().getUID() == UserInfo.getUID()){
 			JOptionPane.showMessageDialog(parent, "User: " + reader.getSubmission().getUsername() + "\nResponse: " + reader.getSubmission().getResult());

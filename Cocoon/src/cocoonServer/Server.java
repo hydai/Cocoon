@@ -85,6 +85,8 @@ public class Server {
 					jsonReader = new JSONReader(jsonString);
 					if (jsonReader.getType().equals("submission")) {
 						jsonReader.getSubmission().setSubmissionID(runtimeIDLong);
+						System.out.println("Submission ID: " + jsonReader.getSubmission().getSubmissionID());
+						System.out.println("Submission type: " + jsonReader.getSubmission().getLanguage());
 						ServerSubmission submission = new ServerSubmission(jsonReader);
 						submission.run();
 						JSONObject json = new JSONCreater("submission").
@@ -102,6 +104,7 @@ public class Server {
 												jsonReader.getSubmission().getSubmissionID(),
 												jsonReader.getSubmission().getResult(),
 												jsonReader.getInfo().getTime())));
+						System.out.println(jsonReader.getSubmission().getResult());
 						broadcast(json.toString());
 					}
 					else if (jsonReader.getType().equals("login")) {

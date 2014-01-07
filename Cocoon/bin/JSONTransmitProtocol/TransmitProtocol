@@ -63,7 +63,7 @@
 				"RuntimeError":<int>
 				"TimeLimitExceeded":<int>
 				"MemoryLimitExceeded":<int>
-				"UnknownError":<int>
+				"CompileError":<int>
 			}
 			"rank": [JSON Array]
 			[
