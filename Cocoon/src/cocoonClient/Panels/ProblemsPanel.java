@@ -83,8 +83,10 @@ public class ProblemsPanel extends AbstractDisplayPanel{
 	    this.add(tree, BorderLayout.WEST);
 	 }
 	 @Override
-	 public void switchToThisPanel(){
+	 public void switchToThisPanel(){ 
 		 super.switchToThisPanel();
+		 if(UserInfo.getUID() <= 0)
+			 return;
 		 JSONCreater json = new JSONCreater("query")
 		 .setInfo(UserInfo.getUserInfo())
 		 .setQuery(new CreaterQuery("question", new QueryQuestion("problemrate", UserInfo.getPID())));
