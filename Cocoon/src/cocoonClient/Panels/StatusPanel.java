@@ -52,7 +52,7 @@ public class StatusPanel extends AbstractDisplayPanel implements AbstractConnect
 		      //取得處理表格資料的Model物件,建立關聯
 		      DefaultTableModel dtm = (DefaultTableModel)table.getModel(); //宣告處理表格資料的TableModel物件
 		      String columnTitle[] = new String[]{"Date", "Username", "Problem", "Status"};
-		      int columnWidth[] = new  int[]{150, 120, 140, 120};
+		      int columnWidth[] = new  int[]{150, 120, 190, 120};
 		      for(int i = 0; i < columnTitle.length; i++){
 		    	dtm.addColumn(columnTitle[i]);
 		      }

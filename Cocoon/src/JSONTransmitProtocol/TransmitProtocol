@@ -1,57 +1,87 @@
 {
-	"type":<String> [submission | login | query | broadcast]
+	"type":<String> [submission | login | query]
 	
-	"broadcast":
+	"info":
 	{
-		"type":<string> [status | system | rank]
-		"UID":<long> [ 0(all people) | other number ]
-		"status":
-		{
-			"UID":<long>
-			"PID":<int>
-			"username"<String>
-			"submissionID":<long>
-			"result":<string>
-			"time":<string>
-		}
-		"system":
-		{
-			"message":<string>
-		}
-		"rank":
-		{
-            "list":[JSON Array]
-		}
-        
-	}
-	
-	"query":
-	{
-		"type":<string> [friendList | userStatus]
+		"username":<string>
+		"PID":<int>
+		"UID":<int>
+		"IP":<String>
+		"time":<string>
 	}
 	
 	"submission":
 	{
-		"info":
+		"type":<String> [sent | response]
+		"sent":
 		{
+			"code":<String>
+			"language":<String> [ C | CPP ]
+		}
+		"response":
+		{
+			"UID":<int>
 			"PID":<int>
-			"UID":<long>
-			"IP":<String>
+			"username"<String>
+			"submissionID":<int>
+			"result":<string>
 			"time":<string>
 		}
-		"code":<String>
-		"language":<String> [ C | CPP ]
 	}
 	
 	"login":
 	{
-		"type":<String>[register | login | check]
-		"username":<String>,
+		"type":<String>[login | check]
 		"password":<String>,
 		"check":
 		{
-			"UID":<long>,
-			"statement":<String> ["used username" | "incorrect username or password"]
+			"UID":<int>,
+			"statement":<String> ["incorrect username or password"]
+		}
+	}
+	
+	"query":
+	{
+		"type":<String> [query | response]
+		"query":
+		{
+			"type":<String> [rank | friendlist | problemrate | statistics]
+			"problemrate":<int> [PID]
+			"rank":<int> [top <int>]
+			"statistics":<String> [username which is wanted to query]
+		}
+		"response":
+		{
+			"type":<String> [rank | friendlist | problemrate | statistics]
+			"problemrate":
+			{
+				"PID":<int>
+				"TotalSubmission":<int>
+				"Accept":<int>
+				"WrongAnswer":<int>
+				"RuntimeError":<int>
+				"TimeLimitExceeded":<int>
+				"MemoryLimitExceeded":<int>
+				"UnknownError":<int>
+			}
+			"rank": [JSON Array]
+			[
+				{
+					"username":<String>
+					"solved":<int>
+				}*
+			] 
+			"friendlist":
+			[
+				"username":<String>, *
+			]
+			"statistics": [JSON Array]
+			[
+				{
+					"problemtype":<String>
+					"solved":<int>
+				}, *
+			]
 		}
 	}
 }
