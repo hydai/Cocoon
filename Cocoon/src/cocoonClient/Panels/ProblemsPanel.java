@@ -58,17 +58,17 @@ public class ProblemsPanel extends CocoonDisplayPanel{
 	        String key = (String) entry.getKey(); 
 	       basic.add(new DefaultMutableTreeNode(key));
 	    } 
-	    DefaultMutableTreeNode intermediate = new DefaultMutableTreeNode("Intermediate");
+	    /*DefaultMutableTreeNode intermediate = new DefaultMutableTreeNode("Intermediate");
 	    intermediate.add(new DefaultMutableTreeNode("empty"));
 	    DefaultMutableTreeNode hard = new DefaultMutableTreeNode("Hard");
-	    hard.add(new DefaultMutableTreeNode("empty"));
+	    hard.add(new DefaultMutableTreeNode("empty"));*/
 	    //create the tree by passing in the root node
 	    root.add(basic);
-	    root.add(intermediate);
-	    root.add(hard);
+	    /*root.add(intermediate);
+	    root.add(hard);*/
 	    tree = new JTree(root);
 	    tree.setAutoscrolls(true);
-	    //tree.setFont(new Font("", Font.PLAIN, 8));
+	    tree.setFont(new Font("", Font.PLAIN, 10));
 	    tree.setRootVisible(false);
 	    tree.getSelectionModel().addTreeSelectionListener(new TreeSelectionListener() {
 			@Override
@@ -94,6 +94,7 @@ public class ProblemsPanel extends CocoonDisplayPanel{
 					
 				}
 				else{
+					submitFrame.changeProblemName("");
 					((SubmitPanel)UserInfo.getPanels().get("SubmissionResponse")).setSubmitable(false);
 				}
 			}
