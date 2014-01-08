@@ -104,14 +104,18 @@ public class InfoRightPanel extends CocoonRightPanel implements AbstractConnecto
 	      pane.setPreferredSize(new Dimension(200, 300));
 	      add(pane, BorderLayout.SOUTH);
 	}
-
+	private boolean isget;
 	@Override
 	public void recieveResponse(String response) {
+		if(isget == true)
+			return;
+		isget = true;
 		JSONReader reader = new JSONReader(response);
 		friendlist = reader.getQuery().getResponse().getFriendList().getFriendlist();
 		int count = dtm.getRowCount();
 		for(int i = count-1; i >= 0; i--)
 			dtm.removeRow(i);
+		dtm.addRow(new String[]{UserInfo.getUsername()});
 		for(int i = 0; i < friendlist.size(); i++){
 			dtm.addRow(new String[]{friendlist.get(i)});
 		}

@@ -16,6 +16,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 
 
+
 import JSONTransmitProtocol.newReader.JSONReader;
 import cocoonClient.Connector.AbstractConnector;
 import cocoonClient.Data.UserInfo;
@@ -43,7 +44,8 @@ public class SpiderWebGraph extends JPanel implements AbstractConnector{
 	private CategoryDataset createDataset() {  
         DefaultCategoryDataset defaultcategorydataset = new DefaultCategoryDataset();    
         Map<String, Integer> map = reader.getQuery().getResponse().getStatistics().getStatisticsMap();
-        for(String str :map.keySet()){
+        String types[] = new String[] {"Array", "DataStructure", "IO", "Math", "Sort"};
+        for(String str : types){
         	defaultcategorydataset.addValue(map.get(str).doubleValue(), "", str); 
         }
         return defaultcategorydataset;   
