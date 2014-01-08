@@ -5,8 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class SQLStatisticsData extends SQLData{
-	private String querySQLString = "select * from Statistics where id = ?";
+public class SQLPieStatisticsData extends SQLData{
+	private String querySQLString = "select * from PieStatistics where id = ?";
 	private int id;
 	private int totalSubmission;
 	private int accept;
@@ -15,13 +15,13 @@ public class SQLStatisticsData extends SQLData{
 	private int timeLimitExceeded;
 	private int memoryLimitExceeded;
 	private int compileError;
-	public SQLStatisticsData() {
+	public SQLPieStatisticsData() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			connection = DriverManager.getConnection("jdbc:mysql://localhost/cocoon?useUnicode=true&characterEncoding=UTF-8", "cocoonServer", "cocoon");
 
-			dropdbSQL = "DROP TABLE Statistics";
-			createdbSQL = "CREATE TABLE Statistics (" +
+			dropdbSQL = "DROP TABLE PieStatistics";
+			createdbSQL = "CREATE TABLE PieStatistics (" +
 			"	id INTEGER " + 
 			",	totalSubmission INTEGER " +
 			",	accept INTEGER " +
@@ -30,9 +30,9 @@ public class SQLStatisticsData extends SQLData{
 			",	timeLimitExceeded INTEGER " +
 			",	memoryLimitExceeded INTEGER " +
 			",	compileError INTEGER )";
-			insertdbSQL = "insert into ProblemRate(id,totalSubmission,accept,wrongAnswer,runtimeError,timeLimitExceeded,memoryLimitExceeded,compileError) " +
+			insertdbSQL = "insert into PieStatistics(id,totalSubmission,accept,wrongAnswer,runtimeError,timeLimitExceeded,memoryLimitExceeded,compileError) " +
 			" VALUES ( ?, ?, ?, ?, ?, ?, ?, ? ) ";
-			selectSQL = "select * from ProblemRate ";
+			selectSQL = "select * from PieStatistics ";
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

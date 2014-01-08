@@ -5,11 +5,26 @@ import java.util.Scanner;
 public class LinkToMySQL {
 	public static void main(String[] args) {
 		/*
-		SQLProblemRate problemRate = new SQLProblemRate();
-		problemRate.dropTable();
-		problemRate.createTable();
-		System.out.println(LinkToMySQL.class.getResourceAsStream("statisticsData.txt"));
-		Scanner scanner = new Scanner(LinkToMySQL.class.getResourceAsStream("statisticsData.txt"));
+		SQLRadarStatisticsData radarStatisticsData = new SQLRadarStatisticsData();
+		
+		radarStatisticsData.dropTable();
+		radarStatisticsData.createTable();
+		System.out.println(LinkToMySQL.class.getResourceAsStream("radarStatisticsData.txt"));
+		Scanner scanner = new Scanner(LinkToMySQL.class.getResourceAsStream("radarStatisticsData.txt"));
+		while (scanner.hasNext()) {
+			int id = scanner.nextInt();
+			
+			int pid = scanner.nextInt();
+			radarStatisticsData.insertTable(id,pid);
+		}
+		scanner.close();
+		radarStatisticsData.selectTable();
+		
+		SQLPieStatisticsData pieStatisticsData = new SQLPieStatisticsData();
+		pieStatisticsData.dropTable();
+		pieStatisticsData.createTable();
+		System.out.println(LinkToMySQL.class.getResourceAsStream("pieStatisticsData.txt"));
+		Scanner scanner = new Scanner(LinkToMySQL.class.getResourceAsStream("pieStatisticsData.txt"));
 		while (scanner.hasNext()) {
 			int id = scanner.nextInt();
 			int totalSubmission = scanner.nextInt();
@@ -19,7 +34,7 @@ public class LinkToMySQL {
 			int timeLimitExceeded = scanner.nextInt();
 			int memoryLimitExceeded = scanner.nextInt();
 			int compileError = scanner.nextInt();
-			problemRate.insertTable(
+			pieStatisticsData.insertTable(
 					id, 
 					totalSubmission, 
 					accept, 
@@ -30,13 +45,14 @@ public class LinkToMySQL {
 					compileError);
 		}
 		scanner.close();
-		problemRate.selectTable();
-		
-		SQLFriendDate friendDate = new SQLFriendDate();
-		friendDate.dropTable();
-		friendDate.createTable();
+		pieStatisticsData.selectTable();
+		*/
+		/*
+		SQLFriendData friendData = new SQLFriendData();
+		friendData.dropTable();
+		friendData.createTable();
 		System.out.println(LinkToMySQL.class.getResourceAsStream("friendListData.txt"));
-		Scanner scanner = new Scanner(LinkToMySQL.class.getResourceAsStream("friendListData.txt"));
+		scanner = new Scanner(LinkToMySQL.class.getResourceAsStream("friendListData.txt"));
 		while (scanner.hasNext()) {
 			int id, friendID;
 			id = scanner.nextInt();
@@ -45,6 +61,7 @@ public class LinkToMySQL {
 		}
 		scanner.close();
 		friendData.selectTable();
+		
 		SQLUserData userData = new SQLUserData();
 		userData.dropTable();
 		userData.createTable();

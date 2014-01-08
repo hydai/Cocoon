@@ -2,18 +2,21 @@ package cocoonServer;
 
 import cocoonServer.mysql.SQLFriendData;
 import cocoonServer.mysql.SQLProblemRate;
+import cocoonServer.mysql.SQLPieStatisticsData;
 import JSONTransmitProtocol.newReader.JSONReader;
 
 public class ServerQuery {
 	private JSONReader jsonReader;
 	private SQLProblemRate sqlProblemRate;
 	private SQLFriendData sqlFriendData;
+	private SQLPieStatisticsData sqlStatisticsData;
 	@SuppressWarnings("unused")
 	private ServerQuery() {
 		// Do nothing
 	}
 	public ServerQuery(JSONReader reader) {
 		this.jsonReader = reader;
+		sqlStatisticsData = new SQLPieStatisticsData();
 		sqlProblemRate = new SQLProblemRate();
 		sqlFriendData = new SQLFriendData();
 	}
@@ -24,6 +27,14 @@ public class ServerQuery {
 		else if (jsonReader.getQuery().getQuestion().getType().equals("friendlist")) {
 			runFriendListQuery();
 		}
+		else if (jsonReader.getQuery().getQuestion().getType().equals("statistics")) {
+			runStatisticsQuery();
+		}
+	}
+	private void runStatisticsQuery() {
+		sqlStatisticsData.runProblemRateQuery(
+				jsonReader.getInfo().getUID());
+		
 	}
 	private void runFriendListQuery() {
 		sqlFriendData.runFriendListQuery(

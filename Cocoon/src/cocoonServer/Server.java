@@ -113,6 +113,9 @@ public class Server {
 						else if (jsonReader.getQuery().getQuestion().getType().equals("friendlist")) {
 							json = createResponseFriendList();
 						}
+						else if (jsonReader.getQuery().getQuestion().getType().equals("statistics")) {
+							json = createResponseStatistics();
+						}
 						sendMessage(json.toString());
 					}
 				} catch (IOException e) {
@@ -121,6 +124,12 @@ public class Server {
 				}
 			}
 			System.out.println("Disconnected");
+		}
+		private JSONCreater createResponseStatistics() {
+			JSONArray array = new JSONArray();
+			JSONObject object = new JSONObject();
+			//TODO Statistics!!!!
+			return null;
 		}
 		private JSONCreater createResponseFriendList() {
 			JSONCreater json = new JSONCreater("query").
