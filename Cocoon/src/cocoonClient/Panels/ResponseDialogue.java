@@ -77,6 +77,7 @@ public class ResponseDialogue extends JDialog{
 
 	private void init() {
 		JPanel panel = new JPanel();
+		panel.setVisible(true);
 		panel.setLayout(new BorderLayout());
 		JTextArea textArea = new JTextArea (10,15);
 		textArea.setFont(new Font("Courier New", Font.PLAIN, 16));
@@ -84,7 +85,7 @@ public class ResponseDialogue extends JDialog{
 		textArea.setEditable(false);
 		textArea.setBackground(new Color(0, 0, 0, 0));
 		JScrollPane pane = new JScrollPane(textArea);
-		add(pane, BorderLayout.NORTH);
+		panel.add(pane, BorderLayout.NORTH);
 		JButton btn = new JButton("OK");
 		btn.addActionListener(new ActionListener() {
 			
@@ -93,7 +94,7 @@ public class ResponseDialogue extends JDialog{
 				dispose();
 			}
 		});
-		add(btn, BorderLayout.SOUTH);
+		panel.add(btn, BorderLayout.SOUTH);
 		this.add(panel);
 	}
 }
