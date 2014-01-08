@@ -10,6 +10,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import JSONTransmitProtocol.newReader.JSONReader;
@@ -91,65 +92,27 @@ public class Server {
 						jsonReader.getSubmission().setSubmissionID(runtimeIDLong);
 						ServerSubmission submission = new ServerSubmission(jsonReader);
 						submission.run();
-						JSONObject json = new JSONCreater("submission").
-								setInfo(new CreaterInfo(
-										jsonReader.getInfo().getUsername(),
-										jsonReader.getInfo().getPID(), 
-										jsonReader.getInfo().getUID(),
-										jsonReader.getInfo().getIP(),
-										jsonReader.getInfo().getTime())).
-								setSubmission(new CreaterSubmission(
-										"response", new SubmissionResponse(
-												jsonReader.getInfo().getUID(), 
-												jsonReader.getInfo().getPID(), 
-												jsonReader.getInfo().getUsername(), 
-												jsonReader.getSubmission().getSubmissionID(),
-												jsonReader.getSubmission().getResult(),
-												jsonReader.getInfo().getTime())));
+						JSONObject json = createSubmissionResult();
 						System.out.println(jsonReader.getSubmission().getResult());
 						broadcast(json.toString());
 					}
 					else if (jsonReader.getType().equals("login")) {
 						ServerLogin login = new ServerLogin(jsonReader);
 						login.run();
-						JSONCreater json = new JSONCreater("login").
-								setInfo(new CreaterInfo(
-										jsonReader.getInfo().getUsername(),
-										jsonReader.getInfo().getPID(), 
-										jsonReader.getInfo().getUID(),
-										jsonReader.getInfo().getIP(),
-										jsonReader.getInfo().getTime())).
-								setLogin(new CreaterLogin(
-										"check", 
-										jsonReader.getLogin().getPassword(),
-										new LoginCheck(
-												jsonReader.getLogin().getUID(),
-												jsonReader.getLogin().getStatement())));
+						JSONCreater json = createLoginCheck();
 						sendMessage(json.toString());
 					}
 					else if (jsonReader.getType().equals("query")) {
 						ServerQuery query = new ServerQuery(jsonReader);
 						query.run();
-						JSONCreater json = new JSONCreater("query").
-								setInfo(new CreaterInfo(
-										jsonReader.getInfo().getUsername(),
-										jsonReader.getInfo().getPID(), 
-										jsonReader.getInfo().getUID(),
-										jsonReader.getInfo().getIP(),
-										jsonReader.getInfo().getTime())).
-								setQuery(new CreaterQuery(
-										"response", 
-										new QueryResponse(
-												"problemrate", 
-												new ResponseProblemrate(
-														jsonReader.getQuery().getResponse().getProblemRate().getPID(), 
-														jsonReader.getQuery().getResponse().getProblemRate().getTotalSubmission(),
-														jsonReader.getQuery().getResponse().getProblemRate().getAccept(), 
-														jsonReader.getQuery().getResponse().getProblemRate().getWrongAnswer(), 
-														jsonReader.getQuery().getResponse().getProblemRate().getRubtimeError(), 
-														jsonReader.getQuery().getResponse().getProblemRate().getTimeLimitExceeded(), 
-														jsonReader.getQuery().getResponse().getProblemRate().getMemoryLimitExceeded(), 
-														jsonReader.getQuery().getResponse().getProblemRate().getCompileError()))));
+
+						JSONCreater json = null;
+						if (jsonReader.getQuery().getType().equals("problemrate")) {
+							json = createResponseProblemRate();
+						}
+						else if (jsonReader.getQuery().getType().equals("friendlist")) {
+							json = createResponseFriendList();
+						}
 						sendMessage(json.toString());
 					}
 				} catch (IOException e) {
@@ -158,6 +121,78 @@ public class Server {
 				}
 			}
 			System.out.println("Disconnected");
+		}
+		private JSONCreater createResponseFriendList() {
+			JSONCreater json = new JSONCreater("query").
+					setInfo(new CreaterInfo(
+							jsonReader.getInfo().getUsername(),
+							jsonReader.getInfo().getPID(),
+							jsonReader.getInfo().getUID(),
+							jsonReader.getInfo().getIP(),
+							jsonReader.getInfo().getTime())).
+					setQuery(new CreaterQuery(
+							"response",
+							new QueryResponse(
+									"friendlist",
+									new JSONArray(jsonReader.getQuery().getResponse().getFriendList().getFriendlist()))));
+			return json;
+		}
+		private JSONCreater createSubmissionResult() {
+			JSONCreater json = new JSONCreater("submission").
+					setInfo(new CreaterInfo(
+							jsonReader.getInfo().getUsername(),
+							jsonReader.getInfo().getPID(), 
+							jsonReader.getInfo().getUID(),
+							jsonReader.getInfo().getIP(),
+							jsonReader.getInfo().getTime())).
+					setSubmission(new CreaterSubmission(
+							"response", new SubmissionResponse(
+									jsonReader.getInfo().getUID(), 
+									jsonReader.getInfo().getPID(), 
+									jsonReader.getInfo().getUsername(), 
+									jsonReader.getSubmission().getSubmissionID(),
+									jsonReader.getSubmission().getResult(),
+									jsonReader.getInfo().getTime())));
+			return json;
+		}
+		private JSONCreater createLoginCheck() {
+			JSONCreater json = new JSONCreater("login").
+					setInfo(new CreaterInfo(
+							jsonReader.getInfo().getUsername(),
+							jsonReader.getInfo().getPID(), 
+							jsonReader.getInfo().getUID(),
+							jsonReader.getInfo().getIP(),
+							jsonReader.getInfo().getTime())).
+					setLogin(new CreaterLogin(
+							"check", 
+							jsonReader.getLogin().getPassword(),
+							new LoginCheck(
+									jsonReader.getLogin().getUID(),
+									jsonReader.getLogin().getStatement())));
+			return json;
+		}
+		private JSONCreater createResponseProblemRate() {
+			JSONCreater json = new JSONCreater("query").
+					setInfo(new CreaterInfo(
+							jsonReader.getInfo().getUsername(),
+							jsonReader.getInfo().getPID(), 
+							jsonReader.getInfo().getUID(),
+							jsonReader.getInfo().getIP(),
+							jsonReader.getInfo().getTime())).
+					setQuery(new CreaterQuery(
+							"response", 
+							new QueryResponse(
+									"problemrate", 
+									new ResponseProblemrate(
+											jsonReader.getQuery().getResponse().getProblemRate().getPID(), 
+											jsonReader.getQuery().getResponse().getProblemRate().getTotalSubmission(),
+											jsonReader.getQuery().getResponse().getProblemRate().getAccept(), 
+											jsonReader.getQuery().getResponse().getProblemRate().getWrongAnswer(), 
+											jsonReader.getQuery().getResponse().getProblemRate().getRubtimeError(), 
+											jsonReader.getQuery().getResponse().getProblemRate().getTimeLimitExceeded(), 
+											jsonReader.getQuery().getResponse().getProblemRate().getMemoryLimitExceeded(), 
+											jsonReader.getQuery().getResponse().getProblemRate().getCompileError()))));
+			return json;
 		}
 	}
 	private void broadcast(String message) {

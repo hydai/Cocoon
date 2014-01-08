@@ -1,7 +1,24 @@
 package cocoonServer.mysql;
 
+import java.util.Scanner;
+
 public class LinkToMySQL {
 	public static void main(String[] args) {
+		/*
+		SQLFriendDate friendDate = new SQLFriendDate();
+		friendDate.dropTable();
+		friendDate.createTable();
+		System.out.println(LinkToMySQL.class.getResourceAsStream("friendListData.txt"));
+		Scanner scanner = new Scanner(LinkToMySQL.class.getResourceAsStream("friendListData.txt"));
+		while (scanner.hasNext()) {
+			int id, friendID;
+			id = scanner.nextInt();
+			friendID = scanner.nextInt();
+			friendDate.insertTable(id, friendID);
+		}
+		scanner.close();
+		friendDate.selectTable();
+		*/
 		/*
 		SQLUserData userData = new SQLUserData();
 		userData.dropTable();
@@ -16,13 +33,13 @@ public class LinkToMySQL {
 		}
 		scanner.close();
 		userData.selectTable();
-		*/
-		/*
+		
+		
 		SQLProblemRate problemRate = new SQLProblemRate();
 		problemRate.dropTable();
 		problemRate.createTable();
 		System.out.println(LinkToMySQL.class.getResourceAsStream("problemRateData.txt"));
-		Scanner scanner = new Scanner(LinkToMySQL.class.getResourceAsStream("problemRateData.txt"));
+		scanner = new Scanner(LinkToMySQL.class.getResourceAsStream("problemRateData.txt"));
 		while (scanner.hasNext()) {
 			int pid = scanner.nextInt();
 			int totalSubmission = scanner.nextInt();
