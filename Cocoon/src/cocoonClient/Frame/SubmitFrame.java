@@ -62,7 +62,10 @@ public class SubmitFrame extends JFrame{
 		});
 	}
 	public void changeProblemName(String name){
-		this.setTitle("Submit Your Code Here (" + name + ")");
+		if(name.equals(""))
+			this.setTitle("Submit Your Code Here");
+		else
+			this.setTitle("Submit Your Code Here (" + name + ")");
 	}
 	public void open(){
 		this.setBounds(UserInfo.getMainFrame().getX()+UserInfo.getMainFrame().getWidth()/2-100,

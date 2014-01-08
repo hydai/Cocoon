@@ -5,26 +5,24 @@ import java.util.Scanner;
 public class LinkToMySQL {
 	public static void main(String[] args) {
 		/*
-		SQLFriendDate friendDate = new SQLFriendDate();
-		friendDate.dropTable();
-		friendDate.createTable();
+		SQLFriendData friendData = new SQLFriendData();
+		friendData.dropTable();
+		friendData.createTable();
 		System.out.println(LinkToMySQL.class.getResourceAsStream("friendListData.txt"));
 		Scanner scanner = new Scanner(LinkToMySQL.class.getResourceAsStream("friendListData.txt"));
 		while (scanner.hasNext()) {
 			int id, friendID;
 			id = scanner.nextInt();
 			friendID = scanner.nextInt();
-			friendDate.insertTable(id, friendID);
+			friendData.insertTable(id, friendID);
 		}
 		scanner.close();
-		friendDate.selectTable();
-		*/
-		/*
+		friendData.selectTable();
 		SQLUserData userData = new SQLUserData();
 		userData.dropTable();
 		userData.createTable();
 		System.out.println(LinkToMySQL.class.getResourceAsStream("userData.txt"));
-		Scanner scanner = new Scanner(LinkToMySQL.class.getResourceAsStream("userData.txt"));
+		scanner = new Scanner(LinkToMySQL.class.getResourceAsStream("userData.txt"));
 		while (scanner.hasNext()) {
 			String name, passwd;
 			name = scanner.next();
@@ -53,8 +51,7 @@ public class LinkToMySQL {
 		}
 		scanner.close();
 		problemRate.selectTable();
-		*/
-		/*
+		
 		SQLProblemData problemData = new SQLProblemData();
 		problemData.dropTable();
 		problemData.createTable();

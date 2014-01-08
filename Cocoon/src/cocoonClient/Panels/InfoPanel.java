@@ -1,36 +1,38 @@
 package cocoonClient.Panels;
+import java.awt.BorderLayout;
+
 import javax.swing.*;
 
+import JSONTransmitProtocol.newcreater.JSONCreater;
+import JSONTransmitProtocol.newcreater.query.CreaterQuery;
+import JSONTransmitProtocol.newcreater.query.QueryQuestion;
 import cocoonClient.Component.SwitchButton;
+import cocoonClient.Data.UserInfo;
 import cocoonClient.Frame.MainFrame;
 
 
 
-public class InfoPanel extends JPanel {
-	
-	/**
-	 * 
-	 */
+public class InfoPanel extends CocoonDisplayPanel{	
 	private static final long serialVersionUID = 1L;
-	
-	private JButton[] buttons = new JButton[5];
-	private final String[] buttonTitle = new String[]{"Play", "Status", "Submit", "Info", "Set"};
-	private MainFrame parent;
-	public InfoPanel(MainFrame parent) {
-		this.parent = parent;
-		this.setSize(800, 100);
-		this.setLayout(null);
-		this.setVisible(true);
-		for (int i = 0; i < buttons.length; i++) {
-			if(i != 2)
-				buttons[i] = new SwitchButton(parent, new TestPanel(buttonTitle[i]), buttonTitle[i]);
-			
-			this.add(buttons[i]);
-			buttons[i].setBounds(i * 160 + 6, 0, 140, 50);
-			buttons[i].setVisible(true);
-		}
+	private SpiderWebGraph gragh;
+	public InfoPanel() {
+		super(UserInfo.getMainFrame());
+		this.setLayout(new BorderLayout());
+		gragh = new SpiderWebGraph();
+		this.add(gragh, BorderLayout.NORTH);
+		this.setRightPanel(new TestRightPanel());
 	}
-	
+	@Override
+	public void switchToThisPanel(){
+		super.switchToThisPanel();
+		JSONCreater json = new JSONCreater("query")
+				.setInfo(UserInfo.getUserInfo())
+				.setQuery(new CreaterQuery("question", new QueryQuestion("statistics", UserInfo.getUsername())));
+		UserInfo.getClient().sendMessage(json.toString());
+		json = new JSONCreater("query")
+		.setInfo(UserInfo.getUserInfo())
+		.setQuery(new CreaterQuery("question", new QueryQuestion("friendlist", UserInfo.getUsername())));
+	}
 	
 	
 }

@@ -224,8 +224,7 @@ public class SubmitPanel extends JPanel implements AbstractConnector{
 		}
 	}
 	private void submit(){
-		if(isSubmittable){
-			
+		if(isSubmittable){	
 			json = new JSONCreater("submission")
 			.setInfo(UserInfo.getUserInfo())
 			.setSubmission(new CreaterSubmission("sent", new SubmissionSent(t.getText(), language)));

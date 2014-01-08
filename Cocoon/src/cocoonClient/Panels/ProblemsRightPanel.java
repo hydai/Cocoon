@@ -85,12 +85,18 @@ public class ProblemsRightPanel extends CocoonRightPanel implements AbstractConn
         
         ObservableList<PieChart.Data> pieChartData =
                 FXCollections.observableArrayList(
-                new PieChart.Data("AC", reader.getQuery().getResponse().getProblemRate().getAccept()),
-                new PieChart.Data("CE", reader.getQuery().getResponse().getProblemRate().getCompileError()),
-                new PieChart.Data("MLE", reader.getQuery().getResponse().getProblemRate().getMemoryLimitExceeded()),
-                new PieChart.Data("RE", reader.getQuery().getResponse().getProblemRate().getRubtimeError()),
-                new PieChart.Data("TLE", reader.getQuery().getResponse().getProblemRate().getTimeLimitExceeded()),
-                new PieChart.Data("WA", reader.getQuery().getResponse().getProblemRate().getWrongAnswer())
+                new PieChart.Data("AC: " + reader.getQuery().getResponse().getProblemRate().getAccept()
+                		,reader.getQuery().getResponse().getProblemRate().getAccept()),
+                new PieChart.Data("CE: " + reader.getQuery().getResponse().getProblemRate().getCompileError()
+                		,reader.getQuery().getResponse().getProblemRate().getCompileError()),
+                new PieChart.Data("MLE: " + reader.getQuery().getResponse().getProblemRate().getMemoryLimitExceeded()
+                		,reader.getQuery().getResponse().getProblemRate().getMemoryLimitExceeded()),
+                new PieChart.Data("RE: " + reader.getQuery().getResponse().getProblemRate().getRubtimeError()
+                		,reader.getQuery().getResponse().getProblemRate().getRubtimeError()),
+                new PieChart.Data("TLE: " + reader.getQuery().getResponse().getProblemRate().getTimeLimitExceeded()
+                		,reader.getQuery().getResponse().getProblemRate().getTimeLimitExceeded()),
+                new PieChart.Data("WA: " + reader.getQuery().getResponse().getProblemRate().getWrongAnswer(),
+                		reader.getQuery().getResponse().getProblemRate().getWrongAnswer())
                 		);
         chart = new PieChart(pieChartData);
         
