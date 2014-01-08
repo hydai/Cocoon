@@ -8,3 +8,13 @@
 8 1 32 Word Frequency
 9 1 32 Polynomial Addition
 10 1 32 LCM
+11 1 32 Parentheses Matching
+12 1 32 Output Format
+13 3 32 Set Intersection
+14 3 32 The 3n+1 Problem
+15 1 32 Counting Sort
+16 1 32 Count the Intersections
+17 1 32 Prime
+18 1 32 Query
+19 1 32 Pascal
+20 3 32 Mode
