@@ -76,6 +76,7 @@ public class ProblemsPanel extends CocoonDisplayPanel{
 				String selection;
 				selection = tree.getLastSelectedPathComponent().toString();
 				if(problemSet.containsKey(selection)){
+					((SubmitPanel)UserInfo.getPanels().get("SubmissionResponse")).setSubmitable(true);
 					UserInfo.setProblemName(selection);
 					UserInfo.setPID(problemSet.get(selection));
 					submitFrame.changeProblemName(selection);
@@ -91,6 +92,9 @@ public class ProblemsPanel extends CocoonDisplayPanel{
 						 UserInfo.getClient().sendMessage(json.toString());
 					}
 					
+				}
+				else{
+					((SubmitPanel)UserInfo.getPanels().get("SubmissionResponse")).setSubmitable(false);
 				}
 			}
 		});

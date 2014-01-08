@@ -60,6 +60,11 @@ public class SubmitPanel extends JPanel implements AbstractConnector{
 	    setBtn();
 		setVisible(true);
 	}
+	
+	public void setSubmitable(boolean bool){
+		btn2.setEnabled(bool);
+	}
+	
 	private void setRadioButton(){
 		JPanel panel = new JPanel();
 		panel.setLayout(new FlowLayout());
@@ -135,6 +140,7 @@ public class SubmitPanel extends JPanel implements AbstractConnector{
 		});
 		btn2 = new JButton("Submit");
 		panel.add(btn2);
+		btn2.setEnabled(false);
 		btn2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
