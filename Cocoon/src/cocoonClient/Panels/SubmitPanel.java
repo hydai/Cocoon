@@ -2,6 +2,7 @@ package cocoonClient.Panels;
 import javax.swing.*;	
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.plaf.FontUIResource;
 
 import org.json.JSONObject;
 
@@ -92,12 +93,13 @@ public class SubmitPanel extends JPanel implements AbstractConnector{
 	}
 	private void setTextArea(){
 		isSubmittable = false;
-		t = new JTextArea();
+		t =  new JTextArea (20,30);
+		t.setFont(new Font("Courier New", Font.PLAIN, 16));
 		t.setText("");
 		t.setPreferredSize(new Dimension(500, 500));
 		t.setSize(t.getPreferredSize());
-		t = new JTextArea (20,40);
-		t.setFont(new Font("微軟正黑體", Font.BOLD, 14));
+		
+		//t.setFont(new Font("微軟正黑體", Font.BOLD, 14));
 	    t.setEditable (true); // set textArea non-editable
 	    t.setTabSize(2);
 	    t.addKeyListener(new KeyListener() {
@@ -236,7 +238,12 @@ public class SubmitPanel extends JPanel implements AbstractConnector{
 		UserInfo.getPanels().get("Status").recieveResponse(response);
 		JSONReader reader = new JSONReader(response);
 		if(reader.getSubmission().getUID() == UserInfo.getUID()){
-			JOptionPane.showMessageDialog(parent, "User: " + reader.getSubmission().getUsername() + "\nResponse: " + reader.getSubmission().getResult());
+			   javax.swing.UIManager.put("OptionPane.messageFont", new FontUIResource(new Font(Font.MONOSPACED, Font.PLAIN, 12)));
+			
+			JOptionPane.showMessageDialog(parent, "User: " 
+		+ reader.getSubmission().getUsername() + "\nResponse: " 
+					+ reader.getSubmission().getResult());
+			
 		}
 	}
 }	
