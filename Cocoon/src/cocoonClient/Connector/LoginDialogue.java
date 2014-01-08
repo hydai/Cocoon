@@ -21,6 +21,7 @@ public class LoginDialogue extends JDialog implements AbstractConnector{
 	public LoginDialogue(JFrame parent){
 		super(parent, "Login");
 		this.parent = parent;
+		this.setAlwaysOnTop(true);
 		UserInfo.getPanels().put("login", this);
 		init();
 		this.addWindowListener(new WindowListener() {

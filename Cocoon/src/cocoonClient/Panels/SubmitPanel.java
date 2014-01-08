@@ -207,6 +207,7 @@ public class SubmitPanel extends JPanel implements AbstractConnector{
 			File file = new File(fileName);
 			System.out.println(file.length());
 			if(file.length() > 10240L){
+				
 				JOptionPane.showMessageDialog(parent, "Please submit file which is less than 10 KB");
 				return;
 			}
@@ -243,11 +244,11 @@ public class SubmitPanel extends JPanel implements AbstractConnector{
 		UserInfo.getPanels().get("Status").recieveResponse(response);
 		JSONReader reader = new JSONReader(response);
 		if(reader.getSubmission().getUID() == UserInfo.getUID()){
-			   javax.swing.UIManager.put("OptionPane.messageFont", new FontUIResource(new Font(Font.MONOSPACED, Font.PLAIN, 12)));
-			
-			JOptionPane.showMessageDialog(parent, "User: " 
+			String result = "User: " 
 		+ reader.getSubmission().getUsername() + "\nResponse: " 
-					+ reader.getSubmission().getResult());
+		+ reader.getSubmission().getResult();   
+			new ResponseDialogue(parent, result);
+			
 			
 		}
 	}

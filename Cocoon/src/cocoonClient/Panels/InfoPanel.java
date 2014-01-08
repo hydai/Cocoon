@@ -28,13 +28,14 @@ public class InfoPanel extends CocoonDisplayPanel{
 		this.setRightPanel(new InfoRightPanel(this));
 	}
 	public void changeGraph(int mode){
-		System.out.println("InfoPanel: " + mode);
+		
 		this.removeAll();
 		this.setLayout(new BorderLayout());
 		if(mode == 1){
 			this.add(radargragh,BorderLayout.CENTER);
 		}
 		else if (mode == 2) {
+			this.add(pieGraph, BorderLayout.CENTER);
 			this.add(pieGraph, BorderLayout.CENTER);
 		}
 		this.repaint();
