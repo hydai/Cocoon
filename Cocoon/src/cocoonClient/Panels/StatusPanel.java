@@ -18,7 +18,7 @@ import JSONTransmitProtocol.newReader.JSONReader;
 import cocoonClient.Connector.AbstractConnector;
 import cocoonClient.Data.UserInfo;
 
-public class StatusPanel extends AbstractDisplayPanel implements AbstractConnector{
+public class StatusPanel extends CocoonDisplayPanel implements AbstractConnector{
 	private JTable table;
 	public StatusPanel(){
 		super(UserInfo.getMainFrame());

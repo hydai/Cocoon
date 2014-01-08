@@ -10,6 +10,7 @@ import cocoonClient.Connector.ChatClient;
 import cocoonClient.Data.UserInfo;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -45,6 +46,7 @@ public class SubmitPanel extends JPanel implements AbstractConnector{
 	private JButton btn, btn2;
 	private boolean isSubmittable;
 	private JFrame parent;
+	private JLabel msg;
 	public SubmitPanel(JFrame parent){
 		this.parent = parent;
 		//By default, connect to localhost.
@@ -60,6 +62,10 @@ public class SubmitPanel extends JPanel implements AbstractConnector{
 	private void setRadioButton(){
 		JPanel panel = new JPanel();
 		panel.setLayout(new FlowLayout());
+		                               
+		msg = new JLabel("                                                                              ");
+		msg.setForeground(Color.blue);
+		panel.add(msg);
 		panel.add(new JLabel("Language: "));
 		ButtonGroup bg = new ButtonGroup();
 		JRadioButton radioButtonC = new JRadioButton("C");
@@ -141,11 +147,12 @@ public class SubmitPanel extends JPanel implements AbstractConnector{
 						}
 						else{
 							submit();
-							JOptionPane.showMessageDialog(parent, "Submitted Successfully!!"); 
+							//JOptionPane.showMessageDialog(parent, "Submitted Successfully!!"); 
 							new Thread(new Runnable(){
 								@Override
 								public void run() {
 									btn2.setEnabled(false);
+									msg.setText("Submitted Successfully!!                                       ");
 									for(int i = 3; i > 0; i--){
 										btn2.setText("Submit (" + i + ")");
 										try {
@@ -155,6 +162,7 @@ public class SubmitPanel extends JPanel implements AbstractConnector{
 											e.printStackTrace();
 										}	
 									}
+									msg.setText("                                                                              ");
 									btn2.setText("Submit");
 									btn2.setEnabled(true);
 								}
@@ -213,8 +221,6 @@ public class SubmitPanel extends JPanel implements AbstractConnector{
 			json = new JSONCreater("submission")
 			.setInfo(UserInfo.getUserInfo())
 			.setSubmission(new CreaterSubmission("sent", new SubmissionSent(t.getText(), language)));
-			//.setSubmission(t.getText(), language)
-			//.setSubmissionInfo(UserInfo.getPID(), UserInfo.getUID(), UserInfo.getIP(), time);
 			client.sendMessage(json.toString());
 			t.setText("");
 			json = null;

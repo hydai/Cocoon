@@ -22,7 +22,7 @@ import cocoonClient.Data.GetProblemSet;
 import cocoonClient.Data.UserInfo;
 import cocoonClient.Frame.SubmitFrame;
 
-public class ProblemsPanel extends AbstractDisplayPanel{
+public class ProblemsPanel extends CocoonDisplayPanel{
 	private JTree tree;
 	private Browser browser;
 	private HashMap<String, Integer> problemSet;
@@ -39,7 +39,7 @@ public class ProblemsPanel extends AbstractDisplayPanel{
 		initButtonPanel();
 	}
 	private void initButtonPanel() {
-		AbstractRightPanel panel = new ProblemsRightPanel(submitFrame);
+		CocoonRightPanel panel = new ProblemsRightPanel(submitFrame);
 		this.setRightPanel(panel);
 	}
 	private void initBrowser(){

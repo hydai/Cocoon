@@ -19,7 +19,7 @@ import cocoonClient.Connector.ChatClient;
 import cocoonClient.Connector.LoginDialogue;
 import cocoonClient.Data.UserInfo;
 import cocoonClient.Panels.*;
-import cocoonClient.Panels.AbstractRightPanel;
+import cocoonClient.Panels.CocoonRightPanel;
 import cocoonClient.Panels.InfoPanel;
 import cocoonClient.Panels.ProblemsPanel;
 import cocoonClient.Panels.TestPanel;
@@ -30,8 +30,8 @@ public class MainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private final String ips[] = {"127.0.0.1", "140.114.200.157", "140.114.200.158", "140.114.200.159"};
 	private InfoPanel infoPanel;
-	private AbstractDisplayPanel displayPanel;
-	private AbstractRightPanel rightPanel;
+	private CocoonDisplayPanel displayPanel;
+	private CocoonRightPanel rightPanel;
 	private ChatClient client;
 	
 	public MainFrame() {
@@ -47,7 +47,7 @@ public class MainFrame extends JFrame {
 		initBtn();
 		LoginDialogue loginDialogue = new LoginDialogue(this);
 	}
-	public void setRightPanel(AbstractRightPanel panel){
+	public void setRightPanel(CocoonRightPanel panel){
 		if(rightPanel != null){
 			rightPanel.setVisible(false);
 		}
@@ -56,7 +56,7 @@ public class MainFrame extends JFrame {
 		this.add(rightPanel, BorderLayout.EAST);
 		this.repaint();
 	}
-	public void setPanel(AbstractDisplayPanel panel){
+	public void setPanel(CocoonDisplayPanel panel){
 		if(displayPanel != null){
 			displayPanel.setVisible(false);
 		}
@@ -72,7 +72,7 @@ public class MainFrame extends JFrame {
 		panel.setLayout(new FlowLayout());
 		JButton[] buttons = new JButton[4];
 		final String[] buttonTitle = new String[]{"Problem", "Status", "Info", "About"};
-		AbstractDisplayPanel panels[] = new AbstractDisplayPanel[]{new ProblemsPanel(), new StatusPanel(), new TestPanel("Info"), new AboutPanel()};
+		CocoonDisplayPanel panels[] = new CocoonDisplayPanel[]{new ProblemsPanel(), new StatusPanel(), new TestPanel("Info"), new AboutPanel()};
 		for (int i = 0; i < buttons.length; i++) {
 			
 			buttons[i] = new SwitchButton(this, panels[i], buttonTitle[i]);

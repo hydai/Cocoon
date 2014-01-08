@@ -6,10 +6,10 @@ import javax.swing.*;
 
 import cocoonClient.Frame.MainFrame;
 
-public class AbstractDisplayPanel extends JPanel{
+public class CocoonDisplayPanel extends JPanel{
 	protected MainFrame parent;
-	protected AbstractRightPanel rightPanel;
-	public AbstractDisplayPanel(MainFrame parent) {
+	protected CocoonRightPanel rightPanel;
+	public CocoonDisplayPanel(MainFrame parent) {
 		super();
 		setSize(600, 500);
 		setOpaque(false);
@@ -19,10 +19,10 @@ public class AbstractDisplayPanel extends JPanel{
 	public void switchToThisPanel(){
 		parent.setPanel(this);
 	}
-	protected void setRightPanel(AbstractRightPanel panel){
+	protected void setRightPanel(CocoonRightPanel panel){
 		rightPanel = panel;
 	}
-	public AbstractRightPanel getRightPanel(){
+	public CocoonRightPanel getRightPanel(){
 		return rightPanel;
 	}
 }

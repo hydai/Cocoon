@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 
 import cocoonClient.Data.UserInfo;
 
-public class AboutPanel extends AbstractDisplayPanel{
+public class AboutPanel extends CocoonDisplayPanel{
 	public AboutPanel(){
 		super(UserInfo.getMainFrame());
 		this.setLayout(new BorderLayout());

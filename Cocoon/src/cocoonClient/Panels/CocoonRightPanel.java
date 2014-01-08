@@ -7,9 +7,9 @@ import javax.swing.JPanel;
 
 import cocoonClient.Frame.MainFrame;
 
-public class AbstractRightPanel extends JPanel{
+public class CocoonRightPanel extends JPanel{
 	protected MainFrame parent;
-	public AbstractRightPanel(MainFrame parent) {
+	public CocoonRightPanel(MainFrame parent) {
 		super();
 		setSize(200, 500);
 		setOpaque(false);

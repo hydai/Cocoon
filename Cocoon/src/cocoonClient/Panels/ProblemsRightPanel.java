@@ -34,7 +34,7 @@ import javafx.scene.text.Text;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-public class ProblemsRightPanel extends AbstractRightPanel implements AbstractConnector{
+public class ProblemsRightPanel extends CocoonRightPanel implements AbstractConnector{
 	
 	ProblemsRightPanel(final SubmitFrame submitFrame){
 		super(UserInfo.getMainFrame());
@@ -93,6 +93,7 @@ public class ProblemsRightPanel extends AbstractRightPanel implements AbstractCo
                 new PieChart.Data("WA", reader.getQuery().getResponse().getProblemRate().getWrongAnswer())
                 		);
         chart = new PieChart(pieChartData);
+        
         //chart.setTitle("Statistics");
         chart.setTitleSide(Side.TOP);
         chart.setMaxSize(200, 300);
