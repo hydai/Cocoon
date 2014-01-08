@@ -18,10 +18,10 @@ public class ServerQuery {
 		sqlFriendData = new SQLFriendData();
 	}
 	public void run() {
-		if (jsonReader.getQuery().getType().equals("problemrate")) {
+		if (jsonReader.getQuery().getQuestion().getType().equals("problemrate")) {
 			runProblemRateQuery();
 		}
-		else if (jsonReader.getQuery().getType().equals("friendlist")) {
+		else if (jsonReader.getQuery().getQuestion().getType().equals("friendlist")) {
 			runFriendListQuery();
 		}
 	}

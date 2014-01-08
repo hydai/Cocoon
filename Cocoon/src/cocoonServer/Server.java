@@ -105,12 +105,12 @@ public class Server {
 					else if (jsonReader.getType().equals("query")) {
 						ServerQuery query = new ServerQuery(jsonReader);
 						query.run();
-
+						System.out.println(jsonReader.getQuery().getQuestion().getType());
 						JSONCreater json = null;
-						if (jsonReader.getQuery().getType().equals("problemrate")) {
+						if (jsonReader.getQuery().getQuestion().getType().equals("problemrate")) {
 							json = createResponseProblemRate();
 						}
-						else if (jsonReader.getQuery().getType().equals("friendlist")) {
+						else if (jsonReader.getQuery().getQuestion().getType().equals("friendlist")) {
 							json = createResponseFriendList();
 						}
 						sendMessage(json.toString());
