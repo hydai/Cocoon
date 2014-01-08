@@ -1,8 +1,8 @@
-1 1 16 The A+B Problem
+1 1 32 The A+B Problem
 2 1 32 GCD
 3 1 32 Palindrome
 4 1 32 Partial Sum
-5 1 16 Age Sort
+5 1 32 Age Sort
 6 1 32 String Reverse
 7 1 32 Alphabetically order
 8 1 32 Word Frequency
@@ -17,4 +17,4 @@
 17 1 32 Prime
 18 1 32 Query
 19 1 32 Pascal
-20 3 32 Mode
+20 1 32 Mode
