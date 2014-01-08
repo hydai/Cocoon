@@ -20,7 +20,7 @@ public class InfoPanel extends CocoonDisplayPanel{
 		this.setLayout(new BorderLayout());
 		gragh = new SpiderWebGraph();
 		this.add(gragh, BorderLayout.NORTH);
-		this.setRightPanel(new TestRightPanel());
+		this.setRightPanel(new InfoRightPanel());
 	}
 	@Override
 	public void switchToThisPanel(){
@@ -28,10 +28,11 @@ public class InfoPanel extends CocoonDisplayPanel{
 		JSONCreater json = new JSONCreater("query")
 				.setInfo(UserInfo.getUserInfo())
 				.setQuery(new CreaterQuery("question", new QueryQuestion("statistics", UserInfo.getUsername())));
-		UserInfo.getClient().sendMessage(json.toString());
+		//UserInfo.getClient().sendMessage(json.toString());
 		json = new JSONCreater("query")
 		.setInfo(UserInfo.getUserInfo())
 		.setQuery(new CreaterQuery("question", new QueryQuestion("friendlist", UserInfo.getUsername())));
+		UserInfo.getClient().sendMessage(json.toString());
 	}
 	
 	
