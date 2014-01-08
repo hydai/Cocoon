@@ -2,6 +2,7 @@ package cocoonClient.Panels;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.util.Map;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -26,13 +27,13 @@ public class PieGraph extends JPanel implements AbstractConnector{
 	private PieChart chart;
 	private JSONReader reader;
 	public PieGraph(){
-		setLayout(null);
-        setPreferredSize(new Dimension(400, 400));
+		setLayout(new BorderLayout());
+       
         UserInfo.getPanels().put("statisticsPie", this);
         
         fxPanel = new JFXPanel();
-		fxPanel.setPreferredSize(new Dimension(400, 400));
-		this.add(fxPanel,BorderLayout.SOUTH);
+		fxPanel.setPreferredSize(new Dimension(550, 500));
+		this.add(fxPanel,BorderLayout.CENTER);
 		Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -57,30 +58,26 @@ public class PieGraph extends JPanel implements AbstractConnector{
 	        text.setY(20);
 	        text.setFont(new Font(14));
 	        //text.setTextAlignment(TextAlignment.CENTER);
-	        text.setText(" Statistics of\n-" + UserInfo.getProblemName());
+	        //text.setText("Distribution");
 
 	        root.getChildren().add(text);
-	        
+	        Map<String, Integer> map = reader.getQuery().getResponse().getStatistics().getStatisticsMap();
+	        String type[] = new String[] {"RuntimeError", "TimeLimitExceeded", "CompileError", "WrongAnswer", "MemoryLimitExceeded"
+	        		,"Accept"};
 	        ObservableList<PieChart.Data> pieChartData =
 	                FXCollections.observableArrayList(
-	                new PieChart.Data("AC: " + reader.getQuery().getResponse().getProblemRate().getAccept()
-	                		,reader.getQuery().getResponse().getProblemRate().getAccept()),
-	                new PieChart.Data("CE: " + reader.getQuery().getResponse().getProblemRate().getCompileError()
-	                		,reader.getQuery().getResponse().getProblemRate().getCompileError()),
-	                new PieChart.Data("MLE: " + reader.getQuery().getResponse().getProblemRate().getMemoryLimitExceeded()
-	                		,reader.getQuery().getResponse().getProblemRate().getMemoryLimitExceeded()),
-	                new PieChart.Data("RE: " + reader.getQuery().getResponse().getProblemRate().getRubtimeError()
-	                		,reader.getQuery().getResponse().getProblemRate().getRubtimeError()),
-	                new PieChart.Data("TLE: " + reader.getQuery().getResponse().getProblemRate().getTimeLimitExceeded()
-	                		,reader.getQuery().getResponse().getProblemRate().getTimeLimitExceeded()),
-	                new PieChart.Data("WA: " + reader.getQuery().getResponse().getProblemRate().getWrongAnswer(),
-	                		reader.getQuery().getResponse().getProblemRate().getWrongAnswer())
+	                	new PieChart.Data("RE: " + map.get(type[0]), map.get(type[0])),
+	                	new PieChart.Data("TLE: " + map.get(type[1]), map.get(type[1])),
+	                	new PieChart.Data("CE: " + map.get(type[2]), map.get(type[2])),
+	                	new PieChart.Data("WA: " + map.get(type[3]), map.get(type[3])),
+	                	new PieChart.Data("MLE: " + map.get(type[4]), map.get(type[4])),
+	                	new PieChart.Data("AC: " + map.get(type[5]), map.get(type[5]))
 	                		);
 	        chart = new PieChart(pieChartData);
 	        
 	        //chart.setTitle("Statistics");
 	        chart.setTitleSide(Side.TOP);
-	        chart.setMaxSize(200, 300);
+	        chart.setMaxSize(500, 500);
 	        chart.setLegendVisible(true);
 	        chart.setLegendSide(Side.BOTTOM);
 	        ((Group) scene.getRoot()).getChildren().add(chart);
