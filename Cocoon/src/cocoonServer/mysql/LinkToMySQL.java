@@ -5,6 +5,33 @@ import java.util.Scanner;
 public class LinkToMySQL {
 	public static void main(String[] args) {
 		/*
+		SQLProblemRate problemRate = new SQLProblemRate();
+		problemRate.dropTable();
+		problemRate.createTable();
+		System.out.println(LinkToMySQL.class.getResourceAsStream("statisticsData.txt"));
+		Scanner scanner = new Scanner(LinkToMySQL.class.getResourceAsStream("statisticsData.txt"));
+		while (scanner.hasNext()) {
+			int id = scanner.nextInt();
+			int totalSubmission = scanner.nextInt();
+			int accept = scanner.nextInt();
+			int wrongAnswer = scanner.nextInt();
+			int runtimeError = scanner.nextInt();
+			int timeLimitExceeded = scanner.nextInt();
+			int memoryLimitExceeded = scanner.nextInt();
+			int compileError = scanner.nextInt();
+			problemRate.insertTable(
+					id, 
+					totalSubmission, 
+					accept, 
+					wrongAnswer, 
+					runtimeError, 
+					timeLimitExceeded, 
+					memoryLimitExceeded, 
+					compileError);
+		}
+		scanner.close();
+		problemRate.selectTable();
+		
 		SQLFriendDate friendDate = new SQLFriendDate();
 		friendDate.dropTable();
 		friendDate.createTable();
