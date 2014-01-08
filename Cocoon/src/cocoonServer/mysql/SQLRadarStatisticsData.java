@@ -13,6 +13,11 @@ import java.util.TreeMap;
 public class SQLRadarStatisticsData extends SQLData{
 	private String querySQLString = "select * from RadarStatistics where id = ?";
 	private int id;
+	private int IO;
+	private int Math;
+	private int Array;
+	private int Sort;
+	private int DataStructure;
 	private ArrayList<Integer> solvedProblem;
 	public SQLRadarStatisticsData() {
 		try {
@@ -88,6 +93,30 @@ public class SQLRadarStatisticsData extends SQLData{
 			for(Iterator<Entry<Integer, Integer>> iter = solvedMap.entrySet().iterator(); iter.hasNext();) {
 				solvedProblem.add(iter.next().getKey());
 			}
+			IO = 0;
+			Math = 0;
+			Array = 0;
+			Sort = 0;
+			DataStructure = 0;
+			SQLProblemType problemType = new SQLProblemType();
+			for(int element : solvedProblem) {
+				String typeString = problemType.getProblemType(element);
+				if (typeString.equals("IO")) {
+					IO++;
+				}
+				else if (typeString.equals("Math")) {
+					Math++;
+				}
+				else if (typeString.equals("Array")) {
+					Array++;
+				}
+				else if (typeString.equals("Sort")) {
+					Sort++;
+				}
+				else if (typeString.equals("DataStructure")) {
+					DataStructure++;
+				}
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -96,7 +125,19 @@ public class SQLRadarStatisticsData extends SQLData{
 	public int getId() {
 		return id;
 	}
-	public ArrayList<Integer> getSolvedProblem() {
-		return solvedProblem;
+	public int getArray() {
+		return Array;
+	}
+	public int getDataStructure() {
+		return DataStructure;
+	}
+	public int getIO() {
+		return IO;
+	}
+	public int getMath() {
+		return Math;
+	}
+	public int getSort() {
+		return Sort;
 	}
 }

@@ -76,21 +76,13 @@
 			[
 				"username":<String>, *
 			]
-			"statistics":
-			{
-				"IO":<int>
-				"Math":<int>
-				"Array":<int>
-				"Sort":<int>
-				"DataStructure":<int>
-				"TotalSubmission":<int>
-				"Accept":<int>
-				"WrongAnswer":<int>
-				"RuntimeError":<int>
-				"TimeLimitExceeded":<int>
-				"MemoryLimitExceeded":<int>
-				"CompileError":<int>
-			}
+			"statistics": [JSON Array]
+			[
+				{
+					"problemtype":<String>
+					"solved":<int>
+				}, *
+			]
 		}
 	}
 }

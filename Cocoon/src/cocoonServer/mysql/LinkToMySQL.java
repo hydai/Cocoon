@@ -5,6 +5,20 @@ import java.util.Scanner;
 public class LinkToMySQL {
 	public static void main(String[] args) {
 		/*
+		SQLProblemType problemType = new SQLProblemType();
+		problemType.dropTable();
+		problemType.createTable();
+		System.out.println(LinkToMySQL.class.getResourceAsStream("problemType.txt"));
+		Scanner scanner = new Scanner(LinkToMySQL.class.getResourceAsStream("problemType.txt"));
+		while (scanner.hasNext()) {
+			int pid = scanner.nextInt();
+			String typeString = scanner.next();
+			problemType.insertTable(pid, typeString);
+		}
+		scanner.close();
+		problemType.selectTable();
+		
+		
 		SQLRadarStatisticsData radarStatisticsData = new SQLRadarStatisticsData();
 		
 		radarStatisticsData.dropTable();

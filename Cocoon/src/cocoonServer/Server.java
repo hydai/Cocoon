@@ -8,9 +8,12 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import JSONTransmitProtocol.newReader.JSONReader;
@@ -126,10 +129,34 @@ public class Server {
 			System.out.println("Disconnected");
 		}
 		private JSONCreater createResponseStatistics() {
-			JSONArray array = new JSONArray();
-			JSONObject object = new JSONObject();
-			//TODO Statistics!!!!
-			return null;
+			List<JSONObject> list = new ArrayList<JSONObject>();
+			for(Iterator<Entry<String, Integer>> iterator = 
+					jsonReader.getQuery().getResponse().getStatistics().
+					getStatisticsMap().entrySet().iterator();
+					iterator.hasNext();) {
+				JSONObject tmp = new JSONObject();
+				Entry<String, Integer> tmpEntry = iterator.next();
+				try {
+					tmp.put(tmpEntry.getKey(), tmpEntry.getValue());
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				list.add(tmp);
+			}
+			JSONCreater json = new JSONCreater("query").
+					setInfo(new CreaterInfo(
+							jsonReader.getInfo().getUsername(),
+							jsonReader.getInfo().getPID(),
+							jsonReader.getInfo().getUID(),
+							jsonReader.getInfo().getIP(),
+							jsonReader.getInfo().getTime())).
+					setQuery(new CreaterQuery(
+							"response",
+							new QueryResponse(
+									"statistics",
+									new JSONArray(list))));
+			return json;
 		}
 		private JSONCreater createResponseFriendList() {
 			JSONCreater json = new JSONCreater("query").

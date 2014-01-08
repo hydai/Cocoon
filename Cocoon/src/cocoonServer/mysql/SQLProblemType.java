@@ -15,7 +15,7 @@ public class SQLProblemType extends SQLData{
 			dropdbSQL = "DROP TABLE ProblemType";
 			createdbSQL = "CREATE TABLE ProblemType (" +
 			"	pid INTEGER " + 
-			",	type VARCHAR(256 )";
+			",	type VARCHAR(256) )";
 			insertdbSQL = "insert into ProblemType(pid, type) " +
 			" VALUES ( ?, ?) ";
 			selectSQL = "select * from ProblemType ";
