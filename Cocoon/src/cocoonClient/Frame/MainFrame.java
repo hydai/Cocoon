@@ -36,6 +36,7 @@ public class MainFrame extends JFrame {
 	
 	public MainFrame() {
 		UserInfo.initUserInfo(this, -1);
+		this.setAlwaysOnTop(true);
 		this.client = UserInfo.getClient();
 		this.setTitle("Cocoon");
 		this.setSize(800, 600);
@@ -45,7 +46,7 @@ public class MainFrame extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setMenu();
 		initBtn();
-		LoginDialogue loginDialogue = new LoginDialogue(this);
+		new LoginDialogue(this);
 	}
 	public void setRightPanel(CocoonRightPanel panel){
 		if(rightPanel != null){
