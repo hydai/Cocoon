@@ -44,6 +44,8 @@ public class StatusPanel extends CocoonDisplayPanel implements AbstractConnector
 		    		  return false;
 		    	  }
 		      });
+		      
+		      
 		      table.setShowGrid(true);
 		      table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);         
 		      table.setSelectionBackground(Color.ORANGE);//設定選取背景顏色    
