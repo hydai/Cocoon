@@ -35,7 +35,8 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 public class ProblemsRightPanel extends CocoonRightPanel implements AbstractConnector{
-	
+	private PieChart chart;
+	private final JFXPanel fxPanel;
 	ProblemsRightPanel(final SubmitFrame submitFrame){
 		super(UserInfo.getMainFrame());
 		setLayout(new BorderLayout());
@@ -60,13 +61,13 @@ public class ProblemsRightPanel extends CocoonRightPanel implements AbstractConn
             }
        });
 	}
-	final JFXPanel fxPanel;
+	
 	private  void initFX(JFXPanel fxPanel) {
         // This method is invoked on the JavaFX thread
         Scene scene = createScene();
         fxPanel.setScene(scene);
     }
-	private PieChart chart;
+	
     private Scene createScene() {
         Group  root  =  new  Group();
         Scene  scene  =  new  Scene(root, Color.TRANSPARENT);

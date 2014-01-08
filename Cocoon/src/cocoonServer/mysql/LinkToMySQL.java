@@ -24,7 +24,7 @@ public class LinkToMySQL {
 		radarStatisticsData.dropTable();
 		radarStatisticsData.createTable();
 		System.out.println(LinkToMySQL.class.getResourceAsStream("radarStatisticsData.txt"));
-		Scanner scanner = new Scanner(LinkToMySQL.class.getResourceAsStream("radarStatisticsData.txt"));
+		scanner = new Scanner(LinkToMySQL.class.getResourceAsStream("radarStatisticsData.txt"));
 		while (scanner.hasNext()) {
 			int id = scanner.nextInt();
 			
@@ -38,7 +38,7 @@ public class LinkToMySQL {
 		pieStatisticsData.dropTable();
 		pieStatisticsData.createTable();
 		System.out.println(LinkToMySQL.class.getResourceAsStream("pieStatisticsData.txt"));
-		Scanner scanner = new Scanner(LinkToMySQL.class.getResourceAsStream("pieStatisticsData.txt"));
+		scanner = new Scanner(LinkToMySQL.class.getResourceAsStream("pieStatisticsData.txt"));
 		while (scanner.hasNext()) {
 			int id = scanner.nextInt();
 			int totalSubmission = scanner.nextInt();
@@ -60,7 +60,7 @@ public class LinkToMySQL {
 		}
 		scanner.close();
 		pieStatisticsData.selectTable();
-		*/
+		
 		/*
 		SQLFriendData friendData = new SQLFriendData();
 		friendData.dropTable();

@@ -23,10 +23,10 @@ import cocoonClient.Data.UserInfo;
 public class SpiderWebGraph extends JPanel implements AbstractConnector{
 	private ChartPanel chartPanel;
 	private JSONReader reader;
-	SpiderWebGraph(){
+	public SpiderWebGraph(){
         setLayout(null);
         setPreferredSize(new Dimension(400, 400));
-        UserInfo.getPanels().put("statistics", this);
+        UserInfo.getPanels().put("statisticsRadar", this);
 	}
 	public void refresh(){
 		removeAll();

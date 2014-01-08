@@ -1,4 +1,6 @@
 package JSONTransmitProtocol.newReader;
+import java.util.Iterator;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -129,8 +131,9 @@ public class JSONReader{
 						JSONArray statisticsJsonArray = responseJsonObject.getJSONArray("statistics");
 						for (int i = 0; i < statisticsJsonArray.length(); i++) {
 							JSONObject problemtypeAndSolvedJsonObject = statisticsJsonArray.getJSONObject(i);
-							String problemtype = problemtypeAndSolvedJsonObject.getString("problemtype");
-							int solved = problemtypeAndSolvedJsonObject.getInt("solved");
+							Iterator<String> iter = problemtypeAndSolvedJsonObject.keys();
+							String problemtype = iter.next();
+							int solved = problemtypeAndSolvedJsonObject.getInt(problemtype);
 							query.getResponse().getStatistics().AddStatistics(problemtype, solved);
 						}
 					}

@@ -4,6 +4,7 @@ import cocoonServer.mysql.SQLFriendData;
 import cocoonServer.mysql.SQLProblemRate;
 import cocoonServer.mysql.SQLPieStatisticsData;
 import cocoonServer.mysql.SQLRadarStatisticsData;
+import cocoonServer.mysql.SQLUserData;
 import JSONTransmitProtocol.newReader.JSONReader;
 
 public class ServerQuery {
@@ -35,10 +36,11 @@ public class ServerQuery {
 		}
 	}
 	private void runStatisticsQuery() {
-		sqlPieStatisticsData.runProblemRateQuery(
-				jsonReader.getInfo().getUID());
-		sqlRadarStatisticsData.runRadarStatisticsQuery(
-				jsonReader.getInfo().getUID());
+		SQLUserData userData = new SQLUserData();
+		int searchID = userData.getUserId(jsonReader.getQuery().getQuestion().getStatistics());
+		sqlPieStatisticsData.runProblemRateQuery(searchID);
+		
+		sqlRadarStatisticsData.runRadarStatisticsQuery(searchID);
 		jsonReader.getQuery().getResponse().getStatistics().AddStatistics("TotalSubmission", sqlPieStatisticsData.getTotalSubmission());
 		jsonReader.getQuery().getResponse().getStatistics().AddStatistics("Accept", sqlPieStatisticsData.getAccept());
 		jsonReader.getQuery().getResponse().getStatistics().AddStatistics("WrongAnswer", sqlPieStatisticsData.getWrongAnswer());

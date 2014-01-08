@@ -9,7 +9,12 @@ public class Distributor {
 		String type = reader.getType();
 		if(type.equals("query")){
 			String subtype = reader.getQuery().getResponse().getType();
-			UserInfo.getPanels().get(subtype).recieveResponse(line);
+			if(subtype.equals("statistics")){
+				UserInfo.getPanels().get("statisticsRadar").recieveResponse(line);
+				UserInfo.getPanels().get("statisticsPie").recieveResponse(line);
+			}
+			else
+				UserInfo.getPanels().get(subtype).recieveResponse(line);
 		}
 		else if(type.equals("submission")){
 			UserInfo.getPanels().get("SubmissionResponse").recieveResponse(line);
