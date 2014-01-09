@@ -80,7 +80,7 @@ public class ProblemsPanel extends CocoonDisplayPanel{
 					UserInfo.setProblemName(selection);
 					UserInfo.setPID(problemSet.get(selection));
 					submitFrame.changeProblemName(selection);
-					String url = "https://dl.dropboxusercontent.com/u/176423666/OJ/" + problemSet.get(selection)+ ".html";
+					String url = "http://m101.nthu.edu.tw/~s101062124/" + problemSet.get(selection)+ ".html";
 					browser.loadURL(url);
 					
 					if(UserInfo.getPID() > 0){
