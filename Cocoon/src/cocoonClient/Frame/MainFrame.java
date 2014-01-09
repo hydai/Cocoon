@@ -36,7 +36,6 @@ public class MainFrame extends JFrame {
 	
 	public MainFrame() {
 		UserInfo.initUserInfo(this, -1);
-		this.setAlwaysOnTop(true);
 		this.client = UserInfo.getClient();
 		this.setTitle("Cocoon");
 		this.setSize(800, 600);

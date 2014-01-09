@@ -98,10 +98,9 @@ public class SubmitPanel extends JPanel implements AbstractConnector{
 	}
 	private void setTextArea(){
 		isSubmittable = false;
-		t =  new JTextArea (20,30);
+		t =  new JTextArea ();
 		t.setFont(new Font("Courier New", Font.PLAIN, 16));
 		t.setText("");
-		t.setPreferredSize(new Dimension(500, 500));
 		t.setSize(t.getPreferredSize());
 		
 		//t.setFont(new Font("微軟正黑體", Font.BOLD, 14));
@@ -123,7 +122,8 @@ public class SubmitPanel extends JPanel implements AbstractConnector{
 			}
 		});
 	    scroll = new JScrollPane (t);
-	    scroll.setVerticalScrollBarPolicy (ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS );
+	    scroll.setPreferredSize(new Dimension(500, 500));
+	   // scroll.setVerticalScrollBarPolicy (ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS );
 	    //Add Textarea in to middle panel
 	    this.add(scroll, BorderLayout.CENTER);
 	}

@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -16,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 
 public class ResponseDialogue extends JDialog{
 	
@@ -25,8 +25,8 @@ public class ResponseDialogue extends JDialog{
 		this.response = response;
 		this.setAlwaysOnTop(true);
 		this.setLocation(parent.getX()+parent.getWidth()/2+100, parent.getY()+parent.getHeight()/2);
-		this.setPreferredSize(new Dimension(500, 300));
-		this.setSize(500, 300);
+		this.setPreferredSize(new Dimension(600, 300));
+		this.setSize(600, 300);
 		this.setResizable(false);
 		this.setVisible(true);
 		this.addWindowListener(new WindowListener() {
@@ -76,25 +76,33 @@ public class ResponseDialogue extends JDialog{
 	}
 
 	private void init() {
-		JPanel panel = new JPanel();
-		panel.setVisible(true);
-		panel.setLayout(new BorderLayout());
-		JTextArea textArea = new JTextArea (10,15);
-		textArea.setFont(new Font("Courier New", Font.PLAIN, 16));
-		textArea.setText(response);
-		textArea.setEditable(false);
-		textArea.setBackground(new Color(0, 0, 0, 0));
-		JScrollPane pane = new JScrollPane(textArea);
-		panel.add(pane, BorderLayout.NORTH);
-		JButton btn = new JButton("OK");
-		btn.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-			}
-		});
-		panel.add(btn, BorderLayout.SOUTH);
-		this.add(panel);
+		SwingUtilities.invokeLater(new Runnable() {
+	          @Override
+	          public void run() {
+	        	  JPanel panel = new JPanel();
+	      		panel.setVisible(true);
+	      		panel.setLayout(new BorderLayout());
+	      		JTextArea textArea = new JTextArea (10,15);
+	      		textArea.setFont(new Font("Courier New", Font.PLAIN, 16));
+	      		textArea.setEditable(false);
+	      		textArea.setBackground(new Color(0, 0, 0, 0));
+	      		JScrollPane pane = new JScrollPane(textArea);
+	      		panel.add(pane, BorderLayout.NORTH);
+	      		JButton btn = new JButton("OK");
+	      		btn.addActionListener(new ActionListener() {
+	      			
+	      			@Override
+	      			public void actionPerformed(ActionEvent e) {
+	      				dispose();
+	      			}
+	      		});
+	      		JPanel btnpanel = new JPanel();
+	      		btnpanel.add(btn);
+	      		panel.add(btnpanel, BorderLayout.SOUTH);
+	      		add(panel);
+	      		textArea.setText(response);
+	          }
+	        });
+		
 	}
 }
