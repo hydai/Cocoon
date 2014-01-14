@@ -27,11 +27,23 @@ import JSONTransmitProtocol.newcreater.query.ResponseProblemrate;
 import JSONTransmitProtocol.newcreater.submission.CreaterSubmission;
 import JSONTransmitProtocol.newcreater.submission.SubmissionResponse;
 
-
+/**
+ * Server of Cocoon.
+ * @author hydai
+ *
+ */
 public class Server {
+	/** store unique id in runtime */
 	private RuntimeID runtimeID;
 	private ServerSocket serverSocket;
+	/** store all client link*/
 	private List<ConnectionThread> connections = new ArrayList<ConnectionThread>();
+	
+	/**
+	 * Create server with listening at <code>portNum</code>
+	 * And get the instance of RuntimeID for assign every submission has its unique serial number.
+	 * @param portNum
+	 */
 	public Server(int portNum) {
 		try {
 			this.serverSocket = new ServerSocket(portNum);
@@ -42,10 +54,11 @@ public class Server {
 		}
 	}
 	
+	/**
+	 * Listen for client to connect forever.
+	 */
 	public void runForever() {
 		System.out.println("Server starts waiting for client.");
-		// Create a loop to make server wait for client forever (unless you stop it)
-		// Make sure you do create a connectionThread and add it into 'connections'
 
 		while (true) {
 			try {
@@ -65,8 +78,13 @@ public class Server {
 		private Socket socket;
 		private BufferedReader reader;
 		private PrintWriter writer;
+		/** parse and store the json file gived by client */
 		private JSONReader jsonReader;
 		
+		/**
+		 * 
+		 * @param connectionToClient
+		 */
 		public ConnectionThread(Socket connectionToClient) {
 			this.socket = connectionToClient;
 			try {
@@ -83,14 +101,26 @@ public class Server {
 			System.out.println("SendMessage> " + message);
 		}
 		public void run() {
+			// check if the connection is disconnect of not
 			while (reader != null) {
 				try {
 					String jsonString = "";
 					jsonString = this.reader.readLine();
+					
+					// if jsonString is empty, the connection is over.
 					if (jsonString == null)
 						break;
 					int runtimeIDLong = runtimeID.getRuntimeID();
+					
+					/** Create a JSONReader to parse the json string */
 					jsonReader = new JSONReader(jsonString);
+					
+					/**
+					 * Distribute the work to different part. 
+					 * It will call ServerLogin to handle the login information, 
+					 * ServerQuery to handle all query request and
+					 * ServerSubmission handle the code and runtime.
+					 * */ 
 					if (jsonReader.getType().equals("submission")) {
 						jsonReader.getSubmission().setSubmissionID(runtimeIDLong);
 						ServerSubmission submission = new ServerSubmission(jsonReader);
@@ -128,6 +158,11 @@ public class Server {
 			}
 			System.out.println("Disconnected");
 		}
+		
+		/**
+		 * Use own defined JSONCreater to create the response json file.
+		 * @return response json file
+		 */
 		private JSONCreater createResponseStatistics() {
 			List<JSONObject> list = new ArrayList<JSONObject>();
 			for(Iterator<Entry<String, Integer>> iterator = 
@@ -158,6 +193,11 @@ public class Server {
 									new JSONArray(list))));
 			return json;
 		}
+		
+		/**
+		 * Use own defined JSONCreater to create the response json file.
+		 * @return response json file
+		 */
 		private JSONCreater createResponseFriendList() {
 			JSONCreater json = new JSONCreater("query").
 					setInfo(new CreaterInfo(
@@ -173,6 +213,11 @@ public class Server {
 									new JSONArray(jsonReader.getQuery().getResponse().getFriendList().getFriendlist()))));
 			return json;
 		}
+		
+		/**
+		 * Use own defined JSONCreater to create the response json file.
+		 * @return response json file
+		 */
 		private JSONCreater createSubmissionResult() {
 			JSONCreater json = new JSONCreater("submission").
 					setInfo(new CreaterInfo(
@@ -191,6 +236,11 @@ public class Server {
 									jsonReader.getInfo().getTime())));
 			return json;
 		}
+		
+		/**
+		 * Use own defined JSONCreater to create the response json file.
+		 * @return response json file
+		 */
 		private JSONCreater createLoginCheck() {
 			JSONCreater json = new JSONCreater("login").
 					setInfo(new CreaterInfo(
@@ -207,6 +257,11 @@ public class Server {
 									jsonReader.getLogin().getStatement())));
 			return json;
 		}
+		
+		/**
+		 * Use own defined JSONCreater to create the response json file.
+		 * @return response json file
+		 */
 		private JSONCreater createResponseProblemRate() {
 			JSONCreater json = new JSONCreater("query").
 					setInfo(new CreaterInfo(
@@ -231,11 +286,21 @@ public class Server {
 			return json;
 		}
 	}
+	
+	/**
+	 * Send <code>message</code> to all clients.
+	 * @param message
+	 */
 	private void broadcast(String message) {
 		for (ConnectionThread connection: connections) {
 			connection.sendMessage(message);
 		}
 	}
+	
+	/**
+	 * Server entry point.
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		Server server = new Server(8000);
 		server.runForever();

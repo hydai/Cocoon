@@ -3,6 +3,13 @@ package cocoonServer;
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
+
+/**
+ * Compiler and run code for user.
+ * Use java process.exec to call bash script.
+ * @author hydai
+ *
+ */
 public class RunCode {
 	private String language;
 	private String result;
@@ -32,18 +39,30 @@ public class RunCode {
 		return result;
 	}
 	
+	/**
+	 * Execute the code.
+	 */
 	public void run() {
 		String judgeFlag = "";
 		if (isStrictJudge) {
 			judgeFlag = "-s";
 		}
-		String shString = "cd runtime ; sh runJudge.sh " + judgeFlag + " -t "+timeLimit + " -m " + memoryLimit + " -c " + language + " -p " + problemID +" -r " + runtimeID;
+		/** console command of runtime */
+		String shString = "cd runtime ; sh runJudge.sh " 
+						+ judgeFlag + " -t "+timeLimit 
+						+ " -m " + memoryLimit 
+						+ " -c " + language 
+						+ " -p " + problemID 
+						+" -r " + runtimeID;
 		System.out.println(shString);
+		
+		/** indicate linux bash to run command */
 		String[] cmd = { "/bin/bash", "-c", shString};
 		try {
 			Process p;
 			p = Runtime.getRuntime().exec(cmd);
 			p.waitFor();
+			/** Get result file and store it to result */
 			String outputFilePathString = "/home/cocoon/git/Cocoon/Cocoon/runtime/"+runtimeID+".txt";
 			Scanner scanner = new Scanner(new File(outputFilePathString));
 			System.out.println(outputFilePathString);
